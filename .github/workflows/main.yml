@@ -1,17 +1,17 @@
-name: Triple Divergence Scanner
+name: Quadruple Divergence Trader
 
 on:
   schedule:
-    # Runs every 15 minutes
     - cron: '*/15 * * * *'
-  # Allows manual testing from the "Actions" tab
   workflow_dispatch:
 
 jobs:
-  run-scanner:
+  trade:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Allows the bot to save its win/loss data
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Set up Python 3.12
@@ -20,12 +20,17 @@ jobs:
           python-version: '3.12'
 
       - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Execute Triple Divergence Bot
+      - name: Run Trader
         env:
-          # Ensure this name matches exactly what you put in Settings > Secrets
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python bot.py
+
+      - name: Save Trade History
+        run: |
+          git config --global user.name "TradeBot"
+          git config --global user.email "bot@github.com"
+          git add trade_history.json
+          git commit -m "Update trade history and balance" || exit 0
+          git push
