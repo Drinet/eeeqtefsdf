@@ -1,1 +1,28 @@
+name: Triple Divergence Scanner
+on:
+  schedule:
+    # This runs every 15 minutes
+    - cron: '*/15 * * * *'
+  # This button lets you run it manually to test
+  workflow_dispatch:
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Bot
+        env:
+          # This must match the Secret you set in Settings
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python bot.py
