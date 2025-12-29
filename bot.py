@@ -16,61 +16,73 @@ def get_top_100_coins():
         url = "https://api.coingecko.com/api/v3/coins/markets"
         params = {'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 100, 'page': 1}
         data = requests.get(url, params=params).json()
-        stables = ['usdt', 'usdc', 'dai', 'busd', 'fdusd', 'pyusd', 'usde', 'tusd', 'steth', 'wbtc']
-        return [c['symbol'].upper() + '/USD' for c in data if c['symbol'] not in stables]
-    except:
+        # Filter out stables and pegged assets
+        stables = ['usdt', 'usdc', 'dai', 'busd', 'fdusd', 'pyusd', 'usde', 'tusd', 'steth', 'wbtc', 'weth']
+        return [c['symbol'].upper() + '/USD' for c in data if c['symbol'].lower() not in stables]
+    except Exception as e:
+        print(f"CoinGecko API Error: {e}")
         return []
 
 def detect_triple_divergence(df, order=5):
-    """Detects 3 consecutive diverging pivots."""
+    """Detects 3 consecutive diverging pivots (Triple Divergence)."""
+    # Calculate RSI using pandas_ta
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
-    if len(df) < 60: return None
+    
+    if len(df) < 60: 
+        return None
 
-    # BULLISH: Price LL (Lower Lows) | RSI HL (Higher Lows)
-    # argrelextrema finds local 'pits' in the data
+    # --- BULLISH DIVERGENCE (Price Lower Lows / RSI Higher Lows) ---
     low_peaks = argrelextrema(df.low.values, np.less, order=order)[0]
     if len(low_peaks) >= 3:
-        # Get the last 3 pivots
+        # Get the last 3 price pivots and their RSI values
         p3, p2, p1 = df.low.iloc[low_peaks[-3:]].values
         r3, r2, r1 = df.RSI.iloc[low_peaks[-3:]].values
+        
+        # Logic: Price is dropping (or flat), RSI is rising
+        if p3 >= p2 >= p1 and r3 < r2 < r1:
+            return "🚀 TRIPLE BULLISH DIVERGENCE"
 
-        if p3 > p2 > p1 and r3 < r2 < r1:
-            return "🚀 TRIPLE BULLISH DIV (REVERSAL UP)"
-
-    # BEARISH: Price HH (Higher Highs) | RSI LH (Lower Highs)
+    # --- BEARISH DIVERGENCE (Price Higher Highs / RSI Lower Highs) ---
     high_peaks = argrelextrema(df.high.values, np.greater, order=order)[0]
     if len(high_peaks) >= 3:
+        # Get the last 3 price pivots and their RSI values
         p3, p2, p1 = df.high.iloc[high_peaks[-3:]].values
         r3, r2, r1 = df.RSI.iloc[high_peaks[-3:]].values
-
-        if p3 < p2 < p1 and r3 > r2 > r1:
-            return "🔥 TRIPLE BEARISH DIV (REVERSAL DOWN)"
-
+        
+        # Logic: Price is rising (or flat), RSI is dropping
+        if p3 <= p2 <= p1 and r3 > r2 > r1:
+            return "🔥 TRIPLE BEARISH DIVERGENCE"
+            
     return None
 
 def main():
     if not DISCORD_WEBHOOK:
-        print("Error: Set DISCORD_WEBHOOK_URL in Secrets!")
+        print("CRITICAL ERROR: DISCORD_WEBHOOK_URL not found in GitHub Secrets!")
         return
 
+    print("Starting Scan...")
     symbols = get_top_100_coins()
+    
     for symbol in symbols:
         try:
-            # 15m timeframe, limit to 150 bars for enough pivot history
+            # Fetch 150 candles to ensure we have enough history for 3 pivots
             bars = EXCHANGE.fetch_ohlcv(symbol, timeframe='15m', limit=150)
             df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close', 'vol'])
+            
             signal = detect_triple_divergence(df)
-
+            
             if signal:
                 tv_link = f"https://www.tradingview.com/chart/?symbol=KRAKEN:{symbol.replace('/','')}"
                 payload = {
-                    "content": f"## {signal}\n**Symbol:** {symbol}\n**Timeframe:** 15m\n[🔍 Open Chart]({tv_link})"
+                    "content": f"## {signal}\n**Asset:** {symbol}\n**Timeframe:** 15m\n[🔍 View on TradingView]({tv_link})"
                 }
                 requests.post(DISCORD_WEBHOOK, json=payload)
-                print(f"Signal found for {symbol}")
-        except:
+                print(f"ALERT: {signal} found for {symbol}")
+        except Exception as e:
+            print(f"Error scanning {symbol}: {e}")
             continue
+    print("Scan Complete.")
 
 if __name__ == "__main__":
     main()
