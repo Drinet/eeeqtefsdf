@@ -13,23 +13,23 @@ DISCORD_WEBHOOK = os.getenv('DISCORD_WEBHOOK_URL')
 EXCHANGE = ccxt.kraken()
 DB_FILE = "trade_history.json"
 
-# --- TRADING SETTINGS ---
-STARTING_BALANCE = 250.0
-RISK_PER_TRADE = 0.03  # 3%
-SL_PCT = 0.015         # 1.5%
-TP1_PCT = 0.01         # 1% (Sell 15%)
-TP2_PCT = 0.03         # 3% (Sell 50% of remaining)
-TP3_PCT = 0.05         # 5% (Close all)
+# --- TRADING RULES ---
+INITIAL_BALANCE = 250.0
+RISK_PCT = 0.03  # 3% of portfolio per trade
+SL_PCT = 0.015   # 1.5% Stop Loss
+TP1_PCT = 0.01   # 1% TP (Sell 15% & Move SL to Entry)
+TP2_PCT = 0.03   # 3% TP (Sell 50% of remainder)
+TP3_PCT = 0.05   # 5% TP (Close all)
 
 def load_db():
     if os.path.exists(DB_FILE):
         with open(DB_FILE, 'r') as f:
             return json.load(f)
-    return {"balance": STARTING_BALANCE, "active_trades": {}, "history": []}
+    return {"balance": INITIAL_BALANCE, "active_trades": {}, "history": []}
 
-def save_db(data):
+def save_db(db):
     with open(DB_FILE, 'w') as f:
-        json.dump(data, f, indent=4)
+        json.dump(db, f, indent=4)
 
 def get_top_100():
     try:
@@ -41,72 +41,104 @@ def get_top_100():
     except:
         return []
 
-def detect_divergence(df, order=5):
-    """Detects 4 consecutive diverging pivots (Quadruple)."""
+def detect_quad_divergence(df, order=5):
+    """Detects 4-point divergence."""
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
-    if len(df) < 80: return None
+    if len(df) < 100: return None
 
-    # LONG (Quadruple Bullish: 4 Lower Lows Price / 4 Higher Lows RSI)
-    low_peaks = argrelextrema(df.low.values, np.less, order=order)[0]
-    if len(low_peaks) >= 4:
-        p = df.low.iloc[low_peaks[-4:]].values
-        r = df.RSI.iloc[low_peaks[-4:]].values
-        if p[0] >= p[1] >= p[2] >= p[3] and r[0] < r[1] < r[2] < r[3]:
+    # LONG (4 Lower Lows Price / 4 Higher Lows RSI)
+    lows = argrelextrema(df.low.values, np.less, order=order)[0]
+    if len(lows) >= 4:
+        p, r = df.low.iloc[lows[-4:]].values, df.RSI.iloc[lows[-4:]].values
+        if p[0] > p[1] > p[2] > p[3] and r[0] < r[1] < r[2] < r[3]:
             return "LONG"
 
-    # SHORT (Quadruple Bearish: 4 Higher Highs Price / 4 Lower Highs RSI)
-    high_peaks = argrelextrema(df.high.values, np.greater, order=order)[0]
-    if len(high_peaks) >= 4:
-        p = df.high.iloc[high_peaks[-4:]].values
-        r = df.RSI.iloc[high_peaks[-4:]].values
-        if p[0] <= p[1] <= p[2] <= p[3] and r[0] > r[1] > r[2] > r[3]:
+    # SHORT (4 Higher Highs Price / 4 Lower Highs RSI)
+    highs = argrelextrema(df.high.values, np.greater, order=order)[0]
+    if len(highs) >= 4:
+        p, r = df.high.iloc[highs[-4:]].values, df.RSI.iloc[highs[-4:]].values
+        if p[0] < p[1] < p[2] < p[3] and r[0] > r[1] > r[2] > r[3]:
             return "SHORT"
     return None
 
+def monitor_trades(db):
+    """Checks active trades against current prices."""
+    active = db['active_trades']
+    finished = []
+    
+    for symbol, t in list(active.items()):
+        try:
+            ticker = EXCHANGE.fetch_ticker(symbol)
+            curr = ticker['last']
+            
+            # --- LONG LOGIC ---
+            if t['side'] == "LONG":
+                if curr <= t['sl']: # Stop Loss Hit
+                    db['balance'] -= t['size'] * SL_PCT
+                    finished.append((symbol, "❌ STOP LOSS HIT"))
+                elif curr >= t['tp3']: # Final TP
+                    db['balance'] += t['size'] * TP3_PCT
+                    finished.append((symbol, "💰 FULL TAKE PROFIT HIT"))
+                elif curr >= t['tp1'] and not t['tp1_hit']:
+                    t['tp1_hit'] = True
+                    t['sl'] = t['entry'] # Move SL to Entry
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ {symbol}: TP1 Hit! Moving SL to Entry."})
+            
+            # --- SHORT LOGIC ---
+            elif t['side'] == "SHORT":
+                if curr >= t['sl']:
+                    db['balance'] -= t['size'] * SL_PCT
+                    finished.append((symbol, "❌ STOP LOSS HIT"))
+                elif curr <= t['tp3']:
+                    db['balance'] += t['size'] * TP3_PCT
+                    finished.append((symbol, "💰 FULL TAKE PROFIT HIT"))
+                elif curr <= t['tp1'] and not t['tp1_hit']:
+                    t['tp1_hit'] = True
+                    t['sl'] = t['entry']
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ {symbol}: TP1 Hit! Moving SL to Entry."})
+
+        except: continue
+
+    for sym, msg in finished:
+        del db['active_trades'][sym]
+        db['history'].append({"symbol": sym, "result": msg, "time": str(datetime.now())})
+        requests.post(DISCORD_WEBHOOK, json={"content": f"🏁 {sym}: {msg}\nNew Balance: ${db['balance']:.2f}"})
+
 def main():
     db = load_db()
+    # Update portfolio sizing logic
+    if db['balance'] >= 500: # 2x of initial $250
+        risk_amount = db['balance'] * 0.03
+    else:
+        risk_amount = 250 * 0.03
+    
+    monitor_trades(db)
     symbols = get_top_100()
     
-    # Calculate win rate
-    wins = len([t for t in db['history'] if t['profit'] > 0])
-    total = len(db['history'])
-    win_rate = (wins / total * 100) if total > 0 else 0
-
     for symbol in symbols:
+        if symbol in db['active_trades']: continue
+        
         try:
-            # Check if we are already in this trade (Cooldown/Anti-Flood)
-            if symbol in db['active_trades']:
-                continue
-
-            bars = EXCHANGE.fetch_ohlcv(symbol, timeframe='15m', limit=200)
-            df = pd.DataFrame(bars, columns=['time', 'open', 'high', 'low', 'close', 'vol'])
-            signal = detect_divergence(df)
-
+            bars = EXCHANGE.fetch_ohlcv(symbol, timeframe='15m', limit=150)
+            df = pd.DataFrame(bars, columns=['t', 'o', 'h', 'l', 'c', 'v'])
+            signal = detect_quad_divergence(df)
+            
             if signal:
-                entry = df['close'].iloc[-1]
-                sl = entry * (1 - SL_PCT) if signal == "LONG" else entry * (1 + SL_PCT)
-                tp1 = entry * (1 + TP1_PCT) if signal == "LONG" else entry * (1 - TP1_PCT)
-                tp2 = entry * (1 + TP2_PCT) if signal == "LONG" else entry * (1 - TP2_PCT)
-                tp3 = entry * (1 + TP3_PCT) if signal == "LONG" else entry * (1 - TP3_PCT)
-
-                # Store active trade
+                entry = df['c'].iloc[-1]
+                sl = entry * (1-SL_PCT) if signal=="LONG" else entry * (1+SL_PCT)
+                tp1 = entry * (1+TP1_PCT) if signal=="LONG" else entry * (1-TP1_PCT)
+                tp3 = entry * (1+TP3_PCT) if signal=="LONG" else entry * (1-TP3_PCT)
+                
                 db['active_trades'][symbol] = {
-                    "side": signal, "entry": entry, "sl": sl, 
-                    "tp1": tp1, "tp2": tp2, "tp3": tp3, "tp1_hit": False, "tp2_hit": False
+                    "side": signal, "entry": entry, "sl": sl, "tp1": tp1, 
+                    "tp3": tp3, "tp1_hit": False, "size": risk_amount
                 }
-
-                # Discord Message
-                msg = {
-                    "content": f"# 🔔 NEW {signal} TRADE\n**Asset:** {symbol}\n**Entry:** ${entry:,.4f}\n**Stop Loss:** ${sl:,.4f}\n"
-                               f"**TP1 (15%):** ${tp1:,.4f}\n**TP2 (50%):** ${tp2:,.4f}\n**TP3 (100%):** ${tp3:,.4f}\n"
-                               f"**Current Balance:** ${db['balance']:.2f} | **Win Rate:** {win_rate:.1f}%"
-                }
-                requests.post(DISCORD_WEBHOOK, json=msg)
-
-        except Exception as e:
-            print(f"Error on {symbol}: {e}")
-
+                
+                msg = f"# 🔔 NEW {signal} TRADE\n**Asset:** {symbol}\n**Entry:** ${entry:,.4f}\n**SL:** ${sl:,.4f}\n**TP3:** ${tp3:,.4f}"
+                requests.post(DISCORD_WEBHOOK, json={"content": msg})
+        except: continue
+    
     save_db(db)
 
 if __name__ == "__main__":
