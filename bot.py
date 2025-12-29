@@ -34,29 +34,28 @@ def get_symbols():
     except: return []
 
 def detect_signal(df, order=5):
-    """Strict Triple Divergence Detection"""
+    """Detects Triple Divergence using CANDLE CLOSES (Bodies)"""
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
     if len(df) < 100: return None
     
-    # LONG: 3 Price Lower Lows + 3 RSI Higher Lows
-    lows = argrelextrema(df.low.values, np.less, order=order)[0]
+    # LONG: 3 Candle Close Lower Lows + 3 RSI Higher Lows
+    # Using df.close instead of df.low to focus on the candle bodies
+    lows = argrelextrema(df.close.values, np.less, order=order)[0]
     if len(lows) >= 3:
-        p = df.low.iloc[lows[-3:]].values
+        p = df.close.iloc[lows[-3:]].values
         r = df.RSI.iloc[lows[-3:]].values
-        # STRICTOR CHECK: p[0] > p[1] > p[2] (Price dropping) AND r[0] < r[1] < r[2] (RSI rising)
         if (p[0] > p[1] > p[2]) and (r[0] < r[1] < r[2]):
             return "LONG"
 
-    # SHORT: 3 Price Higher Highs + 3 RSI Lower Highs
-    highs = argrelextrema(df.high.values, np.greater, order=order)[0]
+    # SHORT: 3 Candle Close Higher Highs + 3 RSI Lower Highs
+    # Using df.close instead of df.high
+    highs = argrelextrema(df.close.values, np.greater, order=order)[0]
     if len(highs) >= 3:
-        p = df.high.iloc[highs[-3:]].values
+        p = df.close.iloc[highs[-3:]].values
         r = df.RSI.iloc[highs[-3:]].values
-        # STRICTOR CHECK: p[0] < p[1] < p[2] (Price rising) AND r[0] > r[1] > r[2] (RSI falling)
         if (p[0] < p[1] < p[2]) and (r[0] > r[1] > r[2]):
             return "SHORT"
-            
     return None
 
 def monitor(db):
@@ -65,7 +64,6 @@ def monitor(db):
         try:
             price = EXCHANGE.fetch_ticker(sym)['last']
             is_long = t['side'] == "LONG"
-            # Exit Logic
             if (is_long and price <= t['sl']) or (not is_long and price >= t['sl']):
                 db['balance'] -= t['size'] * SL_PCT
                 requests.post(DISCORD_WEBHOOK, json={"content": f"🏁 {sym}: ❌ STOP LOSS HIT. Balance: ${db['balance']:.2f}"})
@@ -76,28 +74,21 @@ def monitor(db):
                 del db['active_trades'][sym]
             elif not t['tp1_hit'] and ((is_long and price >= t['tp1']) or (not is_long and price <= t['tp1'])):
                 t['tp1_hit'], t['sl'] = True, t['entry']
-                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ {sym}: TP1 hit (+1%). Moving SL to entry."})
-        except Exception as e:
-            print(f"Monitor error for {sym}: {e}")
+                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ {sym}: TP1 hit. SL moved to entry."})
+        except: continue
 
 def main():
     print(f"--- Scan Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ---")
     db = load_db()
     monitor(db)
-    
-    # 3% sizing logic
     risk_amt = max(db['balance'], 250.0) * 0.03 if db['balance'] < 500 else db['balance'] * 0.03
-    
     symbols = get_symbols()
     print(f"Scanning {len(symbols)} symbols...")
-    
     for sym in symbols:
         if sym in db['active_trades']: continue
         try:
-            bars = EXCHANGE.fetch_ohlcv(sym, '15m', limit=150)
-            df = pd.DataFrame(bars, columns=['t','o','h','l','c','v'])
+            df = pd.DataFrame(EXCHANGE.fetch_ohlcv(sym, '15m', limit=150), columns=['t','o','h','l','c','v'])
             sig = detect_signal(df)
-            
             if sig:
                 print(f"MATCH FOUND: {sig} on {sym}")
                 ent = df['c'].iloc[-1]
@@ -108,9 +99,8 @@ def main():
                     "tp1": ent + (ent * TP1_PCT * mult),
                     "tp3": ent + (ent * TP3_PCT * mult)
                 }
-                requests.post(DISCORD_WEBHOOK, json={"content": f"# 🔔 NEW {sig} TRADE\n**Asset:** {sym}\n**Entry:** ${ent:,.4f}\n**Stop Loss:** ${db['active_trades'][sym]['sl']:,.4f}\n**Final TP:** ${db['active_trades'][sym]['tp3']:,.4f}"})
+                requests.post(DISCORD_WEBHOOK, json={"content": f"# 🔔 NEW {sig} TRADE\n**Asset:** {sym}\n**Entry:** ${ent:,.4f}\n**SL:** ${db['active_trades'][sym]['sl']:,.4f}"})
         except: continue
-    
     save_db(db)
     print(f"--- Scan Finished. Current Portfolio: ${db['balance']:.2f} ---")
 
