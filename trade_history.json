@@ -1,6 +1,6 @@
 {
     "wins": 3,
-    "losses": 1,
+    "losses": 0,
     "active_trades": {
         "AVAX/USD": {
             "side": "Long trade",
