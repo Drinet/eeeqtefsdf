@@ -20,7 +20,6 @@ jobs:
       - name: Execute
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        # Added -u flag to ensure logs are printed instantly
         run: python -u bot.py
       - name: Push History
         run: |
