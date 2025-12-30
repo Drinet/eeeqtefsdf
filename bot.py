@@ -20,7 +20,11 @@ def load_db():
     if os.path.exists(DB_FILE):
         try:
             with open(DB_FILE, 'r') as f:
-                return json.load(f)
+                db = json.load(f)
+                if "wins" not in db: db["wins"] = 0
+                if "losses" not in db: db["losses"] = 0
+                if "active_trades" not in db: db["active_trades"] = {}
+                return db
         except: pass
     return {"wins": 0, "losses": 0, "active_trades": {}}
 
@@ -48,21 +52,27 @@ def get_top_coins():
         return []
 
 def detect_triple_divergence(df, order=4):
+    """
+    Detects 3 consecutive pivots using candle CLOSE (Bodies), ignoring Wicks.
+    """
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
     if len(df) < 100: return None
 
-    low_pivots = argrelextrema(df.close.values, np.less, order=order)[0]
+    # Using df['close'] ensures we only look at candle bodies
+    # BULLISH (Price Closes Lower Lows | RSI Higher Lows)
+    low_pivots = argrelextrema(df['close'].values, np.less, order=order)[0]
     if len(low_pivots) >= 3:
-        p1, p2, p3 = df.close.iloc[low_pivots[-3:]].values
-        r1, r2, r3 = df.RSI.iloc[low_pivots[-3:]].values
+        p1, p2, p3 = df['close'].iloc[low_pivots[-3:]].values
+        r1, r2, r3 = df['RSI'].iloc[low_pivots[-3:]].values
         if p1 > p2 > p3 and r1 < r2 < r3:
             return "Long trade"
 
-    high_pivots = argrelextrema(df.close.values, np.greater, order=order)[0]
+    # BEARISH (Price Closes Higher Highs | RSI Lower Highs)
+    high_pivots = argrelextrema(df['close'].values, np.greater, order=order)[0]
     if len(high_pivots) >= 3:
-        p1, p2, p3 = df.close.iloc[high_pivots[-3:]].values
-        r1, r2, r3 = df.RSI.iloc[high_pivots[-3:]].values
+        p1, p2, p3 = df['close'].iloc[high_pivots[-3:]].values
+        r1, r2, r3 = df['RSI'].iloc[high_pivots[-3:]].values
         if p1 < p2 < p3 and r1 > r2 > r3:
             return "Short trade"
     return None
@@ -78,22 +88,22 @@ def update_trades(db):
             curr_price = ticker['last']
             side = t['side']
             
-            # Check Stop Loss
+            # SL HIT
             if (side == "Long trade" and curr_price <= t['sl']) or (side == "Short trade" and curr_price >= t['sl']):
                 db['losses'] += 1
                 requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit** at {curr_price}"})
                 del active[sym]
                 continue
 
-            # Check TP1
+            # TP1 HIT
             if not t['tp1_hit']:
                 if (side == "Long trade" and curr_price >= t['tp1']) or (side == "Short trade" and curr_price <= t['tp1']):
                     t['tp1_hit'] = True
-                    t['sl'] = t['entry'] # Move SL to Entry
+                    t['sl'] = t['entry'] 
                     db['wins'] += 1
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 Hit!** SL moved to Entry. Trade is a WIN."})
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 Hit!** Win counted, SL moved to entry."})
 
-            # Check TP3 (Close trade)
+            # TP3 HIT
             if (side == "Long trade" and curr_price >= t['tp3']) or (side == "Short trade" and curr_price <= t['tp3']):
                 requests.post(DISCORD_WEBHOOK, json={"content": f"💰 **{sym} TP3 Hit!** Max profit reached."})
                 del active[sym]
@@ -101,7 +111,7 @@ def update_trades(db):
 
 def main():
     if not DISCORD_WEBHOOK:
-        print("Error: Set DISCORD_WEBHOOK_URL in Secrets!", flush=True)
+        log("Error: Set DISCORD_WEBHOOK_URL in Secrets!")
         return
 
     db = load_db()
@@ -111,10 +121,16 @@ def main():
     log(f"Starting scan for {len(symbols)} coins...")
 
     for i, symbol in enumerate(symbols, 1):
-        if symbol in db['active_trades']: continue
+        # SKIP if already in a trade for this coin
+        if symbol in db['active_trades']:
+            log(f"[{i}/{len(symbols)}] Skipping {symbol} (Trade Active)")
+            continue
+
         try:
             bars = EXCHANGE.fetch_ohlcv(symbol, timeframe='15m', limit=200)
             df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close', 'vol'])
+            
+            # Detect divergence using only candle bodies
             signal = detect_triple_divergence(df, order=4)
             
             if signal:
@@ -143,6 +159,7 @@ def main():
                                 f"📊 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
                 }
                 requests.post(DISCORD_WEBHOOK, json=payload)
+                log(f"✨ Signal found for {symbol}")
         except: continue
     
     save_db(db)
