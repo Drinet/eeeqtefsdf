@@ -14,10 +14,10 @@ EXCHANGE = ccxt.kraken()
 DB_FILE = "trade_history.json"
 
 # --- TRADE SETTINGS ---
-SL_PCT = 0.02    # 2%
-TP1_PCT = 0.015  # 1.5%
-TP2_PCT = 0.03   # 3%
-TP3_PCT = 0.05   # 5%
+SL_PCT = 0.02    
+TP1_PCT = 0.015  
+TP2_PCT = 0.03   
+TP3_PCT = 0.05   
 
 def log(msg):
     print(msg, flush=True)
@@ -27,34 +27,44 @@ def load_db():
         try:
             with open(DB_FILE, 'r') as f:
                 data = json.load(f)
-                # Ensure structure exists
-                if "wins" not in data: data["wins"] = 0
-                if "losses" not in data: data["losses"] = 0
-                if "active_trades" not in data: data["active_trades"] = {}
-                return data
+                return {
+                    "wins": data.get("wins", 0),
+                    "losses": data.get("losses", 0),
+                    "active_trades": data.get("active_trades", {})
+                }
         except: pass
     return {"wins": 0, "losses": 0, "active_trades": {}}
 
 def save_db(db):
     with open(DB_FILE, 'w') as f: json.dump(db, f, indent=4)
 
-def get_top_coins():
+def get_valid_kraken_usdt_coins():
+    """Fetches CoinGecko top coins and filters only those available on Kraken as USDT pairs."""
     try:
+        log("🔍 Fetching Kraken market list...")
+        EXCHANGE.load_markets()
+        kraken_symbols = EXCHANGE.symbols 
+
+        log("🔍 Fetching top coins from CoinGecko...")
         url = "https://api.coingecko.com/api/v3/coins/markets"
-        params = {'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 200, 'page': 1}
-        data = requests.get(url, params=params).json()
-        excluded = [
-            'usdt', 'usdc', 'dai', 'fdusd', 'pyusd', 'usde', 'steth', 'wbtc', 'weth', 
-            'usds', 'gusd', 'wsteth', 'wbeth', 'weeth', 'cbbtc', 'usdt0', 'susds', 
-            'susde', 'usd1', 'syrupusdc', 'usdf', 'jitosol', 'usdg', 'rlusd', 
-            'bfusd', 'bnsol', 'reth', 'wbnb', 'rseth', 'fbtc', 'lbtc',
-            'gteth', 'tusd', 'tbtc', 'eutbl', 'usd0', 'oseth', 'geth',
-            'solvbtc', 'usdtb', 'usdd', 'lseth', 'ustb', 'usdc.e', 'usdy', 
-            'clbtc', 'meth', 'usdai', 'ezeth', 'jupsol'
-        ]
-        filtered = [c['symbol'].upper() + '/USD' for c in data if c['symbol'].lower() not in excluded]
-        return filtered[:120]
-    except: return []
+        params = {'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 250, 'page': 1}
+        cg_data = requests.get(url, params=params).json()
+        
+        # Exclude other stablecoins
+        excluded = ['usdt', 'usdc', 'dai', 'fdusd', 'pyusd', 'usde', 'steth', 'wbtc', 'weth', 'tusd']
+        
+        valid_list = []
+        for coin in cg_data:
+            sym = coin['symbol'].upper()
+            pair = f"{sym}/USDT" # Targeting USDT pairs now
+            if coin['symbol'].lower() not in excluded and pair in kraken_symbols:
+                valid_list.append(pair)
+        
+        log(f"✅ Found {len(valid_list)} valid USDT pairs on Kraken.")
+        return valid_list[:120]
+    except Exception as e:
+        log(f"❌ Error fetching coins: {e}")
+        return []
 
 def detect_triple_divergence(df, order=4):
     df['RSI'] = ta.rsi(df['close'], length=14)
@@ -62,63 +72,66 @@ def detect_triple_divergence(df, order=4):
     if len(df) < 100: return None
 
     # BULLISH: Price Closes Lower Lows | RSI Higher Lows
-    # 
     low_pivots = argrelextrema(df.close.values, np.less, order=order)[0]
     if len(low_pivots) >= 3:
         p1, p2, p3 = df.close.iloc[low_pivots[-3:]].values
         r1, r2, r3 = df.RSI.iloc[low_pivots[-3:]].values
-        if p1 > p2 > p3 and r1 < r2 < r3:
-            return "Long trade"
+        if p1 > p2 > p3 and r1 < r2 < r3: return "Long trade"
 
     # BEARISH: Price Closes Higher Highs | RSI Lower Highs
-    # 
     high_pivots = argrelextrema(df.close.values, np.greater, order=order)[0]
     if len(high_pivots) >= 3:
         p1, p2, p3 = df.close.iloc[high_pivots[-3:]].values
         r1, r2, r3 = df.RSI.iloc[high_pivots[-3:]].values
-        if p1 < p2 < p3 and r1 > r2 > r3:
-            return "Short trade"
+        if p1 < p2 < p3 and r1 > r2 > r3: return "Short trade"
     return None
 
 def update_tracker(db):
     active = db['active_trades']
+    if not active: return
+    
+    log(f"🔄 Tracking {len(active)} active trades...")
     for sym in list(active.keys()):
-        t = active[sym]
         try:
-            curr_price = EXCHANGE.fetch_ticker(sym)['last']
+            t = active[sym]
+            ticker_data = EXCHANGE.fetch_ticker(sym)
+            curr_price = ticker_data['last']
             is_long = t['side'] == "Long trade"
 
+            # Check SL
             if (is_long and curr_price <= t['sl']) or (not is_long and curr_price >= t['sl']):
                 db['losses'] += 1
                 requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **SL HIT: {sym}** at {curr_price}"})
                 del active[sym]
                 continue
 
+            # Check TP1 (Move SL to Entry)
             if not t['tp1_hit'] and ((is_long and curr_price >= t['tp1']) or (not is_long and curr_price <= t['tp1'])):
                 t['tp1_hit'] = True
-                t['sl'] = t['entry']
-                db['wins'] += 1
-                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **TP1 HIT: {sym}**. SL to Entry. Win secured!"})
+                t['sl'] = t['entry'] 
+                db['wins'] += 1 # TP1 counts as a win per your request
+                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **TP1 HIT: {sym}**. Win secured, SL moved to entry!"})
 
+            # Check TP3 (Full Exit)
             if (is_long and curr_price >= t['tp3']) or (not is_long and curr_price <= t['tp3']):
-                requests.post(DISCORD_WEBHOOK, json={"content": f"💰 **TP3 MAX PROFIT: {sym}**"})
+                requests.post(DISCORD_WEBHOOK, json={"content": f"💰 **TP3 FULL WIN: {sym}** at {curr_price}"})
                 del active[sym]
         except Exception as e:
             log(f"Tracker error for {sym}: {e}")
 
 def main():
     if not DISCORD_WEBHOOK:
-        log("Error: Set DISCORD_WEBHOOK_URL in Secrets!")
+        log("Error: DISCORD_WEBHOOK_URL not found!")
         return
 
     db = load_db()
     update_tracker(db)
-    symbols = get_top_coins()
-    total = len(symbols)
-    log(f"Starting scan for {total} filtered coins...")
+    
+    symbols = get_valid_kraken_usdt_coins()
+    log(f"Starting scan for {len(symbols)} USDT pairs...")
 
     for i, symbol in enumerate(symbols, 1):
-        if i % 10 == 0: log(f"[{i}/{total}] Scanning...")
+        if i % 20 == 0: log(f"[{i}/{len(symbols)}] Progress...")
         if symbol in db['active_trades']: continue
         
         try:
@@ -127,7 +140,6 @@ def main():
             signal = detect_triple_divergence(df, order=4)
             
             if signal:
-                log(f"✨ {signal} found for {symbol}")
                 entry = float(df['close'].iloc[-1])
                 mult = 1 if signal == "Long trade" else -1
                 
@@ -143,9 +155,9 @@ def main():
                 total_tr = db['wins'] + db['losses']
                 wr = (db['wins'] / total_tr * 100) if total_tr > 0 else 0
                 
-                ticker = symbol.split('/')[0]
+                coin_ticker = symbol.split('/')[0]
                 msg = (f"🔱 **{signal.upper()}**\n"
-                       f"🪙 **${ticker}**\n"
+                       f"🪙 **${coin_ticker}**\n"
                        f"💵 Entry: {entry:,.4f}\n"
                        f"🛑 SL: {t_data['sl']:,.4f}\n"
                        f"🎯 TP1: {t_data['tp1']:,.4f}\n"
@@ -153,19 +165,12 @@ def main():
                        f"🎯 TP3: {t_data['tp3']:,.4f}\n\n"
                        f"📊 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
                 
-                # Send to Discord
-                resp = requests.post(DISCORD_WEBHOOK, json={"content": msg})
-                if resp.status_code != 204:
-                    log(f"Discord Error: {resp.text}")
-                else:
-                    log(f"Discord message sent for {symbol}")
-                    
-        except Exception as e:
-            log(f"Error processing {symbol}: {e}")
-            continue
+                requests.post(DISCORD_WEBHOOK, json={"content": msg})
+                log(f"✨ Signal posted for {symbol}")
+        except: continue
     
     save_db(db)
-    log("Scan finished.")
+    log("Scan complete.")
 
 if __name__ == "__main__":
     main()
