@@ -8,7 +8,7 @@ jobs:
   run-scanner:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # CRITICAL: Allows the bot to save winrate data
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -27,5 +27,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add trade_history.json
-          git commit -m "Update trade tracking" || exit 0
+          git commit -m "Update trade tracking and winrate" || exit 0
           git push
