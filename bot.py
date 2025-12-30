@@ -21,9 +21,9 @@ def load_db():
         try:
             with open(DB_FILE, 'r') as f:
                 db = json.load(f)
-                if "wins" not in db: db["wins"] = 0
-                if "losses" not in db: db["losses"] = 0
-                if "active_trades" not in db: db["active_trades"] = {}
+                db.setdefault("wins", 0)
+                db.setdefault("losses", 0)
+                db.setdefault("active_trades", {})
                 return db
         except: pass
     return {"wins": 0, "losses": 0, "active_trades": {}}
@@ -52,15 +52,11 @@ def get_top_coins():
         return []
 
 def detect_triple_divergence(df, order=4):
-    """
-    Detects 3 consecutive pivots using candle CLOSE (Bodies), ignoring Wicks.
-    """
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
     if len(df) < 100: return None
 
-    # Using df['close'] ensures we only look at candle bodies
-    # BULLISH (Price Closes Lower Lows | RSI Higher Lows)
+    # BULLISH (Bodies only)
     low_pivots = argrelextrema(df['close'].values, np.less, order=order)[0]
     if len(low_pivots) >= 3:
         p1, p2, p3 = df['close'].iloc[low_pivots[-3:]].values
@@ -68,7 +64,7 @@ def detect_triple_divergence(df, order=4):
         if p1 > p2 > p3 and r1 < r2 < r3:
             return "Long trade"
 
-    # BEARISH (Price Closes Higher Highs | RSI Lower Highs)
+    # BEARISH (Bodies only)
     high_pivots = argrelextrema(df['close'].values, np.greater, order=order)[0]
     if len(high_pivots) >= 3:
         p1, p2, p3 = df['close'].iloc[high_pivots[-3:]].values
@@ -85,33 +81,47 @@ def update_trades(db):
         try:
             t = active[sym]
             ticker = EXCHANGE.fetch_ticker(sym)
-            curr_price = ticker['last']
+            curr = ticker['last']
             side = t['side']
+            is_long = (side == "Long trade")
             
-            # SL HIT
-            if (side == "Long trade" and curr_price <= t['sl']) or (side == "Short trade" and curr_price >= t['sl']):
-                db['losses'] += 1
-                requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit** at {curr_price}"})
+            # 1. CHECK TAKE PROFITS FIRST
+            # TP3
+            if (is_long and curr >= t['tp3']) or (not is_long and curr <= t['tp3']):
+                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{sym} TP3 HIT (5%)!** Trade closed at maximum target."})
                 del active[sym]
                 continue
+            
+            # TP2
+            if not t.get('tp2_hit', False):
+                if (is_long and curr >= t['tp2']) or (not is_long and curr <= t['tp2']):
+                    t['tp2_hit'] = True
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"🎯 **{sym} TP2 HIT (3%)!** Halfway to the moon."})
 
-            # TP1 HIT
-            if not t['tp1_hit']:
-                if (side == "Long trade" and curr_price >= t['tp1']) or (side == "Short trade" and curr_price <= t['tp1']):
+            # TP1
+            if not t.get('tp1_hit', False):
+                if (is_long and curr >= t['tp1']) or (not is_long and curr <= t['tp1']):
                     t['tp1_hit'] = True
-                    t['sl'] = t['entry'] 
-                    db['wins'] += 1
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 Hit!** Win counted, SL moved to entry."})
+                    t['sl'] = t['entry'] # Move SL to entry
+                    db['wins'] += 1 # Counts as a win
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 HIT (1.5%)!** SL moved to entry. Win tracked! 📈"})
 
-            # TP3 HIT
-            if (side == "Long trade" and curr_price >= t['tp3']) or (side == "Short trade" and curr_price <= t['tp3']):
-                requests.post(DISCORD_WEBHOOK, json={"content": f"💰 **{sym} TP3 Hit!** Max profit reached."})
+            # 2. CHECK STOP LOSS (ONLY IF TP1 NOT HIT OR IF RETRACED TO ENTRY)
+            if (is_long and curr <= t['sl']) or (not is_long and curr >= t['sl']):
+                # If TP1 was already hit, it's just a neutral exit, not a loss
+                if t.get('tp1_hit', False):
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"⚠️ **{sym} Closed at Entry** after hitting TP1."})
+                else:
+                    db['losses'] += 1
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit** at {curr}. (Loss tracked)"})
                 del active[sym]
-        except: continue
+
+        except Exception as e:
+            log(f"Error updating {sym}: {e}")
 
 def main():
     if not DISCORD_WEBHOOK:
-        log("Error: Set DISCORD_WEBHOOK_URL in Secrets!")
+        log("Error: Set DISCORD_WEBHOOK_URL")
         return
 
     db = load_db()
@@ -121,31 +131,30 @@ def main():
     log(f"Starting scan for {len(symbols)} coins...")
 
     for i, symbol in enumerate(symbols, 1):
-        # SKIP if already in a trade for this coin
         if symbol in db['active_trades']:
-            log(f"[{i}/{len(symbols)}] Skipping {symbol} (Trade Active)")
             continue
 
         try:
             bars = EXCHANGE.fetch_ohlcv(symbol, timeframe='15m', limit=200)
             df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close', 'vol'])
-            
-            # Detect divergence using only candle bodies
             signal = detect_triple_divergence(df, order=4)
             
             if signal:
                 entry = float(df['close'].iloc[-1])
                 mult = 1 if signal == "Long trade" else -1
                 
-                sl = entry * (1 - (0.02 * mult))
-                tp1 = entry * (1 + (0.015 * mult))
-                tp2 = entry * (1 + (0.03 * mult))
-                tp3 = entry * (1 + (0.05 * mult))
-
-                db['active_trades'][symbol] = {
-                    "side": signal, "entry": entry, "sl": sl, 
-                    "tp1": tp1, "tp2": tp2, "tp3": tp3, "tp1_hit": False
+                t_data = {
+                    "side": signal,
+                    "entry": entry,
+                    "sl": entry * (1 - (0.02 * mult)),
+                    "tp1": entry * (1 + (0.015 * mult)),
+                    "tp2": entry * (1 + (0.03 * mult)),
+                    "tp3": entry * (1 + (0.05 * mult)),
+                    "tp1_hit": False,
+                    "tp2_hit": False
                 }
+
+                db['active_trades'][symbol] = t_data
 
                 total = db['wins'] + db['losses']
                 wr = (db['wins'] / total * 100) if total > 0 else 0
@@ -154,12 +163,14 @@ def main():
                     "content": (f"✨ **{signal.upper()}**\n"
                                 f"🪙 **${symbol.split('/')[0]}**\n"
                                 f"💵 Entry: {entry}\n"
-                                f"🛑 SL: {sl:.4f}\n"
-                                f"🎯 TP1: {tp1:.4f} | TP2: {tp2:.4f} | TP3: {tp3:.4f}\n\n"
+                                f"🛑 SL: {t_data['sl']:.4f}\n"
+                                f"🎯 TP1: {t_data['tp1']:.4f}\n"
+                                f"🎯 TP2: {t_data['tp2']:.4f}\n"
+                                f"🎯 TP3: {t_data['tp3']:.4f}\n\n"
                                 f"📊 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
                 }
                 requests.post(DISCORD_WEBHOOK, json=payload)
-                log(f"✨ Signal found for {symbol}")
+                log(f"✨ Trade sent for {symbol}")
         except: continue
     
     save_db(db)
