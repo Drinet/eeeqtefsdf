@@ -1,0 +1,33 @@
+{
+    "wins": 0,
+    "losses": 0,
+    "active_trades": {
+        "AVAX/USD": {
+            "side": "Long trade",
+            "entry": 12.34,
+            "sl": 12.0932,
+            "tp1": 12.525099999999998,
+            "tp2": 12.7102,
+            "tp3": 12.957,
+            "tp1_hit": false
+        },
+        "RENDER/USD": {
+            "side": "Long trade",
+            "entry": 1.294,
+            "sl": 1.26812,
+            "tp1": 1.31341,
+            "tp2": 1.3328200000000001,
+            "tp3": 1.3587,
+            "tp1_hit": false
+        },
+        "IP/USD": {
+            "side": "Long trade",
+            "entry": 1.5204,
+            "sl": 1.489992,
+            "tp1": 1.5432059999999999,
+            "tp2": 1.566012,
+            "tp3": 1.59642,
+            "tp1_hit": false
+        }
+    }
+}
