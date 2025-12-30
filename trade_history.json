@@ -1,15 +1,15 @@
 {
-    "wins": 1,
+    "wins": 3,
     "losses": 1,
     "active_trades": {
         "AVAX/USD": {
             "side": "Long trade",
             "entry": 12.34,
-            "sl": 12.0932,
+            "sl": 12.34,
             "tp1": 12.525099999999998,
             "tp2": 12.7102,
             "tp3": 12.957,
-            "tp1_hit": false
+            "tp1_hit": true
         },
         "RENDER/USD": {
             "side": "Long trade",
@@ -59,10 +59,19 @@
         "VIRTUAL/USD": {
             "side": "Long trade",
             "entry": 0.6753,
-            "sl": 0.661794,
+            "sl": 0.6753,
             "tp1": 0.6854294999999999,
             "tp2": 0.695559,
             "tp3": 0.7090650000000001,
+            "tp1_hit": true
+        },
+        "XRP/USD": {
+            "side": "Short trade",
+            "entry": 1.86506,
+            "sl": 1.9023611999999999,
+            "tp1": 1.8370841,
+            "tp2": 1.8091081999999998,
+            "tp3": 1.771807,
             "tp1_hit": false
         }
     }
