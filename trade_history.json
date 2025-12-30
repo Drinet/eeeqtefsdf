@@ -1,5 +1,42 @@
 {
     "balance": 250.0,
-    "active_trades": {},
+    "active_trades": {
+        "AVAX/USD": {
+            "side": "Long trade",
+            "entry": 12.36,
+            "tp1_hit": false,
+            "sl": 12.1128,
+            "tp1": 12.545399999999999,
+            "tp2": 12.7308,
+            "tp3": 12.978
+        },
+        "FLR/USD": {
+            "side": "Long trade",
+            "entry": 0.01111,
+            "tp1_hit": false,
+            "sl": 0.0108878,
+            "tp1": 0.01127665,
+            "tp2": 0.0114433,
+            "tp3": 0.0116655
+        },
+        "RENDER/USD": {
+            "side": "Long trade",
+            "entry": 1.296,
+            "tp1_hit": false,
+            "sl": 1.27008,
+            "tp1": 1.31544,
+            "tp2": 1.33488,
+            "tp3": 1.3608
+        },
+        "JUP/USD": {
+            "side": "Long trade",
+            "entry": 0.18586,
+            "tp1_hit": false,
+            "sl": 0.1821428,
+            "tp1": 0.18864789999999998,
+            "tp2": 0.1914358,
+            "tp3": 0.195153
+        }
+    },
     "history": []
 }
