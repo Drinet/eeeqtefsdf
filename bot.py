@@ -25,7 +25,13 @@ def log(msg):
 def load_db():
     if os.path.exists(DB_FILE):
         try:
-            with open(DB_FILE, 'r') as f: return json.load(f)
+            with open(DB_FILE, 'r') as f:
+                data = json.load(f)
+                # Ensure structure exists
+                if "wins" not in data: data["wins"] = 0
+                if "losses" not in data: data["losses"] = 0
+                if "active_trades" not in data: data["active_trades"] = {}
+                return data
         except: pass
     return {"wins": 0, "losses": 0, "active_trades": {}}
 
@@ -33,7 +39,6 @@ def save_db(db):
     with open(DB_FILE, 'w') as f: json.dump(db, f, indent=4)
 
 def get_top_coins():
-    """Fetches top coins and removes specific exclusions."""
     try:
         url = "https://api.coingecko.com/api/v3/coins/markets"
         params = {'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 200, 'page': 1}
@@ -52,12 +57,12 @@ def get_top_coins():
     except: return []
 
 def detect_triple_divergence(df, order=4):
-    """Detects 3 consecutive diverging pivots using candle bodies (closes)."""
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
     if len(df) < 100: return None
 
     # BULLISH: Price Closes Lower Lows | RSI Higher Lows
+    # 
     low_pivots = argrelextrema(df.close.values, np.less, order=order)[0]
     if len(low_pivots) >= 3:
         p1, p2, p3 = df.close.iloc[low_pivots[-3:]].values
@@ -66,6 +71,7 @@ def detect_triple_divergence(df, order=4):
             return "Long trade"
 
     # BEARISH: Price Closes Higher Highs | RSI Lower Highs
+    # 
     high_pivots = argrelextrema(df.close.values, np.greater, order=order)[0]
     if len(high_pivots) >= 3:
         p1, p2, p3 = df.close.iloc[high_pivots[-3:]].values
@@ -82,21 +88,18 @@ def update_tracker(db):
             curr_price = EXCHANGE.fetch_ticker(sym)['last']
             is_long = t['side'] == "Long trade"
 
-            # Check SL
             if (is_long and curr_price <= t['sl']) or (not is_long and curr_price >= t['sl']):
                 db['losses'] += 1
-                requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **SL HIT: {sym}**\nPrice: {curr_price}"})
+                requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **SL HIT: {sym}** at {curr_price}"})
                 del active[sym]
                 continue
 
-            # Check TP1 (Win Counted, SL to Entry)
             if not t['tp1_hit'] and ((is_long and curr_price >= t['tp1']) or (not is_long and curr_price <= t['tp1'])):
                 t['tp1_hit'] = True
                 t['sl'] = t['entry']
                 db['wins'] += 1
-                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **TP1 HIT: {sym}**\nSL moved to Entry. WIN secured."})
+                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **TP1 HIT: {sym}**. SL to Entry. Win secured!"})
 
-            # Check TP3 (Complete)
             if (is_long and curr_price >= t['tp3']) or (not is_long and curr_price <= t['tp3']):
                 requests.post(DISCORD_WEBHOOK, json={"content": f"💰 **TP3 MAX PROFIT: {sym}**"})
                 del active[sym]
@@ -140,18 +143,29 @@ def main():
                 total_tr = db['wins'] + db['losses']
                 wr = (db['wins'] / total_tr * 100) if total_tr > 0 else 0
                 
+                ticker = symbol.split('/')[0]
                 msg = (f"🔱 **{signal.upper()}**\n"
-                       f"🪙 **${symbol.split('/')[0]}**\n"
+                       f"🪙 **${ticker}**\n"
                        f"💵 Entry: {entry:,.4f}\n"
                        f"🛑 SL: {t_data['sl']:,.4f}\n"
                        f"🎯 TP1: {t_data['tp1']:,.4f}\n"
                        f"🎯 TP2: {t_data['tp2']:,.4f}\n"
                        f"🎯 TP3: {t_data['tp3']:,.4f}\n\n"
-                       f"📈 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
-                requests.post(DISCORD_WEBHOOK, json={"content": msg})
-        except: continue
+                       f"📊 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
+                
+                # Send to Discord
+                resp = requests.post(DISCORD_WEBHOOK, json={"content": msg})
+                if resp.status_code != 204:
+                    log(f"Discord Error: {resp.text}")
+                else:
+                    log(f"Discord message sent for {symbol}")
+                    
+        except Exception as e:
+            log(f"Error processing {symbol}: {e}")
+            continue
     
     save_db(db)
+    log("Scan finished.")
 
 if __name__ == "__main__":
     main()
