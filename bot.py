@@ -16,6 +16,7 @@ DB_FILE = "trade_history.json"
 # --- STRATEGY CONSTANTS ---
 INITIAL_CASH = 250.0
 SL_PCT, TP1_PCT, TP3_PCT = 0.015, 0.01, 0.05
+PIVOT_ORDER = 4 
 
 def load_db():
     if os.path.exists(DB_FILE):
@@ -30,12 +31,15 @@ def get_symbols():
         url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=150"
         data = requests.get(url).json()
         
-        # YOUR EXCLUDED LIST (Stables, LSTs, and Wrapped assets)
+        # FINAL EXCLUSION LIST
         excluded = [
             'usdt', 'usdc', 'dai', 'fdusd', 'pyusd', 'usde', 'steth', 'wbtc', 'weth', 
             'usds', 'gusd', 'wsteth', 'wbeth', 'weeth', 'cbbtc', 'usdt0', 'susds', 
             'susde', 'usd1', 'syrupusdc', 'usdf', 'jitosol', 'usdg', 'rlusd', 
-            'bfusd', 'bnsol', 'reth', 'wbnb', 'rseth', 'fbtc', 'lbtc'
+            'bfusd', 'bnsol', 'reth', 'wbnb', 'rseth', 'fbtc', 'lbtc',
+            'gteth', 'tusd', 'tbtc', 'eutbl', 'usd0', 'oseth', 'geth',
+            'solvbtc', 'usdtb', 'usdd', 'lseth', 'ustb', 'usdc.e', 'usdy', 
+            'clbtc', 'meth', 'usdai', 'ezeth', 'jupsol'
         ]
         
         return [c['symbol'].upper() + '/USD' for c in data if c['symbol'].lower() not in excluded]
@@ -43,8 +47,8 @@ def get_symbols():
         print(f"Error fetching symbols: {e}")
         return []
 
-def detect_signal(df, order=5):
-    """Triple Divergence using strictly CANDLE CLOSES"""
+def detect_signal(df, order=PIVOT_ORDER):
+    """Triple Divergence using strictly CANDLE CLOSES (Bodies)"""
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
     if len(df) < 100: return None
@@ -93,14 +97,13 @@ def main():
     
     symbols = get_symbols()
     total = len(symbols)
-    print(f"Scanning {total} filtered symbols...")
+    print(f"Scanning {total} filtered symbols with order={PIVOT_ORDER}...")
     
     for i, sym in enumerate(symbols, 1):
         print(f"[{i}/{total}] Checking {sym}...")
         
         if sym in db['active_trades']: continue
         try:
-            # Check if symbol exists on Kraken before fetching OHLCV
             df = pd.DataFrame(EXCHANGE.fetch_ohlcv(sym, '15m', limit=150), columns=['t','o','h','l','c','v'])
             sig = detect_signal(df)
             if sig:
@@ -118,6 +121,6 @@ def main():
             continue
             
     save_db(db)
-    print(f"--- Scan Finished. Portfolio: ${db['balance']:.2f} ---")
+    print(f"--- Scan Finished. Current Balance: ${db['balance']:.2f} ---")
 
 if __name__ == "__main__": main()
