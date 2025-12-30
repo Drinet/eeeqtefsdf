@@ -33,22 +33,20 @@ def get_symbols():
         return [c['symbol'].upper() + '/USD' for c in data if c['symbol'].lower() not in stables]
     except: return []
 
-def detect_signal(df, order=4):
-    """Triple Divergence using strictly CANDLE CLOSES"""
+def detect_signal(df, order=5):
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
     if len(df) < 100: return None
     
-    # LONG: 3 Close Lower Lows + 3 RSI Higher Lows
+    # LONG: 3 Candle Close Lower Lows + 3 RSI Higher Lows
     lows = argrelextrema(df.close.values, np.less, order=order)[0]
     if len(lows) >= 3:
         p = df.close.iloc[lows[-3:]].values
         r = df.RSI.iloc[lows[-3:]].values
-        # Strict stair-step: Price must be going down, RSI must be going up
         if (p[0] > p[1] > p[2]) and (r[0] < r[1] < r[2]):
             return "LONG"
 
-    # SHORT: 3 Close Higher Highs + 3 RSI Lower Highs
+    # SHORT: 3 Candle Close Higher Highs + 3 RSI Lower Highs
     highs = argrelextrema(df.close.values, np.greater, order=order)[0]
     if len(highs) >= 3:
         p = df.close.iloc[highs[-3:]].values
@@ -82,14 +80,19 @@ def main():
     monitor(db)
     risk_amt = max(db['balance'], 250.0) * 0.03 if db['balance'] < 500 else db['balance'] * 0.03
     symbols = get_symbols()
-    print(f"Scanning {len(symbols)} symbols...")
-    for sym in symbols:
+    total = len(symbols)
+    print(f"Scanning {total} symbols...")
+    
+    for i, sym in enumerate(symbols, 1):
+        # This will show you exactly which coin is being checked in the GitHub log
+        print(f"[{i}/{total}] Checking {sym}...", end='\r')
+        
         if sym in db['active_trades']: continue
         try:
             df = pd.DataFrame(EXCHANGE.fetch_ohlcv(sym, '15m', limit=150), columns=['t','o','h','l','c','v'])
             sig = detect_signal(df)
             if sig:
-                print(f"MATCH FOUND: {sig} on {sym}")
+                print(f"\n✨ MATCH FOUND: {sig} on {sym}")
                 ent = df['c'].iloc[-1]
                 mult = 1 if sig=="LONG" else -1
                 db['active_trades'][sym] = {
@@ -100,7 +103,8 @@ def main():
                 }
                 requests.post(DISCORD_WEBHOOK, json={"content": f"# 🔔 NEW {sig} TRADE\n**Asset:** {sym}\n**Entry:** ${ent:,.4f}\n**SL:** ${db['active_trades'][sym]['sl']:,.4f}"})
         except: continue
+        
     save_db(db)
-    print(f"--- Scan Finished. Current Portfolio: ${db['balance']:.2f} ---")
+    print(f"\n--- Scan Finished. Current Portfolio: ${db['balance']:.2f} ---")
 
 if __name__ == "__main__": main()
