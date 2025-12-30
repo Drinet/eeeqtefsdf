@@ -8,7 +8,7 @@ jobs:
   run-scanner:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # CRITICAL: Allows the bot to save winrate data
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
