@@ -16,6 +16,16 @@ DB_FILE = "trade_history.json"
 def log(msg):
     print(msg, flush=True)
 
+def format_price(price):
+    """Dynamically formats price to handle tiny altcoins without scientific notation."""
+    if price is None: return "0.00"
+    if price < 0.0001:
+        return f"{price:.10f}".rstrip('0').rstrip('.')
+    elif price < 1:
+        return f"{price:.6f}"
+    else:
+        return f"{price:.4f}"
+
 def load_db():
     if os.path.exists(DB_FILE):
         try:
@@ -85,10 +95,9 @@ def update_trades(db):
             side = t['side']
             is_long = (side == "Long trade")
             
-            # 1. CHECK TAKE PROFITS FIRST
             # TP3
             if (is_long and curr >= t['tp3']) or (not is_long and curr <= t['tp3']):
-                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{sym} TP3 HIT (5%)!** Trade closed at maximum target."})
+                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{sym} TP3 HIT (5%)!** Trade closed at max target."})
                 del active[sym]
                 continue
             
@@ -96,24 +105,23 @@ def update_trades(db):
             if not t.get('tp2_hit', False):
                 if (is_long and curr >= t['tp2']) or (not is_long and curr <= t['tp2']):
                     t['tp2_hit'] = True
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"🎯 **{sym} TP2 HIT (3%)!** Halfway to the moon."})
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"🎯 **{sym} TP2 HIT (3%)!** Halfway to the target."})
 
             # TP1
             if not t.get('tp1_hit', False):
                 if (is_long and curr >= t['tp1']) or (not is_long and curr <= t['tp1']):
                     t['tp1_hit'] = True
-                    t['sl'] = t['entry'] # Move SL to entry
-                    db['wins'] += 1 # Counts as a win
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 HIT (1.5%)!** SL moved to entry. Win tracked! 📈"})
+                    t['sl'] = t['entry'] 
+                    db['wins'] += 1
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 HIT (1.5%)!** SL moved to entry. Win tracked!"})
 
-            # 2. CHECK STOP LOSS (ONLY IF TP1 NOT HIT OR IF RETRACED TO ENTRY)
+            # STOP LOSS
             if (is_long and curr <= t['sl']) or (not is_long and curr >= t['sl']):
-                # If TP1 was already hit, it's just a neutral exit, not a loss
                 if t.get('tp1_hit', False):
                     requests.post(DISCORD_WEBHOOK, json={"content": f"⚠️ **{sym} Closed at Entry** after hitting TP1."})
                 else:
                     db['losses'] += 1
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit** at {curr}. (Loss tracked)"})
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit** at {format_price(curr)}. (Loss tracked)"})
                 del active[sym]
 
         except Exception as e:
@@ -162,11 +170,11 @@ def main():
                 payload = {
                     "content": (f"✨ **{signal.upper()}**\n"
                                 f"🪙 **${symbol.split('/')[0]}**\n"
-                                f"💵 Entry: {entry}\n"
-                                f"🛑 SL: {t_data['sl']:.4f}\n"
-                                f"🎯 TP1: {t_data['tp1']:.4f}\n"
-                                f"🎯 TP2: {t_data['tp2']:.4f}\n"
-                                f"🎯 TP3: {t_data['tp3']:.4f}\n\n"
+                                f"💵 Entry: {format_price(entry)}\n"
+                                f"🛑 SL: {format_price(t_data['sl'])}\n"
+                                f"🎯 TP1: {format_price(t_data['tp1'])}\n"
+                                f"🎯 TP2: {format_price(t_data['tp2'])}\n"
+                                f"🎯 TP3: {format_price(t_data['tp3'])}\n\n"
                                 f"📊 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
                 }
                 requests.post(DISCORD_WEBHOOK, json=payload)
