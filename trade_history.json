@@ -92,6 +92,16 @@
             "tp2": 0.925146,
             "tp3": 0.94311,
             "tp1_hit": false
+        },
+        "APT/USD": {
+            "side": "Short trade",
+            "entry": 1.7289,
+            "exchange": "kraken",
+            "sl": 1.763478,
+            "tp1": 1.7029665,
+            "tp2": 1.677033,
+            "tp3": 1.642455,
+            "tp1_hit": false
         }
     }
 }
