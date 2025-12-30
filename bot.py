@@ -34,22 +34,21 @@ def get_symbols():
     except: return []
 
 def detect_signal(df, order=5):
-    """Detects Triple Divergence using CANDLE CLOSES (Bodies)"""
+    """Triple Divergence using strictly CANDLE CLOSES"""
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
     if len(df) < 100: return None
     
-    # LONG: 3 Candle Close Lower Lows + 3 RSI Higher Lows
-    # Using df.close instead of df.low to focus on the candle bodies
+    # LONG: 3 Close Lower Lows + 3 RSI Higher Lows
     lows = argrelextrema(df.close.values, np.less, order=order)[0]
     if len(lows) >= 3:
         p = df.close.iloc[lows[-3:]].values
         r = df.RSI.iloc[lows[-3:]].values
+        # Strict stair-step: Price must be going down, RSI must be going up
         if (p[0] > p[1] > p[2]) and (r[0] < r[1] < r[2]):
             return "LONG"
 
-    # SHORT: 3 Candle Close Higher Highs + 3 RSI Lower Highs
-    # Using df.close instead of df.high
+    # SHORT: 3 Close Higher Highs + 3 RSI Lower Highs
     highs = argrelextrema(df.close.values, np.greater, order=order)[0]
     if len(highs) >= 3:
         p = df.close.iloc[highs[-3:]].values
