@@ -82,6 +82,16 @@
             "tp2": 0.21961763,
             "tp3": 0.22388205,
             "tp1_hit": false
+        },
+        "NEXO/USDT": {
+            "side": "Long trade",
+            "entry": 0.8982,
+            "exchange": "gateio",
+            "sl": 0.880236,
+            "tp1": 0.911673,
+            "tp2": 0.925146,
+            "tp3": 0.94311,
+            "tp1_hit": false
         }
     }
 }
