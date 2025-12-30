@@ -33,7 +33,7 @@ def get_symbols():
         return [c['symbol'].upper() + '/USD' for c in data if c['symbol'].lower() not in stables]
     except: return []
 
-def detect_signal(df, order=5):
+def detect_signal(df, order=4):
     """Triple Divergence using strictly CANDLE CLOSES"""
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
