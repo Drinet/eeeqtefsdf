@@ -84,6 +84,16 @@
             "tp2": 1.677033,
             "tp3": 1.642455,
             "tp1_hit": false
+        },
+        "XAUT/USD": {
+            "side": "Long trade",
+            "entry": 4343.6,
+            "exchange": "kraken",
+            "sl": 4256.728,
+            "tp1": 4408.754,
+            "tp2": 4473.908,
+            "tp3": 4560.780000000001,
+            "tp1_hit": false
         }
     }
 }
