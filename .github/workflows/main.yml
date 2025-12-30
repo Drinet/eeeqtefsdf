@@ -20,7 +20,8 @@ jobs:
       - name: Execute
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python bot.py
+        # Added -u flag to ensure logs are printed instantly
+        run: python -u bot.py
       - name: Push History
         run: |
           git config --global user.name "github-actions[bot]"
