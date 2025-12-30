@@ -17,7 +17,7 @@ DB_FILE = "trade_history.json"
 # --- STRATEGY CONSTANTS ---
 INITIAL_CASH = 250.0
 SL_PCT, TP1_PCT, TP3_PCT = 0.015, 0.01, 0.05
-PIVOT_ORDER = 4 
+PIVOT_ORDER = 1
 
 def log(msg):
     """Force immediate logging to GitHub console"""
