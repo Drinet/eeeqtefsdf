@@ -1,29 +1,22 @@
-name: Triple Divergence Bot
+name: Triple Divergence Scanner
 on:
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
+
 jobs:
-  run-bot:
+  run-scanner:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install
+      - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Execute
+      - name: Run Scanner
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           PYTHONUNBUFFERED: "1"
         run: python bot.py
-      - name: Push History
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add trade_history.json
-          git commit -m "update logs" || exit 0
-          git push
