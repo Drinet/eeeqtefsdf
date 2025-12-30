@@ -4,108 +4,91 @@ import pandas_ta as ta
 import requests
 import os
 import numpy as np
-import json
-from scipy.signal import argrelextrema
-from datetime import datetime
 import sys
+from scipy.signal import argrelextrema
 
-# --- CONFIG & DATABASE ---
+# --- CONFIG ---
 DISCORD_WEBHOOK = os.getenv('DISCORD_WEBHOOK_URL')
 EXCHANGE = ccxt.kraken()
-DB_FILE = "trade_history.json"
 
-# --- STRATEGY CONSTANTS ---
-INITIAL_CASH = 250.0
-SL_PCT, TP1_PCT, TP3_PCT = 0.015, 0.01, 0.05
-PIVOT_ORDER = 1  # Extreme sensitivity
-
-def log(msg):
-    print(msg)
-    sys.stdout.flush()
-
-def load_db():
-    if os.path.exists(DB_FILE):
-        try:
-            with open(DB_FILE, 'r') as f: return json.load(f)
-        except: pass
-    return {"balance": INITIAL_CASH, "active_trades": {}}
-
-def save_db(db):
-    with open(DB_FILE, 'w') as f: json.dump(db, f, indent=4)
-
-def get_symbols():
+def get_top_coins():
+    """Fetches top coins and removes specific exclusions."""
     try:
-        url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=150"
-        data = requests.get(url).json()
-        excluded = ['usdt', 'usdc', 'dai', 'fdusd', 'pyusd', 'usde', 'steth', 'wbtc', 'weth', 'usds', 'gusd', 'wsteth', 'wbeth', 'weeth', 'cbbtc', 'usdt0', 'susds', 'susde', 'usd1', 'syrupusdc', 'usdf', 'jitosol', 'usdg', 'rlusd', 'bfusd', 'bnsol', 'reth', 'wbnb', 'rseth', 'fbtc', 'lbtc', 'gteth', 'tusd', 'tbtc', 'eutbl', 'usd0', 'oseth', 'geth', 'solvbtc', 'usdtb', 'usdd', 'lseth', 'ustb', 'usdc.e', 'usdy', 'clbtc', 'meth', 'usdai', 'ezeth', 'jupsol']
-        return [c['symbol'].upper() + '/USD' for c in data if c['symbol'].lower() not in excluded]
-    except: return []
+        # Fetching 200 to ensure we have ~100+ left after filtering
+        url = "https://api.coingecko.com/api/v3/coins/markets"
+        params = {'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 200, 'page': 1}
+        data = requests.get(url, params=params).json()
+        
+        excluded = [
+            'usdt', 'usdc', 'dai', 'fdusd', 'pyusd', 'usde', 'steth', 'wbtc', 'weth', 
+            'usds', 'gusd', 'wsteth', 'wbeth', 'weeth', 'cbbtc', 'usdt0', 'susds', 
+            'susde', 'usd1', 'syrupusdc', 'usdf', 'jitosol', 'usdg', 'rlusd', 
+            'bfusd', 'bnsol', 'reth', 'wbnb', 'rseth', 'fbtc', 'lbtc',
+            'gteth', 'tusd', 'tbtc', 'eutbl', 'usd0', 'oseth', 'geth',
+            'solvbtc', 'usdtb', 'usdd', 'lseth', 'ustb', 'usdc.e', 'usdy', 
+            'clbtc', 'meth', 'usdai', 'ezeth', 'jupsol'
+        ]
+        
+        filtered = [c['symbol'].upper() + '/USD' for c in data if c['symbol'].lower() not in excluded]
+        return filtered[:120] # Return roughly the top 100-120 tradeable coins
+    except:
+        return []
 
-def detect_signal(df, symbol, order=PIVOT_ORDER):
-    # Ensure we have enough data
-    if len(df) < 50: return None
-    
-    # Calculate RSI and clean data
+def detect_triple_divergence(df, order=4):
+    """Detects 3 consecutive diverging pivots using candle bodies (closes)."""
     df['RSI'] = ta.rsi(df['close'], length=14)
-    df = df.dropna(subset=['RSI']).reset_index(drop=True)
-    
-    prices = df['close'].values
-    rsi_vals = df['RSI'].values
-    
-    # BULLISH DIVERGENCE (Price Lower Lows + RSI Higher Lows)
-    # We now only require the LAST 2 pivots instead of 3.
-    low_idx = argrelextrema(prices, np.less, order=order)[0]
-    if len(low_idx) >= 2:
-        p_lows = prices[low_idx[-2:]]
-        r_lows = rsi_vals[low_idx[-2:]]
-        # Condition: Price going down, RSI going up
-        if p_lows[0] > p_lows[1] and r_lows[0] < r_lows[1]:
-            return "LONG"
+    df = df.dropna().reset_index(drop=True)
+    if len(df) < 100: return None
 
-    # BEARISH DIVERGENCE (Price Higher Highs + RSI Lower Highs)
-    high_idx = argrelextrema(prices, np.greater, order=order)[0]
-    if len(high_idx) >= 2:
-        p_highs = prices[high_idx[-2:]]
-        r_highs = rsi_vals[high_idx[-2:]]
-        # Condition: Price going up, RSI going down
-        if p_highs[0] < p_highs[1] and r_highs[0] > r_highs[1]:
-            return "SHORT"
-    
+    # BULLISH: Price Closes Lower Lows | RSI Higher Lows
+    # argrelextrema finds the 'pits' and 'peaks' in the body closes
+    low_pivots = argrelextrema(df.close.values, np.less, order=order)[0]
+    if len(low_pivots) >= 3:
+        p1, p2, p3 = df.close.iloc[low_pivots[-3:]].values
+        r1, r2, r3 = df.RSI.iloc[low_pivots[-3:]].values
+        # Pattern: Price is dropping (p1 > p2 > p3), RSI is rising (r1 < r2 < r3)
+        if p1 > p2 > p3 and r1 < r2 < r3:
+            return "🚀 TRIPLE BULLISH DIV (REVERSAL UP)"
+
+    # BEARISH: Price Closes Higher Highs | RSI Lower Highs
+    high_pivots = argrelextrema(df.close.values, np.greater, order=order)[0]
+    if len(high_pivots) >= 3:
+        p1, p2, p3 = df.close.iloc[high_pivots[-3:]].values
+        r1, r2, r3 = df.RSI.iloc[high_pivots[-3:]].values
+        # Pattern: Price is rising (p1 < p2 < p3), RSI is dropping (r1 > r2 > r3)
+        if p1 < p2 < p3 and r1 > r2 > r3:
+            return "🔥 TRIPLE BEARISH DIV (REVERSAL DOWN)"
+            
     return None
 
 def main():
-    log(f"--- STARTING SCAN: {datetime.now().strftime('%H:%M:%S')} ---")
-    db = load_db()
-    symbols = get_symbols()
-    
-    # Force log the start
-    log(f"Found {len(symbols)} coins to check.")
-    
-    found_any = False
-    for i, sym in enumerate(symbols, 1):
-        # Progress log
-        if i % 10 == 0: log(f"Progress: {i}/{len(symbols)} coins scanned...")
-        
+    if not DISCORD_WEBHOOK:
+        print("Error: Set DISCORD_WEBHOOK_URL in Secrets!", flush=True)
+        return
+
+    symbols = get_top_coins()
+    total = len(symbols)
+    print(f"Starting scan for {total} filtered coins...", flush=True)
+
+    for i, symbol in enumerate(symbols, 1):
+        # Forced real-time logging for GitHub Actions
+        print(f"[{i}/{total}] Checking {symbol}...", flush=True)
         try:
-            # Fetch data (15m timeframe)
-            ohlcv = EXCHANGE.fetch_ohlcv(sym, '15m', limit=100)
-            df = pd.DataFrame(ohlcv, columns=['t','o','h','l','c','v'])
+            # 15m timeframe, limit to 200 bars for better pivot window
+            bars = EXCHANGE.fetch_ohlcv(symbol, timeframe='15m', limit=200)
+            df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close', 'vol'])
             
-            signal = detect_signal(df, sym)
+            signal = detect_triple_divergence(df, order=4)
+            
             if signal:
-                log(f"✅ MATCH FOUND: {signal} on {sym}")
-                found_any = True
-                # Trade logic here (omitted for brevity but kept in your file)
-                # ... [Internal database/discord code] ...
-                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{signal}** on {sym} detected at ${df['c'].iloc[-1]}"})
+                print(f"✨ MATCH FOUND for {symbol}!", flush=True)
+                tv_link = f"https://www.tradingview.com/chart/?symbol=KRAKEN:{symbol.replace('/','')}"
+                payload = {
+                    "content": f"## {signal}\n**Symbol:** {symbol}\n**Timeframe:** 15m\n[🔍 Open Chart]({tv_link})"
+                }
+                requests.post(DISCORD_WEBHOOK, json=payload)
         except:
             continue
-            
-    if not found_any:
-        log("No signals found in this 15m window.")
-    
-    save_db(db)
-    log(f"--- SCAN FINISHED ---")
 
 if __name__ == "__main__":
     main()
