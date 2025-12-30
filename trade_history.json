@@ -1,5 +1,6 @@
 {
-    "balance": 250.0,
+    "wins": 0,
+    "losses": 0,
     "active_trades": {
         "AVAX/USD": {
             "side": "Long trade",
@@ -55,8 +56,5 @@
             "tp2": 1.5691020000000002,
             "tp3": 1.5995700000000002
         }
-    },
-    "history": [],
-    "wins": 0,
-    "losses": 0
+    }
 }
