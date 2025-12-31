@@ -1,6 +1,6 @@
 {
-    "wins": 5,
-    "losses": 7,
+    "wins": 6,
+    "losses": 8,
     "active_trades": {
         "AVAX/USD": {
             "side": "Long trade",
@@ -88,16 +88,6 @@
             "tp3": 73.3845,
             "tp1_hit": false
         },
-        "FLR/USD": {
-            "side": "Long trade",
-            "entry": 0.01057,
-            "exchange": "kraken",
-            "sl": 0.010358599999999999,
-            "tp1": 0.010728549999999998,
-            "tp2": 0.0108871,
-            "tp3": 0.0110985,
-            "tp1_hit": false
-        },
         "ALGO/USD": {
             "side": "Long trade",
             "entry": 0.11342,
@@ -112,11 +102,11 @@
             "side": "Short trade",
             "entry": 1.5872,
             "exchange": "kraken",
-            "sl": 1.618944,
+            "sl": 1.5872,
             "tp1": 1.563392,
             "tp2": 1.5395839999999998,
             "tp3": 1.5078399999999998,
-            "tp1_hit": false
+            "tp1_hit": true
         },
         "LEO/USDT": {
             "side": "Short trade",
@@ -136,6 +126,16 @@
             "tp1": 0.10755954999999999,
             "tp2": 0.1091491,
             "tp3": 0.11126849999999999,
+            "tp1_hit": false
+        },
+        "FLR/USD": {
+            "side": "Long trade",
+            "entry": 0.01023,
+            "exchange": "kraken",
+            "sl": 0.010025399999999999,
+            "tp1": 0.010383449999999999,
+            "tp2": 0.0105369,
+            "tp3": 0.0107415,
             "tp1_hit": false
         }
     }
