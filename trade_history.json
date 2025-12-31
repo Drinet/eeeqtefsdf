@@ -99,6 +99,26 @@
             "tp2": 0.11374290000000001,
             "tp3": 0.1159515,
             "tp1_hit": false
+        },
+        "ATOM/USD": {
+            "side": "Long trade",
+            "entry": 1.9189,
+            "exchange": "kraken",
+            "sl": 1.880522,
+            "tp1": 1.9476835,
+            "tp2": 1.9764670000000002,
+            "tp3": 2.014845,
+            "tp1_hit": false
+        },
+        "VET/USDT": {
+            "side": "Long trade",
+            "entry": 0.010439,
+            "exchange": "gateio",
+            "sl": 0.01023022,
+            "tp1": 0.010595585,
+            "tp2": 0.01075217,
+            "tp3": 0.01096095,
+            "tp1_hit": false
         }
     }
 }
