@@ -1,16 +1,7 @@
 {
     "wins": 7,
-    "losses": 10,
+    "losses": 12,
     "active_trades": {
-        "AVAX/USD": {
-            "side": "Long trade",
-            "entry": 12.34,
-            "sl": 12.34,
-            "tp1": 12.525099999999998,
-            "tp2": 12.7102,
-            "tp3": 12.957,
-            "tp1_hit": true
-        },
         "RENDER/USD": {
             "side": "Long trade",
             "entry": 1.294,
@@ -49,16 +40,6 @@
             "tp3": 4560.780000000001,
             "tp1_hit": false
         },
-        "AAVE/USD": {
-            "side": "Long trade",
-            "entry": 149.59,
-            "exchange": "kraken",
-            "sl": 146.5982,
-            "tp1": 151.83384999999998,
-            "tp2": 154.07770000000002,
-            "tp3": 157.0695,
-            "tp1_hit": false
-        },
         "QNT/USD": {
             "side": "Long trade",
             "entry": 69.89,
@@ -67,16 +48,6 @@
             "tp1": 70.93835,
             "tp2": 71.9867,
             "tp3": 73.3845,
-            "tp1_hit": false
-        },
-        "ALGO/USD": {
-            "side": "Long trade",
-            "entry": 0.11342,
-            "exchange": "kraken",
-            "sl": 0.1111516,
-            "tp1": 0.1151213,
-            "tp2": 0.11682260000000001,
-            "tp3": 0.11909100000000002,
             "tp1_hit": false
         },
         "M/USD": {
