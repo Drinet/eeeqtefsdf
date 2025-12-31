@@ -1,5 +1,5 @@
 {
-    "wins": 4,
+    "wins": 5,
     "losses": 6,
     "active_trades": {
         "AVAX/USD": {
@@ -42,11 +42,11 @@
             "side": "Long trade",
             "entry": 0.8982,
             "exchange": "gateio",
-            "sl": 0.880236,
+            "sl": 0.8982,
             "tp1": 0.911673,
             "tp2": 0.925146,
             "tp3": 0.94311,
-            "tp1_hit": false
+            "tp1_hit": true
         },
         "APT/USD": {
             "side": "Short trade",
