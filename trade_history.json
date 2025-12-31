@@ -1,6 +1,6 @@
 {
     "wins": 4,
-    "losses": 5,
+    "losses": 6,
     "active_trades": {
         "AVAX/USD": {
             "side": "Long trade",
@@ -106,16 +106,6 @@
             "tp1": 0.010728549999999998,
             "tp2": 0.0108871,
             "tp3": 0.0110985,
-            "tp1_hit": false
-        },
-        "MYX/USD": {
-            "side": "Short trade",
-            "entry": 3.715,
-            "exchange": "kraken",
-            "sl": 3.7893,
-            "tp1": 3.6592749999999996,
-            "tp2": 3.60355,
-            "tp3": 3.5292499999999998,
             "tp1_hit": false
         },
         "LEO/USDT": {
