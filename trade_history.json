@@ -1,6 +1,6 @@
 {
     "wins": 5,
-    "losses": 6,
+    "losses": 7,
     "active_trades": {
         "AVAX/USD": {
             "side": "Long trade",
@@ -98,16 +98,6 @@
             "tp3": 0.0110985,
             "tp1_hit": false
         },
-        "LEO/USDT": {
-            "side": "Short trade",
-            "entry": 9.143,
-            "exchange": "gateio",
-            "sl": 9.32586,
-            "tp1": 9.005855,
-            "tp2": 8.86871,
-            "tp3": 8.68585,
-            "tp1_hit": false
-        },
         "ALGO/USD": {
             "side": "Long trade",
             "entry": 0.11342,
@@ -126,6 +116,16 @@
             "tp1": 1.563392,
             "tp2": 1.5395839999999998,
             "tp3": 1.5078399999999998,
+            "tp1_hit": false
+        },
+        "LEO/USDT": {
+            "side": "Short trade",
+            "entry": 9.396,
+            "exchange": "gateio",
+            "sl": 9.58392,
+            "tp1": 9.25506,
+            "tp2": 9.11412,
+            "tp3": 8.9262,
             "tp1_hit": false
         }
     }
