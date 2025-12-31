@@ -94,6 +94,26 @@
             "tp2": 4473.908,
             "tp3": 4560.780000000001,
             "tp1_hit": false
+        },
+        "AAVE/USD": {
+            "side": "Long trade",
+            "entry": 149.59,
+            "exchange": "kraken",
+            "sl": 146.5982,
+            "tp1": 151.83384999999998,
+            "tp2": 154.07770000000002,
+            "tp3": 157.0695,
+            "tp1_hit": false
+        },
+        "VET/USDT": {
+            "side": "Long trade",
+            "entry": 0.010879,
+            "exchange": "gateio",
+            "sl": 0.01066142,
+            "tp1": 0.011042185,
+            "tp2": 0.01120537,
+            "tp3": 0.01142295,
+            "tp1_hit": false
         }
     }
 }
