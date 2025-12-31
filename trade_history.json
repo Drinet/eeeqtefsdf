@@ -80,16 +80,6 @@
             "tp3": 0.11126849999999999,
             "tp1_hit": false
         },
-        "FLR/USD": {
-            "side": "Long trade",
-            "entry": 0.01023,
-            "exchange": "kraken",
-            "sl": 0.01023,
-            "tp1": 0.010383449999999999,
-            "tp2": 0.0105369,
-            "tp3": 0.0107415,
-            "tp1_hit": true
-        },
         "HTX/USDT": {
             "side": "Long trade",
             "entry": 1.6377e-06,
@@ -98,6 +88,16 @@
             "tp1": 1.6622655e-06,
             "tp2": 1.686831e-06,
             "tp3": 1.719585e-06,
+            "tp1_hit": false
+        },
+        "ALGO/USD": {
+            "side": "Long trade",
+            "entry": 0.11043,
+            "exchange": "kraken",
+            "sl": 0.1082214,
+            "tp1": 0.11208644999999999,
+            "tp2": 0.11374290000000001,
+            "tp3": 0.1159515,
             "tp1_hit": false
         }
     }
