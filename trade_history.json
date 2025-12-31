@@ -117,6 +117,16 @@
             "tp2": 3.60355,
             "tp3": 3.5292499999999998,
             "tp1_hit": false
+        },
+        "LEO/USDT": {
+            "side": "Short trade",
+            "entry": 9.143,
+            "exchange": "gateio",
+            "sl": 9.32586,
+            "tp1": 9.005855,
+            "tp2": 8.86871,
+            "tp3": 8.68585,
+            "tp1_hit": false
         }
     }
 }
