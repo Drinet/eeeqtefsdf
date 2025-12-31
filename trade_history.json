@@ -1,6 +1,6 @@
 {
     "wins": 8,
-    "losses": 12,
+    "losses": 13,
     "active_trades": {
         "RENDER/USD": {
             "side": "Long trade",
@@ -59,16 +59,6 @@
             "tp2": 1.5395839999999998,
             "tp3": 1.5078399999999998,
             "tp1_hit": true
-        },
-        "LEO/USDT": {
-            "side": "Short trade",
-            "entry": 9.396,
-            "exchange": "gateio",
-            "sl": 9.58392,
-            "tp1": 9.25506,
-            "tp2": 9.11412,
-            "tp3": 8.9262,
-            "tp1_hit": false
         },
         "BDX/USDT": {
             "side": "Long trade",
