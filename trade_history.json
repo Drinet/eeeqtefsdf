@@ -1,5 +1,5 @@
 {
-    "wins": 6,
+    "wins": 7,
     "losses": 8,
     "active_trades": {
         "AVAX/USD": {
@@ -132,11 +132,11 @@
             "side": "Long trade",
             "entry": 0.01023,
             "exchange": "kraken",
-            "sl": 0.010025399999999999,
+            "sl": 0.01023,
             "tp1": 0.010383449999999999,
             "tp2": 0.0105369,
             "tp3": 0.0107415,
-            "tp1_hit": false
+            "tp1_hit": true
         }
     }
 }
