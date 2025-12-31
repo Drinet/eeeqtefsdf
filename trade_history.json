@@ -38,16 +38,6 @@
             "tp3": 1.771807,
             "tp1_hit": false
         },
-        "NEXO/USDT": {
-            "side": "Long trade",
-            "entry": 0.8982,
-            "exchange": "gateio",
-            "sl": 0.8982,
-            "tp1": 0.911673,
-            "tp2": 0.925146,
-            "tp3": 0.94311,
-            "tp1_hit": true
-        },
         "APT/USD": {
             "side": "Short trade",
             "entry": 1.7289,
@@ -126,6 +116,16 @@
             "tp1": 0.1151213,
             "tp2": 0.11682260000000001,
             "tp3": 0.11909100000000002,
+            "tp1_hit": false
+        },
+        "M/USD": {
+            "side": "Short trade",
+            "entry": 1.5872,
+            "exchange": "kraken",
+            "sl": 1.618944,
+            "tp1": 1.563392,
+            "tp2": 1.5395839999999998,
+            "tp3": 1.5078399999999998,
             "tp1_hit": false
         }
     }
