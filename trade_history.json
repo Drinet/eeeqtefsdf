@@ -125,6 +125,16 @@
             "tp2": 0.0110931,
             "tp3": 0.0113085,
             "tp1_hit": false
+        },
+        "MYX/USD": {
+            "side": "Short trade",
+            "entry": 3.585,
+            "exchange": "kraken",
+            "sl": 3.6567,
+            "tp1": 3.531225,
+            "tp2": 3.4774499999999997,
+            "tp3": 3.40575,
+            "tp1_hit": false
         }
     }
 }
