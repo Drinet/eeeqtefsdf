@@ -1,5 +1,5 @@
 {
-    "wins": 7,
+    "wins": 8,
     "losses": 12,
     "active_trades": {
         "RENDER/USD": {
@@ -14,11 +14,11 @@
         "XRP/USD": {
             "side": "Short trade",
             "entry": 1.86506,
-            "sl": 1.9023611999999999,
+            "sl": 1.86506,
             "tp1": 1.8370841,
             "tp2": 1.8091081999999998,
             "tp3": 1.771807,
-            "tp1_hit": false
+            "tp1_hit": true
         },
         "APT/USD": {
             "side": "Short trade",
