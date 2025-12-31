@@ -38,15 +38,6 @@
             "tp3": 4.773300000000001,
             "tp1_hit": false
         },
-        "VIRTUAL/USD": {
-            "side": "Long trade",
-            "entry": 0.6753,
-            "sl": 0.6753,
-            "tp1": 0.6854294999999999,
-            "tp2": 0.695559,
-            "tp3": 0.7090650000000001,
-            "tp1_hit": true
-        },
         "XRP/USD": {
             "side": "Short trade",
             "entry": 1.86506,
