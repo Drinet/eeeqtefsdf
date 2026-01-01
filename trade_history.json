@@ -2,16 +2,6 @@
     "wins": 14,
     "losses": 15,
     "active_trades": {
-        "RENDER/USD": {
-            "side": "Long trade",
-            "entry": 1.294,
-            "sl": 1.294,
-            "tp1": 1.31341,
-            "tp2": 1.3328200000000001,
-            "tp3": 1.3587,
-            "tp1_hit": true,
-            "tp2_hit": true
-        },
         "XAUT/USD": {
             "side": "Long trade",
             "entry": 4343.6,
@@ -110,7 +100,18 @@
             "tp3": 69.93900000000001,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "BTC/USD": {
+            "side": "Short trade",
+            "entry": 88257.8,
+            "exchange": "kraken",
+            "sl": 90022.956,
+            "tp1": 86933.933,
+            "tp2": 85610.066,
+            "tp3": 83844.91,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
-    "balance": 511.25
+    "balance": 515.9375
 }
