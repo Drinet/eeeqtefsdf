@@ -1,6 +1,6 @@
 {
     "wins": 12,
-    "losses": 14,
+    "losses": 15,
     "active_trades": {
         "RENDER/USD": {
             "side": "Long trade",
@@ -9,7 +9,8 @@
             "tp1": 1.31341,
             "tp2": 1.3328200000000001,
             "tp3": 1.3587,
-            "tp1_hit": true
+            "tp1_hit": true,
+            "tp2_hit": true
         },
         "XRP/USD": {
             "side": "Short trade",
@@ -18,7 +19,8 @@
             "tp1": 1.8370841,
             "tp2": 1.8091081999999998,
             "tp3": 1.771807,
-            "tp1_hit": true
+            "tp1_hit": true,
+            "tp2_hit": false
         },
         "XAUT/USD": {
             "side": "Long trade",
@@ -28,17 +30,8 @@
             "tp1": 4408.754,
             "tp2": 4473.908,
             "tp3": 4560.780000000001,
-            "tp1_hit": false
-        },
-        "BDX/USDT": {
-            "side": "Long trade",
-            "entry": 0.10597,
-            "exchange": "gateio",
-            "sl": 0.10385059999999999,
-            "tp1": 0.10755954999999999,
-            "tp2": 0.1091491,
-            "tp3": 0.11126849999999999,
-            "tp1_hit": false
+            "tp1_hit": false,
+            "tp2_hit": false
         },
         "HTX/USDT": {
             "side": "Long trade",
@@ -48,7 +41,8 @@
             "tp1": 1.6622655e-06,
             "tp2": 1.686831e-06,
             "tp3": 1.719585e-06,
-            "tp1_hit": false
+            "tp1_hit": false,
+            "tp2_hit": false
         },
         "VET/USDT": {
             "side": "Long trade",
@@ -58,7 +52,8 @@
             "tp1": 0.010595585,
             "tp2": 0.01075217,
             "tp3": 0.01096095,
-            "tp1_hit": true
+            "tp1_hit": true,
+            "tp2_hit": true
         },
         "KAS/USD": {
             "side": "Long trade",
@@ -68,7 +63,8 @@
             "tp1": 0.04340139999999999,
             "tp2": 0.0440428,
             "tp3": 0.044898,
-            "tp1_hit": false
+            "tp1_hit": false,
+            "tp2_hit": false
         },
         "LINK/USD": {
             "side": "Long trade",
@@ -78,7 +74,8 @@
             "tp1": 12.375022099999999,
             "tp2": 12.557904200000001,
             "tp3": 12.801747,
-            "tp1_hit": false
+            "tp1_hit": false,
+            "tp2_hit": false
         },
         "PI/USDT": {
             "side": "Short trade",
@@ -88,7 +85,8 @@
             "tp1": 0.2010188,
             "tp2": 0.1979576,
             "tp3": 0.193876,
-            "tp1_hit": false
+            "tp1_hit": false,
+            "tp2_hit": false
         },
         "TAO/USD": {
             "side": "Short trade",
@@ -98,7 +96,8 @@
             "tp1": 220.75623,
             "tp2": 217.39445999999998,
             "tp3": 212.91209999999998,
-            "tp1_hit": false
+            "tp1_hit": false,
+            "tp2_hit": false
         },
         "NEXO/USDT": {
             "side": "Short trade",
@@ -108,7 +107,9 @@
             "tp1": 0.8824615,
             "tp2": 0.869023,
             "tp3": 0.851105,
-            "tp1_hit": false
+            "tp1_hit": false,
+            "tp2_hit": false
         }
-    }
+    },
+    "balance": 503.75
 }
