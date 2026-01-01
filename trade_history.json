@@ -20,16 +20,6 @@
             "tp3": 1.771807,
             "tp1_hit": true
         },
-        "APT/USD": {
-            "side": "Short trade",
-            "entry": 1.7289,
-            "exchange": "kraken",
-            "sl": 1.7289,
-            "tp1": 1.7029665,
-            "tp2": 1.677033,
-            "tp3": 1.642455,
-            "tp1_hit": true
-        },
         "XAUT/USD": {
             "side": "Long trade",
             "entry": 4343.6,
