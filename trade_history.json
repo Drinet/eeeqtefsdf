@@ -1,6 +1,6 @@
 {
     "wins": 8,
-    "losses": 13,
+    "losses": 14,
     "active_trades": {
         "RENDER/USD": {
             "side": "Long trade",
@@ -38,16 +38,6 @@
             "tp1": 4408.754,
             "tp2": 4473.908,
             "tp3": 4560.780000000001,
-            "tp1_hit": false
-        },
-        "QNT/USD": {
-            "side": "Long trade",
-            "entry": 69.89,
-            "exchange": "kraken",
-            "sl": 68.4922,
-            "tp1": 70.93835,
-            "tp2": 71.9867,
-            "tp3": 73.3845,
             "tp1_hit": false
         },
         "M/USD": {
@@ -118,6 +108,16 @@
             "tp1": 0.04340139999999999,
             "tp2": 0.0440428,
             "tp3": 0.044898,
+            "tp1_hit": false
+        },
+        "LINK/USD": {
+            "side": "Long trade",
+            "entry": 12.19214,
+            "exchange": "kraken",
+            "sl": 11.9482972,
+            "tp1": 12.375022099999999,
+            "tp2": 12.557904200000001,
+            "tp3": 12.801747,
             "tp1_hit": false
         }
     }
