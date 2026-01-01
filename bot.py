@@ -12,6 +12,14 @@ from scipy.signal import argrelextrema
 # --- CONFIG ---
 DISCORD_WEBHOOK = os.getenv('DISCORD_WEBHOOK_URL')
 DB_FILE = "trade_history.json"
+STARTING_BALANCE = 500.0
+
+# --- LEVERAGE & RISK SETTINGS ---
+LEVERAGE = 10                  # High leverage to allow multiple trades
+DOLLAR_RISK_PER_TRADE = 7.5    # We lose exactly $7.50 if 2% SL is hit
+SL_PERCENT = 0.02              # 2% SL
+POSITION_SIZE_USD = DOLLAR_RISK_PER_TRADE / SL_PERCENT  # Total Trade Value ($375)
+MARGIN_REQUIRED = POSITION_SIZE_USD / LEVERAGE         # Collateral per trade ($37.50)
 
 # Multi-Exchange Fallback
 EXCHANGES = {
@@ -21,7 +29,6 @@ EXCHANGES = {
 }
 
 def log(msg):
-    """Keep testing/debug info visible in GitHub logs."""
     print(f"DEBUG: {msg}", flush=True)
 
 def format_price(price):
@@ -40,10 +47,15 @@ def load_db():
                 db = json.load(f)
                 db.setdefault("wins", 0)
                 db.setdefault("losses", 0)
+                db.setdefault("balance", STARTING_BALANCE)
                 db.setdefault("active_trades", {})
+                # Migration: Ensure older trades don't crash the bot
+                for sym, data in db['active_trades'].items():
+                    data.setdefault("tp1_hit", False)
+                    data.setdefault("tp2_hit", False)
                 return db
         except: pass
-    return {"wins": 0, "losses": 0, "active_trades": {}}
+    return {"wins": 0, "losses": 0, "balance": STARTING_BALANCE, "active_trades": {}}
 
 def save_db(db):
     with open(DB_FILE, 'w') as f:
@@ -77,13 +89,11 @@ def detect_triple_divergence(df, order=4):
     df['RSI'] = ta.rsi(df['close'], length=14)
     df = df.dropna().reset_index(drop=True)
     if len(df) < 50: return None
-    # BULLISH (Bodies only)
     low_pivots = argrelextrema(df['close'].values, np.less, order=order)[0]
     if len(low_pivots) >= 3:
         p1, p2, p3 = df['close'].iloc[low_pivots[-3:]].values
         r1, r2, r3 = df['RSI'].iloc[low_pivots[-3:]].values
         if p1 > p2 > p3 and r1 < r2 < r3: return "Long trade"
-    # BEARISH (Bodies only)
     high_pivots = argrelextrema(df['close'].values, np.greater, order=order)[0]
     if len(high_pivots) >= 3:
         p1, p2, p3 = df['close'].iloc[high_pivots[-3:]].values
@@ -93,8 +103,11 @@ def detect_triple_divergence(df, order=4):
 
 def update_trades(db):
     active = db['active_trades']
-    if not active: return
+    if not active: return False
+    
+    status_changed = False
     log(f"Updating {len(active)} active trades...")
+    
     for sym in list(active.keys()):
         try:
             t = active[sym]
@@ -104,77 +117,100 @@ def update_trades(db):
             curr = ticker['last']
             is_long = (t['side'] == "Long trade")
             
+            # TP3 (Final 25% @ 5%)
             if (is_long and curr >= t['tp3']) or (not is_long and curr <= t['tp3']):
-                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{sym} TP3 HIT!** Trade closed."})
+                profit = (POSITION_SIZE_USD * 0.25) * 0.05
+                db['balance'] += profit
+                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{sym} TP3 HIT!** Profit: +${profit:.2f}"})
                 del active[sym]
+                status_changed = True
                 continue
+            
+            # TP2 (50% @ 3%)
+            if not t.get('tp2_hit', False):
+                if (is_long and curr >= t['tp2']) or (not is_long and curr <= t['tp2']):
+                    profit = (POSITION_SIZE_USD * 0.50) * 0.03
+                    db['balance'] += profit
+                    t['tp2_hit'] = True
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"🎯 **{sym} TP2 HIT!** Profit: +${profit:.2f}"})
+
+            # TP1 (25% @ 1.5%) + Move SL to Entry
             if not t.get('tp1_hit', False):
                 if (is_long and curr >= t['tp1']) or (not is_long and curr <= t['tp1']):
+                    profit = (POSITION_SIZE_USD * 0.25) * 0.015
+                    db['balance'] += profit
                     t['tp1_hit'] = True
                     t['sl'] = t['entry'] 
                     db['wins'] += 1
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 HIT!** SL moved to entry."})
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 HIT!** Profit: +${profit:.2f}. SL moved to entry."})
+
+            # SL HIT
             if (is_long and curr <= t['sl']) or (not is_long and curr >= t['sl']):
-                if not t.get('tp1_hit', False):
-                    db['losses'] += 1
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit** on {ex_name}."})
+                if t.get('tp1_hit', False):
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"⚠️ **{sym} Closed at Entry** (Risk-Free)."})
                 else:
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"⚠️ **{sym} Closed at Entry**."})
+                    db['balance'] -= DOLLAR_RISK_PER_TRADE
+                    db['losses'] += 1
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit**. Loss: -${DOLLAR_RISK_PER_TRADE:.2f}"})
                 del active[sym]
+                status_changed = True
+                
         except Exception as e: log(f"Update error for {sym}: {e}")
+    
+    return status_changed
 
 def main():
     db = load_db()
-    update_trades(db)
-    coins = get_top_coins()
-    log(f"Starting Scan for {len(coins)} Coins...")
+    status_changed = update_trades(db)
+    
+    # Buy Power Logic
+    used_margin = len(db['active_trades']) * MARGIN_REQUIRED
+    available_margin = db['balance'] - used_margin
+    log(f"Balance: ${db['balance']:.2f} | Available Margin: ${available_margin:.2f}")
 
-    for i, coin in enumerate(coins, 1):
-        is_active = any(coin in key for key in db['active_trades'].keys())
-        if is_active:
-            log(f"[{i}/{len(coins)}] {coin} - SKIP (Already Active)")
-            continue
+    new_trade_opened = False
+    if available_margin >= MARGIN_REQUIRED:
+        coins = get_top_coins()
+        for i, coin in enumerate(coins, 1):
+            if any(coin in key for key in db['active_trades'].keys()): continue
 
-        log(f"[{i}/{len(coins)}] {coin} - Scanning...")
-        bars, last_price, pair_name, ex_name = get_ohlcv_multi_exchange(coin)
-        
-        if not bars:
-            log(f"      {coin} - Error: Not on supported exchanges.")
-            continue
+            bars, last_price, pair_name, ex_name = get_ohlcv_multi_exchange(coin)
+            if not bars: continue
 
-        df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close', 'vol'])
-        signal = detect_triple_divergence(df)
-        
-        if signal:
-            entry = last_price
-            mult = 1 if signal == "Long trade" else -1
-            t_data = {
-                "side": signal, "entry": entry, "exchange": ex_name,
-                "sl": entry * (1 - (0.02 * mult)),
-                "tp1": entry * (1 + (0.015 * mult)),
-                "tp2": entry * (1 + (0.03 * mult)),
-                "tp3": entry * (1 + (0.05 * mult)),
-                "tp1_hit": False
-            }
-            db['active_trades'][pair_name] = t_data
-            total = db['wins'] + db['losses']
-            wr = (db['wins'] / total * 100) if total > 0 else 0
+            df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close', 'vol'])
+            signal = detect_triple_divergence(df)
             
-            msg = (f"✨ **{signal.upper()}**\n🪙 **${coin}** ({ex_name})\n"
-                   f"💵 Entry: {format_price(entry)}\n🛑 SL: {format_price(t_data['sl'])}\n"
-                   f"🎯 TP1: {format_price(t_data['tp1'])} | TP2: {format_price(t_data['tp2'])} | TP3: {format_price(t_data['tp3'])}\n\n"
-                   f"📊 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
-            requests.post(DISCORD_WEBHOOK, json={"content": msg})
-            log(f"!!! SIGNAL: {coin} !!!")
+            if signal:
+                entry = last_price
+                mult = 1 if signal == "Long trade" else -1
+                t_data = {
+                    "side": signal, "entry": entry, "exchange": ex_name,
+                    "sl": entry * (1 - (0.02 * mult)),
+                    "tp1": entry * (1 + (0.015 * mult)),
+                    "tp2": entry * (1 + (0.03 * mult)),
+                    "tp3": entry * (1 + (0.05 * mult)),
+                    "tp1_hit": False, "tp2_hit": False
+                }
+                db['active_trades'][pair_name] = t_data
+                new_trade_opened = True
+                
+                total = db['wins'] + db['losses']
+                wr = (db['wins'] / total * 100) if total > 0 else 0
+                pnl = db['balance'] - STARTING_BALANCE
+                
+                msg = (f"✨ **{signal.upper()}**\n🪙 **${coin}** ({ex_name})\n"
+                       f"💵 Entry: {format_price(entry)}\n🛑 SL: {format_price(t_data['sl'])}\n"
+                       f"🎯 TP1: {format_price(t_data['tp1'])} | TP2: {format_price(t_data['tp2'])} | TP3: {format_price(t_data['tp3'])}\n\n"
+                       f"💰 **Balance: ${db['balance']:.2f}** ({'+' if pnl >=0 else ''}{pnl:.2f})\n"
+                       f"📊 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
+                requests.post(DISCORD_WEBHOOK, json={"content": msg})
 
-    # POST CONSOLIDATED ACTIVE TRADES LIST
-    if db['active_trades']:
+    if (status_changed or new_trade_opened) and db['active_trades']:
         trade_list = "\n".join([f"{s.split('/')[0]}: {v['side']}" for s, v in db['active_trades'].items()])
-        summary = f"📑 **Current Active Trades** (Click to expand):\n||{trade_list}||"
+        summary = f"📑 **Updated Active Trades**:\n||{trade_list}||"
         requests.post(DISCORD_WEBHOOK, json={"content": summary})
     
     save_db(db)
-    log("Scan Complete.")
 
 if __name__ == "__main__":
     main()
