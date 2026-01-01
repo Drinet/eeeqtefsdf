@@ -1,6 +1,6 @@
 {
     "wins": 14,
-    "losses": 15,
+    "losses": 17,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -44,7 +44,7 @@
             "tp2": 12.557904200000001,
             "tp3": 12.801747,
             "tp1_hit": true,
-            "tp2_hit": false
+            "tp2_hit": true
         },
         "PI/USDT": {
             "side": "Short trade",
@@ -54,17 +54,6 @@
             "tp1": 0.2010188,
             "tp2": 0.1979576,
             "tp3": 0.193876,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
-        "TAO/USD": {
-            "side": "Short trade",
-            "entry": 224.118,
-            "exchange": "kraken",
-            "sl": 228.60036,
-            "tp1": 220.75623,
-            "tp2": 217.39445999999998,
-            "tp3": 212.91209999999998,
             "tp1_hit": false,
             "tp2_hit": false
         },
@@ -87,17 +76,6 @@
             "tp1": 0.1053976,
             "tp2": 0.1069552,
             "tp3": 0.109032,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
-        "QNT/USD": {
-            "side": "Short trade",
-            "entry": 73.62,
-            "exchange": "kraken",
-            "sl": 75.09240000000001,
-            "tp1": 72.51570000000001,
-            "tp2": 71.4114,
-            "tp3": 69.93900000000001,
             "tp1_hit": false,
             "tp2_hit": false
         },
@@ -135,5 +113,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 521.5625
+    "balance": 512.1875
 }
