@@ -50,26 +50,6 @@
             "tp3": 1.719585e-06,
             "tp1_hit": false
         },
-        "ALGO/USD": {
-            "side": "Long trade",
-            "entry": 0.11043,
-            "exchange": "kraken",
-            "sl": 0.11043,
-            "tp1": 0.11208644999999999,
-            "tp2": 0.11374290000000001,
-            "tp3": 0.1159515,
-            "tp1_hit": true
-        },
-        "ATOM/USD": {
-            "side": "Long trade",
-            "entry": 1.9189,
-            "exchange": "kraken",
-            "sl": 1.9189,
-            "tp1": 1.9476835,
-            "tp2": 1.9764670000000002,
-            "tp3": 2.014845,
-            "tp1_hit": true
-        },
         "VET/USDT": {
             "side": "Long trade",
             "entry": 0.010439,
