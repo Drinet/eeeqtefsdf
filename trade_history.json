@@ -1,5 +1,5 @@
 {
-    "wins": 10,
+    "wins": 11,
     "losses": 14,
     "active_trades": {
         "RENDER/USD": {
@@ -74,11 +74,11 @@
             "side": "Long trade",
             "entry": 1.9189,
             "exchange": "kraken",
-            "sl": 1.880522,
+            "sl": 1.9189,
             "tp1": 1.9476835,
             "tp2": 1.9764670000000002,
             "tp3": 2.014845,
-            "tp1_hit": false
+            "tp1_hit": true
         },
         "VET/USDT": {
             "side": "Long trade",
