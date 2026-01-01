@@ -1,5 +1,5 @@
 {
-    "wins": 9,
+    "wins": 10,
     "losses": 14,
     "active_trades": {
         "RENDER/USD": {
@@ -84,11 +84,11 @@
             "side": "Long trade",
             "entry": 0.010439,
             "exchange": "gateio",
-            "sl": 0.01023022,
+            "sl": 0.010439,
             "tp1": 0.010595585,
             "tp2": 0.01075217,
             "tp3": 0.01096095,
-            "tp1_hit": false
+            "tp1_hit": true
         },
         "KAS/USD": {
             "side": "Long trade",
