@@ -99,6 +99,17 @@
             "tp3": 0.109032,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "QNT/USD": {
+            "side": "Short trade",
+            "entry": 73.62,
+            "exchange": "kraken",
+            "sl": 75.09240000000001,
+            "tp1": 72.51570000000001,
+            "tp2": 71.4114,
+            "tp3": 69.93900000000001,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
     "balance": 511.25
