@@ -111,6 +111,28 @@
             "tp3": 83844.91,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "ATOM/USD": {
+            "side": "Short trade",
+            "entry": 2.0475,
+            "exchange": "kraken",
+            "sl": 2.08845,
+            "tp1": 2.0167875,
+            "tp2": 1.9860749999999998,
+            "tp3": 1.9451249999999998,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "RENDER/USD": {
+            "side": "Short trade",
+            "entry": 1.353,
+            "exchange": "kraken",
+            "sl": 1.38006,
+            "tp1": 1.332705,
+            "tp2": 1.3124099999999999,
+            "tp3": 1.28535,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
     "balance": 515.9375
