@@ -40,16 +40,6 @@
             "tp3": 4560.780000000001,
             "tp1_hit": false
         },
-        "M/USD": {
-            "side": "Short trade",
-            "entry": 1.5872,
-            "exchange": "kraken",
-            "sl": 1.5872,
-            "tp1": 1.563392,
-            "tp2": 1.5395839999999998,
-            "tp3": 1.5078399999999998,
-            "tp1_hit": true
-        },
         "BDX/USDT": {
             "side": "Long trade",
             "entry": 0.10597,
