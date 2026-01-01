@@ -1,5 +1,5 @@
 {
-    "wins": 12,
+    "wins": 13,
     "losses": 15,
     "active_trades": {
         "RENDER/USD": {
@@ -70,11 +70,11 @@
             "side": "Long trade",
             "entry": 12.19214,
             "exchange": "kraken",
-            "sl": 11.9482972,
+            "sl": 12.19214,
             "tp1": 12.375022099999999,
             "tp2": 12.557904200000001,
             "tp3": 12.801747,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         },
         "PI/USDT": {
@@ -109,7 +109,18 @@
             "tp3": 0.851105,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "BDX/USDT": {
+            "side": "Long trade",
+            "entry": 0.10384,
+            "exchange": "gateio",
+            "sl": 0.1017632,
+            "tp1": 0.1053976,
+            "tp2": 0.1069552,
+            "tp3": 0.109032,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
-    "balance": 503.75
+    "balance": 505.15625
 }
