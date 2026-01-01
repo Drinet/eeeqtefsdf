@@ -1,5 +1,5 @@
 {
-    "wins": 8,
+    "wins": 9,
     "losses": 14,
     "active_trades": {
         "RENDER/USD": {
@@ -64,11 +64,11 @@
             "side": "Long trade",
             "entry": 0.11043,
             "exchange": "kraken",
-            "sl": 0.1082214,
+            "sl": 0.11043,
             "tp1": 0.11208644999999999,
             "tp2": 0.11374290000000001,
             "tp3": 0.1159515,
-            "tp1_hit": false
+            "tp1_hit": true
         },
         "ATOM/USD": {
             "side": "Long trade",
