@@ -119,6 +119,16 @@
             "tp2": 12.557904200000001,
             "tp3": 12.801747,
             "tp1_hit": false
+        },
+        "PI/USDT": {
+            "side": "Short trade",
+            "entry": 0.20408,
+            "exchange": "gateio",
+            "sl": 0.2081616,
+            "tp1": 0.2010188,
+            "tp2": 0.1979576,
+            "tp3": 0.193876,
+            "tp1_hit": false
         }
     }
 }
