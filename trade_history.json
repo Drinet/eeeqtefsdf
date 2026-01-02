@@ -1,6 +1,6 @@
 {
     "wins": 14,
-    "losses": 18,
+    "losses": 19,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -32,17 +32,6 @@
             "tp1": 0.04340139999999999,
             "tp2": 0.0440428,
             "tp3": 0.044898,
-            "tp1_hit": true,
-            "tp2_hit": true
-        },
-        "LINK/USD": {
-            "side": "Long trade",
-            "entry": 12.19214,
-            "exchange": "kraken",
-            "sl": 12.19214,
-            "tp1": 12.375022099999999,
-            "tp2": 12.557904200000001,
-            "tp3": 12.801747,
             "tp1_hit": true,
             "tp2_hit": true
         },
@@ -90,17 +79,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "ATOM/USD": {
-            "side": "Short trade",
-            "entry": 2.0475,
-            "exchange": "kraken",
-            "sl": 2.08845,
-            "tp1": 2.0167875,
-            "tp2": 1.9860749999999998,
-            "tp3": 1.9451249999999998,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "LEO/USDT": {
             "side": "Short trade",
             "entry": 9.62,
@@ -111,7 +89,51 @@
             "tp3": 9.139,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "AVAX/USD": {
+            "side": "Short trade",
+            "entry": 13.75,
+            "exchange": "kraken",
+            "sl": 14.025,
+            "tp1": 13.54375,
+            "tp2": 13.3375,
+            "tp3": 13.0625,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "APT/USD": {
+            "side": "Short trade",
+            "entry": 1.8666,
+            "exchange": "kraken",
+            "sl": 1.9039320000000002,
+            "tp1": 1.838601,
+            "tp2": 1.810602,
+            "tp3": 1.77327,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "ONDO/USD": {
+            "side": "Short trade",
+            "entry": 0.39339,
+            "exchange": "kraken",
+            "sl": 0.4012578,
+            "tp1": 0.38748915,
+            "tp2": 0.3815883,
+            "tp3": 0.3737205,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "SEI/USD": {
+            "side": "Short trade",
+            "entry": 0.11699,
+            "exchange": "kraken",
+            "sl": 0.1193298,
+            "tp1": 0.11523515,
+            "tp2": 0.11348029999999999,
+            "tp3": 0.11114049999999999,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
-    "balance": 504.6875
+    "balance": 501.875
 }
