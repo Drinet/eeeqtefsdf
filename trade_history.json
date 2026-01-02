@@ -1,6 +1,6 @@
 {
     "wins": 15,
-    "losses": 19,
+    "losses": 20,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -166,18 +166,7 @@
             "tp3": 73.14999999999999,
             "tp1_hit": false,
             "tp2_hit": false
-        },
-        "ALGO/USD": {
-            "side": "Short trade",
-            "entry": 0.12159,
-            "exchange": "kraken",
-            "sl": 0.1240218,
-            "tp1": 0.11976615,
-            "tp2": 0.1179423,
-            "tp3": 0.1155105,
-            "tp1_hit": false,
-            "tp2_hit": false
         }
     },
-    "balance": 503.28125
+    "balance": 495.78125
 }
