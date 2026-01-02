@@ -1,6 +1,6 @@
 {
     "wins": 17,
-    "losses": 28,
+    "losses": 29,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -46,17 +46,6 @@
             "tp1_hit": true,
             "tp2_hit": false
         },
-        "AVAX/USD": {
-            "side": "Short trade",
-            "entry": 13.75,
-            "exchange": "kraken",
-            "sl": 13.75,
-            "tp1": 13.54375,
-            "tp2": 13.3375,
-            "tp3": 13.0625,
-            "tp1_hit": true,
-            "tp2_hit": true
-        },
         "ENA/USD": {
             "side": "Short trade",
             "entry": 0.2363,
@@ -101,17 +90,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "BONK/USD": {
-            "side": "Short trade",
-            "entry": 8.957e-06,
-            "exchange": "kraken",
-            "sl": 9.136140000000002e-06,
-            "tp1": 8.822645e-06,
-            "tp2": 8.68829e-06,
-            "tp3": 8.50915e-06,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "DOGE/USD": {
             "side": "Short trade",
             "entry": 0.1393999,
@@ -122,7 +100,18 @@
             "tp3": 0.132429905,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "BONK/USD": {
+            "side": "Short trade",
+            "entry": 9.2e-06,
+            "exchange": "kraken",
+            "sl": 9.384e-06,
+            "tp1": 9.062e-06,
+            "tp2": 8.924e-06,
+            "tp3": 8.74e-06,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
-    "balance": 448.90625
+    "balance": 441.40625
 }
