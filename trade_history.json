@@ -1,6 +1,6 @@
 {
     "wins": 15,
-    "losses": 20,
+    "losses": 21,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -23,17 +23,6 @@
             "tp3": 1.719585e-06,
             "tp1_hit": false,
             "tp2_hit": false
-        },
-        "KAS/USD": {
-            "side": "Long trade",
-            "entry": 0.04276,
-            "exchange": "kraken",
-            "sl": 0.04276,
-            "tp1": 0.04340139999999999,
-            "tp2": 0.0440428,
-            "tp3": 0.044898,
-            "tp1_hit": true,
-            "tp2_hit": true
         },
         "PI/USDT": {
             "side": "Short trade",
@@ -112,17 +101,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "ONDO/USD": {
-            "side": "Short trade",
-            "entry": 0.39339,
-            "exchange": "kraken",
-            "sl": 0.4012578,
-            "tp1": 0.38748915,
-            "tp2": 0.3815883,
-            "tp3": 0.3737205,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "SEI/USD": {
             "side": "Short trade",
             "entry": 0.11699,
@@ -168,5 +146,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 495.78125
+    "balance": 492.96875
 }
