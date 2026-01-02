@@ -133,6 +133,50 @@
             "tp3": 0.11114049999999999,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "LTC/USD": {
+            "side": "Short trade",
+            "entry": 79.56,
+            "exchange": "kraken",
+            "sl": 81.1512,
+            "tp1": 78.3666,
+            "tp2": 77.1732,
+            "tp3": 75.582,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "NEAR/USD": {
+            "side": "Short trade",
+            "entry": 1.644,
+            "exchange": "kraken",
+            "sl": 1.67688,
+            "tp1": 1.6193399999999998,
+            "tp2": 1.5946799999999999,
+            "tp3": 1.5617999999999999,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "QNT/USD": {
+            "side": "Short trade",
+            "entry": 77.0,
+            "exchange": "kraken",
+            "sl": 78.54,
+            "tp1": 75.845,
+            "tp2": 74.69,
+            "tp3": 73.14999999999999,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "ALGO/USD": {
+            "side": "Short trade",
+            "entry": 0.12159,
+            "exchange": "kraken",
+            "sl": 0.1240218,
+            "tp1": 0.11976615,
+            "tp2": 0.1179423,
+            "tp3": 0.1155105,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
     "balance": 501.875
