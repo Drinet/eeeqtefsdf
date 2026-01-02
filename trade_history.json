@@ -1,6 +1,6 @@
 {
     "wins": 16,
-    "losses": 26,
+    "losses": 27,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -68,17 +68,6 @@
             "tp1_hit": true,
             "tp2_hit": true
         },
-        "QNT/USD": {
-            "side": "Short trade",
-            "entry": 77.0,
-            "exchange": "kraken",
-            "sl": 78.54,
-            "tp1": 75.845,
-            "tp2": 74.69,
-            "tp3": 73.14999999999999,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "ENA/USD": {
             "side": "Short trade",
             "entry": 0.2363,
@@ -135,5 +124,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 462.5
+    "balance": 455.0
 }
