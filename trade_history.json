@@ -1,6 +1,6 @@
 {
     "wins": 14,
-    "losses": 17,
+    "losses": 18,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -101,17 +101,17 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "RENDER/USD": {
+        "LEO/USDT": {
             "side": "Short trade",
-            "entry": 1.353,
-            "exchange": "kraken",
-            "sl": 1.38006,
-            "tp1": 1.332705,
-            "tp2": 1.3124099999999999,
-            "tp3": 1.28535,
+            "entry": 9.62,
+            "exchange": "gateio",
+            "sl": 9.8124,
+            "tp1": 9.4757,
+            "tp2": 9.331399999999999,
+            "tp3": 9.139,
             "tp1_hit": false,
             "tp2_hit": false
         }
     },
-    "balance": 512.1875
+    "balance": 504.6875
 }
