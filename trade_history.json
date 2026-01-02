@@ -1,5 +1,5 @@
 {
-    "wins": 14,
+    "wins": 15,
     "losses": 19,
     "active_trades": {
         "XAUT/USD": {
@@ -94,11 +94,11 @@
             "side": "Short trade",
             "entry": 13.75,
             "exchange": "kraken",
-            "sl": 14.025,
+            "sl": 13.75,
             "tp1": 13.54375,
             "tp2": 13.3375,
             "tp3": 13.0625,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         },
         "APT/USD": {
@@ -179,5 +179,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 501.875
+    "balance": 503.28125
 }
