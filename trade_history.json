@@ -1,6 +1,6 @@
 {
     "wins": 17,
-    "losses": 29,
+    "losses": 30,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -90,17 +90,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "DOGE/USD": {
-            "side": "Short trade",
-            "entry": 0.1393999,
-            "exchange": "kraken",
-            "sl": 0.142187898,
-            "tp1": 0.1373089015,
-            "tp2": 0.135217903,
-            "tp3": 0.132429905,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "BONK/USD": {
             "side": "Short trade",
             "entry": 9.2e-06,
@@ -111,7 +100,18 @@
             "tp3": 8.74e-06,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "DOGE/USD": {
+            "side": "Short trade",
+            "entry": 0.1434514,
+            "exchange": "kraken",
+            "sl": 0.146320428,
+            "tp1": 0.141299629,
+            "tp2": 0.139147858,
+            "tp3": 0.13627883,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
-    "balance": 441.40625
+    "balance": 433.90625
 }
