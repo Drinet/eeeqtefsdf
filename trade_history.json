@@ -122,6 +122,28 @@
             "tp3": 0.06017299999999999,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "TRUMP/USD": {
+            "side": "Short trade",
+            "entry": 5.009,
+            "exchange": "kraken",
+            "sl": 5.10918,
+            "tp1": 4.933865,
+            "tp2": 4.85873,
+            "tp3": 4.7585500000000005,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "BONK/USD": {
+            "side": "Short trade",
+            "entry": 8.957e-06,
+            "exchange": "kraken",
+            "sl": 9.136140000000002e-06,
+            "tp1": 8.822645e-06,
+            "tp2": 8.68829e-06,
+            "tp3": 8.50915e-06,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
     "balance": 470.0
