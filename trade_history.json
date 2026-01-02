@@ -1,6 +1,6 @@
 {
     "wins": 16,
-    "losses": 27,
+    "losses": 28,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -21,17 +21,6 @@
             "tp1": 1.6622655e-06,
             "tp2": 1.686831e-06,
             "tp3": 1.719585e-06,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
-        "PI/USDT": {
-            "side": "Short trade",
-            "entry": 0.20408,
-            "exchange": "gateio",
-            "sl": 0.2081616,
-            "tp1": 0.2010188,
-            "tp2": 0.1979576,
-            "tp3": 0.193876,
             "tp1_hit": false,
             "tp2_hit": false
         },
@@ -122,7 +111,18 @@
             "tp3": 8.50915e-06,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "DOGE/USD": {
+            "side": "Short trade",
+            "entry": 0.1393999,
+            "exchange": "kraken",
+            "sl": 0.142187898,
+            "tp1": 0.1373089015,
+            "tp2": 0.135217903,
+            "tp3": 0.132429905,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
-    "balance": 455.0
+    "balance": 447.5
 }
