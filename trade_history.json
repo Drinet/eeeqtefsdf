@@ -1,5 +1,5 @@
 {
-    "wins": 16,
+    "wins": 17,
     "losses": 28,
     "active_trades": {
         "XAUT/USD": {
@@ -39,11 +39,11 @@
             "side": "Short trade",
             "entry": 9.62,
             "exchange": "gateio",
-            "sl": 9.8124,
+            "sl": 9.62,
             "tp1": 9.4757,
             "tp2": 9.331399999999999,
             "tp3": 9.139,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         },
         "AVAX/USD": {
@@ -124,5 +124,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 447.5
+    "balance": 448.90625
 }
