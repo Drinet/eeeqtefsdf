@@ -1,6 +1,6 @@
 {
     "wins": 16,
-    "losses": 21,
+    "losses": 25,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -35,17 +35,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "NEXO/USDT": {
-            "side": "Short trade",
-            "entry": 0.8959,
-            "exchange": "gateio",
-            "sl": 0.913818,
-            "tp1": 0.8824615,
-            "tp2": 0.869023,
-            "tp3": 0.851105,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "BDX/USDT": {
             "side": "Long trade",
             "entry": 0.10384,
@@ -54,17 +43,6 @@
             "tp1": 0.1053976,
             "tp2": 0.1069552,
             "tp3": 0.109032,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
-        "BTC/USD": {
-            "side": "Short trade",
-            "entry": 88257.8,
-            "exchange": "kraken",
-            "sl": 90022.956,
-            "tp1": 86933.933,
-            "tp2": 85610.066,
-            "tp3": 83844.91,
             "tp1_hit": false,
             "tp2_hit": false
         },
@@ -90,39 +68,6 @@
             "tp1_hit": true,
             "tp2_hit": true
         },
-        "APT/USD": {
-            "side": "Short trade",
-            "entry": 1.8666,
-            "exchange": "kraken",
-            "sl": 1.8666,
-            "tp1": 1.838601,
-            "tp2": 1.810602,
-            "tp3": 1.77327,
-            "tp1_hit": true,
-            "tp2_hit": false
-        },
-        "SEI/USD": {
-            "side": "Short trade",
-            "entry": 0.11699,
-            "exchange": "kraken",
-            "sl": 0.1193298,
-            "tp1": 0.11523515,
-            "tp2": 0.11348029999999999,
-            "tp3": 0.11114049999999999,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
-        "LTC/USD": {
-            "side": "Short trade",
-            "entry": 79.56,
-            "exchange": "kraken",
-            "sl": 81.1512,
-            "tp1": 78.3666,
-            "tp2": 77.1732,
-            "tp3": 75.582,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "NEAR/USD": {
             "side": "Short trade",
             "entry": 1.644,
@@ -144,7 +89,40 @@
             "tp3": 73.14999999999999,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "ENA/USD": {
+            "side": "Short trade",
+            "entry": 0.2363,
+            "exchange": "kraken",
+            "sl": 0.24102600000000002,
+            "tp1": 0.2327555,
+            "tp2": 0.229211,
+            "tp3": 0.224485,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "PAXG/USD": {
+            "side": "Short trade",
+            "entry": 4329.0,
+            "exchange": "kraken",
+            "sl": 4415.58,
+            "tp1": 4264.065,
+            "tp2": 4199.13,
+            "tp3": 4112.55,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "SKY/USD": {
+            "side": "Short trade",
+            "entry": 0.06334,
+            "exchange": "kraken",
+            "sl": 0.06460679999999999,
+            "tp1": 0.06238989999999999,
+            "tp2": 0.06143979999999999,
+            "tp3": 0.06017299999999999,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     },
-    "balance": 500.0
+    "balance": 470.0
 }
