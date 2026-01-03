@@ -1,6 +1,6 @@
 {
-    "wins": 17,
-    "losses": 30,
+    "wins": 19,
+    "losses": 32,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -17,11 +17,11 @@
             "side": "Long trade",
             "entry": 1.6377e-06,
             "exchange": "gateio",
-            "sl": 1.604946e-06,
+            "sl": 1.6377e-06,
             "tp1": 1.6622655e-06,
             "tp2": 1.686831e-06,
             "tp3": 1.719585e-06,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         },
         "BDX/USDT": {
@@ -72,11 +72,11 @@
             "side": "Short trade",
             "entry": 0.06334,
             "exchange": "kraken",
-            "sl": 0.06460679999999999,
+            "sl": 0.06334,
             "tp1": 0.06238989999999999,
             "tp2": 0.06143979999999999,
             "tp3": 0.06017299999999999,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         },
         "TRUMP/USD": {
@@ -134,28 +134,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "PEPE/USD": {
-            "side": "Short trade",
-            "entry": 5.958e-06,
-            "exchange": "kraken",
-            "sl": 6.077160000000001e-06,
-            "tp1": 5.8686300000000004e-06,
-            "tp2": 5.7792600000000005e-06,
-            "tp3": 5.6601e-06,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
-        "POL/USD": {
-            "side": "Short trade",
-            "entry": 0.11317,
-            "exchange": "kraken",
-            "sl": 0.1154334,
-            "tp1": 0.11147245,
-            "tp2": 0.10977490000000001,
-            "tp3": 0.1075115,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "ALGO/USD": {
             "side": "Short trade",
             "entry": 0.12724,
@@ -168,5 +146,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 439.53125
+    "balance": 427.34375
 }
