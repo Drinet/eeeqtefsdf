@@ -3,25 +3,25 @@ import pandas as pd
 import pandas_ta as ta
 import requests
 import os
-import numpy as np
 import json
-import sys
 import time
-from scipy.signal import argrelextrema
 
 # --- CONFIG ---
 DISCORD_WEBHOOK = os.getenv('DISCORD_WEBHOOK_URL')
 DB_FILE = "trade_history.json"
-STARTING_BALANCE = 500.0
+STARTING_BALANCE = 500.0  # Resetting balance as requested
+TIMEFRAME = '4h'          # Using 4-hour timeframe for reliability
 
-# --- LEVERAGE & RISK SETTINGS ---
-LEVERAGE = 10                  # High leverage to allow multiple trades
-DOLLAR_RISK_PER_TRADE = 7.5    # We lose exactly $7.50 if 2% SL is hit
-SL_PERCENT = 0.02              # 2% SL
-POSITION_SIZE_USD = DOLLAR_RISK_PER_TRADE / SL_PERCENT  # Total Trade Value ($375)
-MARGIN_REQUIRED = POSITION_SIZE_USD / LEVERAGE         # Collateral per trade ($37.50)
+# --- RISK SETTINGS ---
+LEVERAGE = 10
+SL_PERCENT = 0.02         # 2% SL
+TP1_PERCENT = 0.015       # 1.5% TP
+TP2_PERCENT = 0.03        # 3.0% TP
+TP3_PERCENT = 0.05        # 5.0% TP
+DOLLAR_RISK_PER_TRADE = 10.0  # Amount to lose if SL hit
+POSITION_SIZE_USD = DOLLAR_RISK_PER_TRADE / SL_PERCENT  # ~$500 position size
+MARGIN_REQUIRED = POSITION_SIZE_USD / LEVERAGE
 
-# Multi-Exchange Fallback
 EXCHANGES = {
     "kraken": ccxt.kraken({'enableRateLimit': True}),
     "binance": ccxt.binance({'enableRateLimit': True}),
@@ -31,28 +31,14 @@ EXCHANGES = {
 def log(msg):
     print(f"DEBUG: {msg}", flush=True)
 
-def format_price(price):
-    if price is None: return "0.00"
-    if price < 0.0001:
-        return f"{price:.10f}".rstrip('0').rstrip('.')
-    elif price < 1:
-        return f"{price:.6f}"
-    else:
-        return f"{price:.4f}"
-
 def load_db():
     if os.path.exists(DB_FILE):
         try:
             with open(DB_FILE, 'r') as f:
                 db = json.load(f)
-                db.setdefault("wins", 0)
-                db.setdefault("losses", 0)
-                db.setdefault("balance", STARTING_BALANCE)
-                db.setdefault("active_trades", {})
-                # Migration: Ensure older trades don't crash the bot
-                for sym, data in db['active_trades'].items():
-                    data.setdefault("tp1_hit", False)
-                    data.setdefault("tp2_hit", False)
+                # Ensure structure exists
+                for k in ["wins", "losses", "balance", "active_trades"]:
+                    if k not in db: db[k] = 0 if "wins" in k or "losses" in k else (STARTING_BALANCE if "balance" in k else {})
                 return db
         except: pass
     return {"wins": 0, "losses": 0, "balance": STARTING_BALANCE, "active_trades": {}}
@@ -62,153 +48,127 @@ def save_db(db):
         json.dump(db, f, indent=4)
 
 def get_top_coins():
-    log("Fetching top 120 coins from CoinGecko...")
     try:
         url = "https://api.coingecko.com/api/v3/coins/markets"
         params = {'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 120, 'page': 1}
         data = requests.get(url, params=params).json()
         excluded = ['usdt', 'usdc', 'dai', 'fdusd', 'pyusd', 'usde', 'steth', 'wbtc', 'weth']
         return [c['symbol'].upper() for c in data if c['symbol'].lower() not in excluded]
-    except Exception as e:
-        log(f"CoinGecko Error: {e}")
-        return []
+    except: return []
 
-def get_ohlcv_multi_exchange(coin_symbol):
-    pair_variants = [f"{coin_symbol}/USD", f"{coin_symbol}/USDT"]
-    for ex_name, exchange in EXCHANGES.items():
-        for p in pair_variants:
+def get_ohlcv(symbol):
+    for name, ex in EXCHANGES.items():
+        for p in [f"{symbol}/USDT", f"{symbol}/USD"]:
             try:
-                bars = exchange.fetch_ohlcv(p, timeframe='15m', limit=150)
-                if bars:
-                    ticker = exchange.fetch_ticker(p)
-                    return bars, ticker['last'], p, ex_name
+                bars = ex.fetch_ohlcv(p, timeframe=TIMEFRAME, limit=300)
+                if bars: return bars, ex.fetch_ticker(p)['last'], p, name
             except: continue
     return None, None, None, None
 
-def detect_triple_divergence(df, order=4):
-    df['RSI'] = ta.rsi(df['close'], length=14)
-    df = df.dropna().reset_index(drop=True)
-    if len(df) < 50: return None
-    low_pivots = argrelextrema(df['close'].values, np.less, order=order)[0]
-    if len(low_pivots) >= 3:
-        p1, p2, p3 = df['close'].iloc[low_pivots[-3:]].values
-        r1, r2, r3 = df['RSI'].iloc[low_pivots[-3:]].values
-        if p1 > p2 > p3 and r1 < r2 < r3: return "Long trade"
-    high_pivots = argrelextrema(df['close'].values, np.greater, order=order)[0]
-    if len(high_pivots) >= 3:
-        p1, p2, p3 = df['close'].iloc[high_pivots[-3:]].values
-        r1, r2, r3 = df['RSI'].iloc[high_pivots[-3:]].values
-        if p1 < p2 < p3 and r1 > r2 > r3: return "Short trade"
+def detect_signal(df):
+    """EMA 200 + MACD + Bollinger Band Confluence"""
+    if len(df) < 200: return None
+    
+    # Indicators
+    df['ema200'] = ta.ema(df['close'], length=200)
+    macd = ta.macd(df['close'])
+    df['macd'] = macd['MACD_12_26_9']
+    df['signal'] = macd['MACDs_12_26_9']
+    bbands = ta.bbands(df['close'], length=20, std=2)
+    df['bb_mid'] = bbands['BBM_20_2.0']
+
+    curr = df.iloc[-1]
+    prev = df.iloc[-2]
+
+    # Bullish: Price > EMA200 AND MACD Cross Up AND Price > BB Mid
+    if curr['close'] > curr['ema200']:
+        if prev['macd'] < prev['signal'] and curr['macd'] > curr['signal']:
+            if curr['close'] > curr['bb_mid']:
+                return "Long trade"
+
+    # Bearish: Price < EMA200 AND MACD Cross Down AND Price < BB Mid
+    if curr['close'] < curr['ema200']:
+        if prev['macd'] > prev['signal'] and curr['macd'] < curr['signal']:
+            if curr['close'] < curr['bb_mid']:
+                return "Short trade"
+                
     return None
 
-def update_trades(db):
+def update_active_trades(db):
     active = db['active_trades']
-    if not active: return False
-    
-    status_changed = False
-    log(f"Updating {len(active)} active trades...")
-    
+    changed = False
     for sym in list(active.keys()):
         try:
             t = active[sym]
-            ex_name = t.get('exchange', 'kraken')
-            exchange = EXCHANGES.get(ex_name, EXCHANGES['kraken'])
-            ticker = exchange.fetch_ticker(sym)
-            curr = ticker['last']
+            _, curr_price, _, _ = get_ohlcv(sym.split('/')[0])
             is_long = (t['side'] == "Long trade")
             
-            # TP3 (Final 25% @ 5%)
-            if (is_long and curr >= t['tp3']) or (not is_long and curr <= t['tp3']):
-                profit = (POSITION_SIZE_USD * 0.25) * 0.05
-                db['balance'] += profit
-                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{sym} TP3 HIT!** Profit: +${profit:.2f}"})
+            # TP3 Hit (Close)
+            if (is_long and curr_price >= t['tp3']) or (not is_long and curr_price <= t['tp3']):
+                db['balance'] += (POSITION_SIZE_USD * 0.05)
+                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{sym} TP3 MOONED!** Final take profit hit."})
                 del active[sym]
-                status_changed = True
-                continue
-            
-            # TP2 (50% @ 3%)
-            if not t.get('tp2_hit', False):
-                if (is_long and curr >= t['tp2']) or (not is_long and curr <= t['tp2']):
-                    profit = (POSITION_SIZE_USD * 0.50) * 0.03
-                    db['balance'] += profit
-                    t['tp2_hit'] = True
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"🎯 **{sym} TP2 HIT!** Profit: +${profit:.2f}"})
+                changed = True; continue
 
-            # TP1 (25% @ 1.5%) + Move SL to Entry
-            if not t.get('tp1_hit', False):
-                if (is_long and curr >= t['tp1']) or (not is_long and curr <= t['tp1']):
-                    profit = (POSITION_SIZE_USD * 0.25) * 0.015
-                    db['balance'] += profit
-                    t['tp1_hit'] = True
-                    t['sl'] = t['entry'] 
-                    db['wins'] += 1
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 HIT!** Profit: +${profit:.2f}. SL moved to entry."})
+            # TP2 Hit
+            if not t['tp2_hit'] and ((is_long and curr_price >= t['tp2']) or (not is_long and curr_price <= t['tp2'])):
+                db['balance'] += (POSITION_SIZE_USD * 0.03)
+                t['tp2_hit'] = True
+                requests.post(DISCORD_WEBHOOK, json={"content": f"🎯 **{sym} TP2 Secure.** Trend continuing."})
 
-            # SL HIT
-            if (is_long and curr <= t['sl']) or (not is_long and curr >= t['sl']):
-                if t.get('tp1_hit', False):
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"⚠️ **{sym} Closed at Entry** (Risk-Free)."})
-                else:
-                    db['balance'] -= DOLLAR_RISK_PER_TRADE
+            # TP1 Hit (Move SL to entry)
+            if not t['tp1_hit'] and ((is_long and curr_price >= t['tp1']) or (not is_long and curr_price <= t['tp1'])):
+                db['balance'] += (POSITION_SIZE_USD * 0.015)
+                db['wins'] += 1
+                t['tp1_hit'] = True
+                t['sl'] = t['entry']  # Move SL to Entry
+                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 Hit.** Win counted, SL moved to entry."})
+
+            # SL Hit
+            if (is_long and curr_price <= t['sl']) or (not is_long and curr_price >= t['sl']):
+                if not t['tp1_hit']:
                     db['losses'] += 1
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit**. Loss: -${DOLLAR_RISK_PER_TRADE:.2f}"})
+                    db['balance'] -= DOLLAR_RISK_PER_TRADE
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL Hit.** Trade lost."})
+                else:
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✋ **{sym} hit Entry SL.** Risk-free exit."})
                 del active[sym]
-                status_changed = True
-                
-        except Exception as e: log(f"Update error for {sym}: {e}")
-    
-    return status_changed
+                changed = True
+        except: continue
+    return changed
 
 def main():
     db = load_db()
-    status_changed = update_trades(db)
+    update_active_trades(db)
     
-    # Buy Power Logic
-    used_margin = len(db['active_trades']) * MARGIN_REQUIRED
-    available_margin = db['balance'] - used_margin
-    log(f"Balance: ${db['balance']:.2f} | Available Margin: ${available_margin:.2f}")
-
-    new_trade_opened = False
-    if available_margin >= MARGIN_REQUIRED:
-        coins = get_top_coins()
-        for i, coin in enumerate(coins, 1):
-            if any(coin in key for key in db['active_trades'].keys()): continue
-
-            bars, last_price, pair_name, ex_name = get_ohlcv_multi_exchange(coin)
-            if not bars: continue
-
-            df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close', 'vol'])
-            signal = detect_triple_divergence(df)
+    coins = get_top_coins()
+    for coin in coins:
+        if any(coin in k for k in db['active_trades']): continue
+        
+        bars, last_price, pair, ex_name = get_ohlcv(coin)
+        if not bars: continue
+        
+        df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close', 'vol'])
+        signal = detect_signal(df)
+        
+        if signal:
+            entry = last_price
+            m = 1 if signal == "Long trade" else -1
+            t_data = {
+                "side": signal, "entry": entry, "sl": entry * (1 - (SL_PERCENT * m)),
+                "tp1": entry * (1 + (TP1_PERCENT * m)), "tp2": entry * (1 + (TP2_PERCENT * m)),
+                "tp3": entry * (1 + (TP3_PERCENT * m)), "tp1_hit": False, "tp2_hit": False
+            }
+            db['active_trades'][pair] = t_data
             
-            if signal:
-                entry = last_price
-                mult = 1 if signal == "Long trade" else -1
-                t_data = {
-                    "side": signal, "entry": entry, "exchange": ex_name,
-                    "sl": entry * (1 - (0.02 * mult)),
-                    "tp1": entry * (1 + (0.015 * mult)),
-                    "tp2": entry * (1 + (0.03 * mult)),
-                    "tp3": entry * (1 + (0.05 * mult)),
-                    "tp1_hit": False, "tp2_hit": False
-                }
-                db['active_trades'][pair_name] = t_data
-                new_trade_opened = True
-                
-                total = db['wins'] + db['losses']
-                wr = (db['wins'] / total * 100) if total > 0 else 0
-                pnl = db['balance'] - STARTING_BALANCE
-                
-                msg = (f"✨ **{signal.upper()}**\n🪙 **${coin}** ({ex_name})\n"
-                       f"💵 Entry: {format_price(entry)}\n🛑 SL: {format_price(t_data['sl'])}\n"
-                       f"🎯 TP1: {format_price(t_data['tp1'])} | TP2: {format_price(t_data['tp2'])} | TP3: {format_price(t_data['tp3'])}\n\n"
-                       f"💰 **Balance: ${db['balance']:.2f}** ({'+' if pnl >=0 else ''}{pnl:.2f})\n"
-                       f"📊 **Winrate: {wr:.1f}%** ({db['wins']}W | {db['losses']}L)")
-                requests.post(DISCORD_WEBHOOK, json={"content": msg})
-
-    if (status_changed or new_trade_opened) and db['active_trades']:
-        trade_list = "\n".join([f"{s.split('/')[0]}: {v['side']}" for s, v in db['active_trades'].items()])
-        summary = f"📑 **Updated Active Trades**:\n||{trade_list}||"
-        requests.post(DISCORD_WEBHOOK, json={"content": summary})
+            total = db['wins'] + db['losses']
+            wr = (db['wins'] / total * 100) if total > 0 else 0
+            msg = (f"⚡ **{signal.upper()}**\n🪙 **${coin}**\n"
+                   f"Entry: {entry:.4f}\n"
+                   f"TP1: {t_data['tp1']:.4f} | TP2: {t_data['tp2']:.4f} | TP3: {t_data['tp3']:.4f}\n"
+                   f"SL: {t_data['sl']:.4f}\n"
+                   f"Winrate: {wr:.1f}% ({db['wins']}W | {db['losses']}L)")
+            requests.post(DISCORD_WEBHOOK, json={"content": msg})
     
     save_db(db)
 
