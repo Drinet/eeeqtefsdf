@@ -1,6 +1,6 @@
 {
     "wins": 25,
-    "losses": 32,
+    "losses": 33,
     "active_trades": {
         "XAUT/USD": {
             "side": "Long trade",
@@ -46,17 +46,6 @@
             "tp1_hit": true,
             "tp2_hit": true
         },
-        "ENA/USD": {
-            "side": "Short trade",
-            "entry": 0.2363,
-            "exchange": "kraken",
-            "sl": 0.2363,
-            "tp1": 0.2327555,
-            "tp2": 0.229211,
-            "tp3": 0.224485,
-            "tp1_hit": true,
-            "tp2_hit": false
-        },
         "PAXG/USD": {
             "side": "Short trade",
             "entry": 4329.0,
@@ -65,17 +54,6 @@
             "tp1": 4264.065,
             "tp2": 4199.13,
             "tp3": 4112.55,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
-        "TRUMP/USD": {
-            "side": "Short trade",
-            "entry": 5.009,
-            "exchange": "kraken",
-            "sl": 5.10918,
-            "tp1": 4.933865,
-            "tp2": 4.85873,
-            "tp3": 4.7585500000000005,
             "tp1_hit": false,
             "tp2_hit": false
         },
@@ -135,5 +113,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 457.34375
+    "balance": 449.84375
 }
