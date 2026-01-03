@@ -1,5 +1,5 @@
 {
-    "wins": 24,
+    "wins": 25,
     "losses": 32,
     "active_trades": {
         "XAUT/USD": {
@@ -28,11 +28,11 @@
             "side": "Long trade",
             "entry": 0.10384,
             "exchange": "gateio",
-            "sl": 0.1017632,
+            "sl": 0.10384,
             "tp1": 0.1053976,
             "tp2": 0.1069552,
             "tp3": 0.109032,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         },
         "LEO/USDT": {
@@ -135,5 +135,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 455.9375
+    "balance": 457.34375
 }
