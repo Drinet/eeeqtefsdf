@@ -1,28 +1,30 @@
-name: Crypto Confluence Bot
+name: Confluence Bot
 on:
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
-  trade:
+  run-bot:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # This fixes the 403 error
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install Dependencies
+      - name: Install
         run: pip install ccxt pandas pandas-ta requests numpy
-      - name: Run Bot
+      - name: Run
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python bot.py
-      - name: Commit Trade Data
+      - name: Sync History
         run: |
-          git config --global user.name "GitHubBot"
-          git config --global user.email "bot@crypto.com"
+          git config --global user.name "Bot"
+          git config --global user.email "bot@trade.com"
           git add trade_history.json
-          git commit -m "Update trade history [skip ci]" || exit 0
+          git commit -m "Update trades [skip ci]" || exit 0
           git push
