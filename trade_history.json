@@ -1,5 +1,5 @@
 {
-    "wins": 19,
+    "wins": 23,
     "losses": 32,
     "active_trades": {
         "XAUT/USD": {
@@ -94,22 +94,22 @@
             "side": "Short trade",
             "entry": 9.2e-06,
             "exchange": "kraken",
-            "sl": 9.384e-06,
+            "sl": 9.2e-06,
             "tp1": 9.062e-06,
             "tp2": 8.924e-06,
             "tp3": 8.74e-06,
-            "tp1_hit": false,
-            "tp2_hit": false
+            "tp1_hit": true,
+            "tp2_hit": true
         },
         "DOGE/USD": {
             "side": "Short trade",
             "entry": 0.1434514,
             "exchange": "kraken",
-            "sl": 0.146320428,
+            "sl": 0.1434514,
             "tp1": 0.141299629,
             "tp2": 0.139147858,
             "tp3": 0.13627883,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         },
         "XRP/USD": {
@@ -127,24 +127,24 @@
             "side": "Short trade",
             "entry": 8.13e-06,
             "exchange": "kraken",
-            "sl": 8.292600000000001e-06,
+            "sl": 8.13e-06,
             "tp1": 8.00805e-06,
             "tp2": 7.8861e-06,
             "tp3": 7.7235e-06,
-            "tp1_hit": false,
-            "tp2_hit": false
+            "tp1_hit": true,
+            "tp2_hit": true
         },
         "ALGO/USD": {
             "side": "Short trade",
             "entry": 0.12724,
             "exchange": "kraken",
-            "sl": 0.1297848,
+            "sl": 0.12724,
             "tp1": 0.12533139999999998,
             "tp2": 0.12342279999999999,
             "tp3": 0.12087799999999999,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         }
     },
-    "balance": 432.96875
+    "balance": 449.84375
 }
