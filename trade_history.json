@@ -1,5 +1,5 @@
 {
-    "wins": 23,
+    "wins": 24,
     "losses": 32,
     "active_trades": {
         "XAUT/USD": {
@@ -50,11 +50,11 @@
             "side": "Short trade",
             "entry": 0.2363,
             "exchange": "kraken",
-            "sl": 0.24102600000000002,
+            "sl": 0.2363,
             "tp1": 0.2327555,
             "tp2": 0.229211,
             "tp3": 0.224485,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "tp2_hit": false
         },
         "PAXG/USD": {
@@ -146,5 +146,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 449.84375
+    "balance": 451.25
 }
