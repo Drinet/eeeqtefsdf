@@ -68,17 +68,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "SKY/USD": {
-            "side": "Short trade",
-            "entry": 0.06334,
-            "exchange": "kraken",
-            "sl": 0.06334,
-            "tp1": 0.06238989999999999,
-            "tp2": 0.06143979999999999,
-            "tp3": 0.06017299999999999,
-            "tp1_hit": true,
-            "tp2_hit": true
-        },
         "TRUMP/USD": {
             "side": "Short trade",
             "entry": 5.009,
@@ -146,5 +135,5 @@
             "tp2_hit": false
         }
     },
-    "balance": 451.25
+    "balance": 455.9375
 }
