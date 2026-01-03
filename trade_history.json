@@ -2,5 +2,16 @@
     "wins": 0,
     "losses": 0,
     "balance": 500.0,
-    "active_trades": {}
+    "active_trades": {
+        "PYUSD/USD": {
+            "side": "Short trade",
+            "entry": 0.9998,
+            "sl": 1.0197960000000001,
+            "tp1": 0.984803,
+            "tp2": 0.969806,
+            "tp3": 0.9498099999999999,
+            "tp1_hit": false,
+            "tp2_hit": false
+        }
+    }
 }
