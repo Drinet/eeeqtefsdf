@@ -1,7 +1,7 @@
-name: Confluence Trading Bot
+name: Crypto Confluence Bot
 on:
   schedule:
-    - cron: '*/15 * * * *'  # Runs every 15 mins to check 4H trend
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -13,16 +13,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install
-        run: pip install ccxt pandas pandas-ta requests numpy scipy
-      - name: Run
+      - name: Install Dependencies
+        run: pip install ccxt pandas pandas-ta requests numpy
+      - name: Run Bot
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python bot.py
-      - name: Save
+      - name: Commit Trade Data
         run: |
-          git config --global user.name "Bot"
-          git config --global user.email "bot@trade.com"
+          git config --global user.name "GitHubBot"
+          git config --global user.email "bot@crypto.com"
           git add trade_history.json
-          git commit -m "Update history" || exit 0
+          git commit -m "Update trade history [skip ci]" || exit 0
           git push
