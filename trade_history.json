@@ -12,6 +12,26 @@
             "tp3": 0.9498099999999999,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "USDS/USD": {
+            "side": "Short trade",
+            "entry": 0.9717,
+            "sl": 0.9911340000000001,
+            "tp1": 0.9571245,
+            "tp2": 0.942549,
+            "tp3": 0.923115,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "USDG/USDT": {
+            "side": "Long trade",
+            "entry": 1.0008,
+            "sl": 0.9807839999999999,
+            "tp1": 1.0158119999999997,
+            "tp2": 1.030824,
+            "tp3": 1.05084,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     }
 }
