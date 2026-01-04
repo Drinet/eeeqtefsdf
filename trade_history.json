@@ -42,6 +42,16 @@
             "tp3": 5.49575,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "USDE/USDT": {
+            "side": "Long trade",
+            "entry": 0.9998,
+            "sl": 0.979804,
+            "tp1": 1.014797,
+            "tp2": 1.029794,
+            "tp3": 1.04979,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     }
 }
