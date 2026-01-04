@@ -1,7 +1,7 @@
 {
     "wins": 0,
-    "losses": 1,
-    "balance": 490.0,
+    "losses": 2,
+    "balance": 480.0,
     "active_trades": {
         "PYUSD/USD": {
             "side": "Short trade",
@@ -13,16 +13,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "USDS/USD": {
-            "side": "Short trade",
-            "entry": 0.97141,
-            "sl": 0.9908382,
-            "tp1": 0.95683885,
-            "tp2": 0.9422676999999999,
-            "tp3": 0.9228394999999999,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "ZEC/USD": {
             "side": "Long trade",
             "entry": 511.76,
@@ -30,6 +20,16 @@
             "tp1": 519.4363999999999,
             "tp2": 527.1128,
             "tp3": 537.348,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "USDS/USD": {
+            "side": "Long trade",
+            "entry": 1.0,
+            "sl": 0.98,
+            "tp1": 1.015,
+            "tp2": 1.03,
+            "tp3": 1.05,
             "tp1_hit": false,
             "tp2_hit": false
         }
