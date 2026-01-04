@@ -1,7 +1,7 @@
 {
     "wins": 0,
-    "losses": 2,
-    "balance": 480.0,
+    "losses": 3,
+    "balance": 470.0,
     "active_trades": {
         "PYUSD/USD": {
             "side": "Short trade",
@@ -10,16 +10,6 @@
             "tp1": 0.984803,
             "tp2": 0.969806,
             "tp3": 0.9498099999999999,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
-        "ZEC/USD": {
-            "side": "Long trade",
-            "entry": 511.76,
-            "sl": 501.52479999999997,
-            "tp1": 519.4363999999999,
-            "tp2": 527.1128,
-            "tp3": 537.348,
             "tp1_hit": false,
             "tp2_hit": false
         },
