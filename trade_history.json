@@ -32,6 +32,16 @@
             "tp3": 1.05084,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "UNI/USD": {
+            "side": "Short trade",
+            "entry": 5.785,
+            "sl": 5.9007000000000005,
+            "tp1": 5.698225,
+            "tp2": 5.61145,
+            "tp3": 5.49575,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     }
 }
