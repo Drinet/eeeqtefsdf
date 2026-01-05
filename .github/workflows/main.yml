@@ -1,7 +1,7 @@
 name: Confluence Bot
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs every hour (Weekly SMA doesn't move fast)
+    - cron: '*/15 * * * *'  # Triggered every 15 minutes
   workflow_dispatch:
 
 jobs:
@@ -26,5 +26,5 @@ jobs:
           git config --global user.name "Bot"
           git config --global user.email "bot@trade.com"
           git add trade_history.json
-          git commit -m "Update trades and bias [skip ci]" || exit 0
+          git commit -m "Update trades [skip ci]" || exit 0
           git push
