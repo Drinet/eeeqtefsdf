@@ -1,7 +1,7 @@
 {
     "wins": 0,
-    "losses": 7,
-    "balance": 430.0,
+    "losses": 8,
+    "balance": 420.0,
     "active_trades": {
         "PYUSD/USD": {
             "side": "Short trade",
@@ -54,12 +54,12 @@
             "tp2_hit": false
         },
         "USDS/USD": {
-            "side": "Long trade",
-            "entry": 1.0,
-            "sl": 0.98,
-            "tp1": 1.015,
-            "tp2": 1.03,
-            "tp3": 1.05,
+            "side": "Short trade",
+            "entry": 0.9719,
+            "sl": 0.991338,
+            "tp1": 0.9573214999999999,
+            "tp2": 0.942743,
+            "tp3": 0.9233049999999999,
             "tp1_hit": false,
             "tp2_hit": false
         }
