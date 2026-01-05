@@ -1,4 +1,4 @@
-name: Weekly SMA Scanner
+name: Confluence Multi-TF Bot
 on:
   schedule:
     - cron: '*/15 * * * *'
@@ -15,15 +15,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install Dependencies
+      - name: Install
         run: pip install ccxt pandas pandas-ta requests numpy
-      - name: Run Bot
+      - name: Run
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python bot.py
-      - name: Sync History
+      - name: Sync
         run: |
-          git config --global user.name "GitHub Action Bot"
+          git config --global user.name "TradeBot"
           git config --global user.email "bot@trade.com"
           git add trade_history.json
           git commit -m "Update trades [skip ci]" || exit 0
