@@ -1,7 +1,7 @@
 {
     "wins": 0,
-    "losses": 4,
-    "balance": 460.0,
+    "losses": 5,
+    "balance": 450.0,
     "active_trades": {
         "PYUSD/USD": {
             "side": "Short trade",
@@ -33,16 +33,6 @@
             "tp1_hit": false,
             "tp2_hit": false
         },
-        "UNI/USD": {
-            "side": "Short trade",
-            "entry": 5.785,
-            "sl": 5.9007000000000005,
-            "tp1": 5.698225,
-            "tp2": 5.61145,
-            "tp3": 5.49575,
-            "tp1_hit": false,
-            "tp2_hit": false
-        },
         "USDE/USDT": {
             "side": "Long trade",
             "entry": 0.9998,
@@ -50,6 +40,36 @@
             "tp1": 1.014797,
             "tp2": 1.029794,
             "tp3": 1.04979,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "WEETH/USDT": {
+            "side": "Long trade",
+            "entry": 3456.84,
+            "sl": 3387.7032,
+            "tp1": 3508.6926,
+            "tp2": 3560.5452,
+            "tp3": 3629.6820000000002,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "ZEC/USD": {
+            "side": "Long trade",
+            "entry": 506.5,
+            "sl": 496.37,
+            "tp1": 514.0975,
+            "tp2": 521.695,
+            "tp3": 531.825,
+            "tp1_hit": false,
+            "tp2_hit": false
+        },
+        "XMR/USDT": {
+            "side": "Short trade",
+            "entry": 421.59,
+            "sl": 430.0218,
+            "tp1": 415.26615,
+            "tp2": 408.9423,
+            "tp3": 400.5105,
             "tp1_hit": false,
             "tp2_hit": false
         }
