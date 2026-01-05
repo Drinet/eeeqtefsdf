@@ -26,5 +26,5 @@ jobs:
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "bot@trade.com"
           git add trade_history.json
-          git commit -m "Update trades and balance [skip ci]" || exit 0
+          git commit -m "Update trades [skip ci]" || exit 0
           git push
