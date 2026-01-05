@@ -4,5 +4,19 @@
     "balance": 1000.0,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
-    "active_trades": {}
+    "active_trades": {
+        "PYUSD_3d": {
+            "symbol": "PYUSD/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.999,
+            "sl": 0.97902,
+            "tp1": 1.013985,
+            "tp2": 1.02897,
+            "tp3": 1.04895,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        }
+    }
 }
