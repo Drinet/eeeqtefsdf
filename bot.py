@@ -11,12 +11,16 @@ DISCORD_WEBHOOK = os.getenv('DISCORD_WEBHOOK_URL')
 DB_FILE = "trade_history.json"
 STARTING_BALANCE = 1000.0
 TIMEFRAME = '1w'
-POSITION_SIZE_USD = 100.0  # Amount allocated per trade for balance tracking
+POSITION_SIZE_USD = 100.0
+
+# Excluded list as requested
+BLACKLIST = ['STETH', 'WBTC', 'USDG', 'TBTC', 'TUSD', 'NFT', 'USDT', 'USDC', 'DAI', 'FDUSD', 'WETH']
 
 EXCHANGES = {
     "binance": ccxt.binance({'enableRateLimit': True}),
     "kraken": ccxt.kraken({'enableRateLimit': True}),
-    "gateio": ccxt.gateio({'enableRateLimit': True})
+    "gateio": ccxt.gateio({'enableRateLimit': True}),
+    "bybit": ccxt.bybit({'enableRateLimit': True})
 }
 
 def load_db():
@@ -34,10 +38,11 @@ def save_db(db):
         json.dump(db, f, indent=4)
 
 def get_ohlcv(symbol):
+    """Checks all 4 exchanges for the coin."""
     for name, ex in EXCHANGES.items():
         for p in [f"{symbol}/USDT", f"{symbol}/USD"]:
             try:
-                bars = ex.fetch_ohlcv(p, timeframe=TIMEFRAME, limit=250)
+                bars = ex.fetch_ohlcv(p, timeframe=TIMEFRAME, limit=300)
                 if bars and len(bars) >= 200:
                     return bars, ex.fetch_ticker(p)['last'], p, name
             except: continue
@@ -50,8 +55,8 @@ def detect_signal(df, bias, coin):
     sma = df['sma200'].iloc[-1]
     prev_sma = df['sma200'].iloc[-2]
 
-    # Console Logging for GitHub Actions Tab
-    print(f"Checking {coin:5} | Price: {curr_p:10.4f} | SMA200: {sma:10.4f} | Bias: {bias}")
+    # Enhanced Console Logging for Actions Tab
+    print(f"Checking {coin:6} | Price: {curr_p:12.4f} | SMA200: {sma:12.4f} | Bias: {bias}")
 
     if bias == "BULLISH" and prev_p > prev_sma and curr_p <= sma:
         return "Long trade"
@@ -78,27 +83,26 @@ def update_trades(db):
                     db['balance'] -= (POSITION_SIZE_USD * 0.02)
                     requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{sym} SL HIT.** Loss recorded."})
                 else:
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"✋ **{sym} SL HIT at Entry.** Trade closed risk-free."})
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✋ **{sym} SL HIT at Entry.** Risk-free exit."})
                 del active[sym]; changed = True; continue
 
-            # TP1 (17.06% move | 20% position out)
+            # TP1 (17.06% move | 20% out)
             if not t['tp1_hit'] and ((is_long and curr_p >= t['tp1']) or (not is_long and curr_p <= t['tp1'])):
                 db['wins'] += 1
                 t['tp1_hit'] = True
                 t['sl'] = t['entry']
                 db['balance'] += (POSITION_SIZE_USD * 0.20 * 0.1706)
-                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 HIT!** (20% Out) SL moved to Entry."})
+                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{sym} TP1 HIT!** SL moved to Entry."})
                 changed = True
 
-            # TP2 (Long 58.73% / Short 35.0% | 50% position out)
+            # TP2 & TP3 logic (Updated for specific long/short goals)
             if not t.get('tp2_hit', False) and ((is_long and curr_p >= t['tp2']) or (not is_long and curr_p <= t['tp2'])):
                 t['tp2_hit'] = True
                 move_pct = 0.5873 if is_long else 0.35
                 db['balance'] += (POSITION_SIZE_USD * 0.50 * move_pct)
-                requests.post(DISCORD_WEBHOOK, json={"content": f"🎯 **{sym} TP2 HIT!** (50% Out)"})
+                requests.post(DISCORD_WEBHOOK, json={"content": f"🎯 **{sym} TP2 REACHED.** (50% Out)"})
                 changed = True
 
-            # TP3 (Long 157.94% / Short 50.0% | 30% position out)
             if (is_long and curr_p >= t['tp3']) or (not is_long and curr_p <= t['tp3']):
                 move_pct = 1.5794 if is_long else 0.50
                 db['balance'] += (POSITION_SIZE_USD * 0.30 * move_pct)
@@ -109,19 +113,27 @@ def update_trades(db):
 
 def main():
     db = load_db()
-    print(f"--- STARTING SCAN | BIAS: {db['bias']} | BAL: ${db['balance']:.2f} ---")
+    print(f"--- STARTING SCAN (Top 200) | BIAS: {db['bias']} | BAL: ${db['balance']:.2f} ---")
     update_trades(db)
     
     try:
         url = "https://api.coingecko.com/api/v3/coins/markets"
-        coins_data = requests.get(url, params={'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 200}).json()
-        symbols = [c['symbol'].upper() for c in coins_data if c['symbol'].lower() not in ['usdt', 'usdc', 'dai', 'fdusd']]
-    except: return
+        # Fetching 250 to ensure we have enough after filtering blacklist
+        params = {'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 250, 'page': 1}
+        coins_data = requests.get(url, params=params).json()
+        symbols = [c['symbol'].upper() for c in coins_data if c['symbol'].upper() not in BLACKLIST]
+    except Exception as e:
+        print(f"Coingecko API Error: {e}")
+        return
 
-    for coin in symbols:
+    for coin in symbols[:200]: # Take top 200 after blacklist
         if any(coin in k for k in db['active_trades']): continue
+        
         bars, last_p, pair, ex_name = get_ohlcv(coin)
-        if not bars: continue
+        
+        if not bars:
+            print(f"Skipping {coin:6} | Reason: No 200w history found on 4 exchanges.")
+            continue
         
         df = pd.DataFrame(bars, columns=['date','open','high','low','close','vol'])
         sig = detect_signal(df, db['bias'], coin)
@@ -148,7 +160,8 @@ def main():
                    f"🛡️ SL: {sl:.4f}\n\n📊 Winrate: {wr:.1f}% ({db['wins']}W | {db['losses']}L)\n"
                    f"💰 Balance: ${db['balance']:.2f}")
             requests.post(DISCORD_WEBHOOK, json={"content": msg})
-        time.sleep(0.1)
+        
+        time.sleep(0.05) # Small sleep to respect rate limits
 
     save_db(db)
     print("--- SCAN FINISHED ---")
