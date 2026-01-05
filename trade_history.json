@@ -2,6 +2,7 @@
     "wins": 0,
     "losses": 0,
     "balance": 1000.0,
-    "bias": "BULLISH",
+    "bias_1w": "BULLISH",
+    "bias_3d": "BULLISH",
     "active_trades": {}
 }
