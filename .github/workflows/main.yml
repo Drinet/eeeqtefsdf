@@ -1,14 +1,14 @@
 name: Confluence Bot
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '0 * * * *'  # Runs every hour (Weekly SMA doesn't move fast)
   workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # This fixes the 403 error
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
@@ -26,5 +26,5 @@ jobs:
           git config --global user.name "Bot"
           git config --global user.email "bot@trade.com"
           git add trade_history.json
-          git commit -m "Update trades [skip ci]" || exit 0
+          git commit -m "Update trades and bias [skip ci]" || exit 0
           git push
