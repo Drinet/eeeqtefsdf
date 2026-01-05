@@ -62,6 +62,16 @@
             "tp3": 451.82550000000003,
             "tp1_hit": false,
             "tp2_hit": false
+        },
+        "FIL/USD": {
+            "side": "Long trade",
+            "entry": 1.617,
+            "sl": 1.58466,
+            "tp1": 1.641255,
+            "tp2": 1.66551,
+            "tp3": 1.69785,
+            "tp1_hit": false,
+            "tp2_hit": false
         }
     }
 }
