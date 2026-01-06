@@ -1,7 +1,7 @@
 name: Trade Scanner
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
