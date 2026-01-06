@@ -1,7 +1,7 @@
-name: Confluence Scanner
+name: Trade Scanner
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,18 +18,15 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          # We install the core libraries first
-          pip install ccxt pandas requests mplfinance
-          # We install pandas-ta using the standard PyPI name but without version locks
-          pip install pandas-ta
+          pip install ccxt pandas requests mplfinance pandas-ta
       - name: Run Bot
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python bot.py
-      - name: Save History
+      - name: Save Data
         run: |
           git config --global user.name "ScannerBot"
           git config --global user.email "bot@trade.com"
           git add trade_history.json
-          git commit -m "update history [skip ci]" || exit 0
+          git commit -m "update trades [skip ci]" || exit 0
           git push
