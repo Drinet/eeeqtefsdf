@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: checkout@v4
+      - uses: actions/checkout@v4 # Fixed formatting here
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
