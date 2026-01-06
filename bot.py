@@ -20,20 +20,22 @@ EXCHANGES = {
     "gateio": ccxt.gateio({'enableRateLimit': True})
 }
 
-# --- STYLING (High Brightness Black Theme) ---
+# --- STYLING (Minimalist Pure Black) ---
 DARK_STYLE = mpf.make_mpf_style(
     base_mpf_style='binance', 
     facecolor='#000000',     # Pure Black
-    gridcolor='#222222',     # Subtle grid
+    gridcolor='#000000',     # Hide Grids
     figcolor='#000000',      # Black background
-    y_on_right=True,         # Price on the right side
     rc={
-        'axes.labelcolor': '#FFFFFF', # Pure White Labels
-        'axes.edgecolor': '#444444',
-        'xtick.color': '#FFFFFF',    # Pure White Ticks
-        'ytick.color': '#00FF00',    # Bright Green Price Axis
-        'figure.titlesize': 'x-large',
-        'text.color': '#FFFFFF'
+        'axes.spines.left': False,
+        'axes.spines.right': False,
+        'axes.spines.top': False,
+        'axes.spines.bottom': False,
+        'xtick.both': False,  # Hide X ticks
+        'ytick.both': False,  # Hide Y ticks
+        'xtick.labelbottom': False, # Hide X labels (dates)
+        'ytick.labelleft': False,   # Hide Y labels (prices)
+        'ytick.labelright': False
     },
     marketcolors=mpf.make_marketcolors(up='#00FF00', down='#FF0000', inherit=True)
 )
@@ -55,37 +57,32 @@ def save_db(db):
     with open(DB_FILE, 'w') as f:
         json.dump(db, f, indent=4)
 
-def send_discord_with_chart(content, df, coin, timeframe, last_p):
-    """Generates high-brightness chart with padding on the right."""
-    df_plot = df.tail(80).copy() # Show 80 candles for better zoom
+def send_discord_with_chart(content, df, coin, timeframe):
+    """Generates a clean chart with NO dates or prices."""
+    df_plot = df.tail(80).copy()
     df_plot['date_idx'] = pd.to_datetime(df_plot['date'], unit='ms')
     df_plot.set_index('date_idx', inplace=True)
     
-    # Calculate SMA 200 for the plot
     if 'sma200' not in df_plot.columns:
         df_plot['sma200'] = ta.sma(df_plot['close'], length=200)
 
     buf = io.BytesIO()
-    
-    # Create SMA plot and a Horizontal line for current price
     ap = []
     if not df_plot['sma200'].isnull().all():
-        ap.append(mpf.make_addplot(df_plot['sma200'], color='#00FFFF', width=2.0)) # Cyan SMA
+        ap.append(mpf.make_addplot(df_plot['sma200'], color='#00FFFF', width=2.5))
 
-    # Plotting with padding on the right (tight_layout=False + tight_layout adjustments)
-    # We add empty rows to the dataframe to simulate "space" on the right of the chart
+    # Plot without axes/labels
     mpf.plot(df_plot, type='candle', style=DARK_STYLE, 
-             addplot=ap, figsize=(12, 7), 
-             savefig=dict(fname=buf, format='png', bbox_inches='tight'), 
-             title=f"\n${coin} | {timeframe} | CURRENT PRICE: {last_p}", 
-             volume=False,
-             hlines=dict(hlines=[last_p], colors=['#FFFFFF'], linestyle='dashed', linewidths=[1]))
+             addplot=ap, figsize=(10, 5), 
+             savefig=dict(fname=buf, format='png', bbox_inches='tight', pad_inches=0), 
+             axisoff=True, # This removes all axes entirely
+             volume=False)
     
     buf.seek(0)
     payload = {"content": content}
     files = {
         "payload_json": (None, json.dumps(payload)),
-        "files[0]": (f"{coin}_signal.png", buf, "image/png")
+        "files[0]": (f"{coin}.png", buf, "image/png")
     }
     requests.post(DISCORD_WEBHOOK, files=files)
 
@@ -112,27 +109,24 @@ def update_trades(db):
 
             is_long = (t['side'] == "Long trade")
 
-            # Check Stop Loss
             if (is_long and curr_p <= t['sl']) or (not is_long and curr_p >= t['sl']):
                 if not t['tp1_hit']:
                     db['losses'] += 1
                     db['balance'] -= t['risk_amount']
                     requests.post(DISCORD_WEBHOOK, json={"content": f"💀 **{t['symbol']} SL HIT.** Loss recorded."})
                 else:
-                    requests.post(DISCORD_WEBHOOK, json={"content": f"✋ **{t['symbol']} Back to Entry.** Trade closed neutral."})
+                    requests.post(DISCORD_WEBHOOK, json={"content": f"✋ **{t['symbol']} Hit Entry.** Trade closed."})
                 del active[trade_id]; changed = True; continue
 
-            # Check TP1 (Win)
             if not t['tp1_hit'] and ((is_long and curr_p >= t['tp1']) or (not is_long and curr_p <= t['tp1'])):
                 db['wins'] += 1
                 t['tp1_hit'] = True
-                t['sl'] = t['entry'] # Move SL to Entry
-                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{t['symbol']} TP1 HIT!** SL moved to Entry. Balance Updated."})
+                t['sl'] = t['entry'] 
+                requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{t['symbol']} TP1 HIT!** SL moved to Entry."})
                 changed = True
 
-            # Check TP3 (Target)
             if (is_long and curr_p >= t['tp3']) or (not is_long and curr_p <= t['tp3']):
-                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{t['symbol']} FULL TP REACHED!** Trade closed."})
+                requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{t['symbol']} FULL TP REACHED!**"})
                 del active[trade_id]; changed = True
         except: continue
     return changed
@@ -160,13 +154,11 @@ def main():
             df = pd.DataFrame(bars, columns=['date','open','high','low','close','vol'])
             df['sma200'] = ta.sma(df['close'], length=200)
 
-            # Mandatory Test Previews
             if previews_sent < 2:
-                status_msg = f"🟢 **SCANNER ACTIVE**\nAnalyzing **${coin}** ({tf})\nCurrent Price: {last_p}\nStatus: Monitoring for Confluence..."
-                send_discord_with_chart(status_msg, df, coin, tf, last_p)
+                status_msg = f"🟢 **SCANNER ACTIVE**\nAnalyzing **${coin}** ({tf})\nPrice: {last_p}\nSystem: Ready"
+                send_discord_with_chart(status_msg, df, coin, tf)
                 previews_sent += 1
 
-            # Logic
             curr_p, prev_p = df['close'].iloc[-1], df['close'].iloc[-2]
             sma, prev_sma = df['sma200'].iloc[-1], df['sma200'].iloc[-2]
 
@@ -175,7 +167,6 @@ def main():
             elif bias == "BEARISH" and prev_p < prev_sma and curr_p >= sma: sig = "Short trade"
 
             if sig:
-                # 2% SL, 1.5% TP1, 3% TP2, 5% TP3
                 if sig == "Long trade":
                     sl, tp1, tp2, tp3 = last_p*0.98, last_p*1.015, last_p*1.03, last_p*1.05
                 else:
@@ -188,7 +179,7 @@ def main():
                        f"Entry: {last_p:.4f}\n🎯 TP1: {tp1:.4f} | TP2: {tp2:.4f} | TP3: {tp3:.4f}\n"
                        f"🛡️ SL: {sl:.4f}\n📊 Winrate: {wr:.1f}% ({db['wins']}W | {db['losses']}L)")
                 
-                send_discord_with_chart(msg, df, coin, tf, last_p)
+                send_discord_with_chart(msg, df, coin, tf)
                 db['active_trades'][trade_id] = {
                     "symbol": pair, "timeframe": tf, "side": sig, "entry": last_p,
                     "sl": sl, "tp1": tp1, "tp2": tp2, "tp3": tp3, "tp1_hit": False,
