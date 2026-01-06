@@ -14,10 +14,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - name: Install
-        run: pip install ccxt pandas pandas-ta requests mplfinance
-      - name: Run
+          python-version: '3.12' # UPGRADED to fix your error
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install ccxt pandas requests mplfinance
+          # This installs the version compatible with newer Python environments
+          pip install git+https://github.com/twopirllc/pandas-ta.git@development
+      - name: Run Bot
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python bot.py
@@ -26,5 +30,5 @@ jobs:
           git config --global user.name "ScannerBot"
           git config --global user.email "bot@trade.com"
           git add trade_history.json
-          git commit -m "Update history [skip ci]" || exit 0
+          git commit -m "update history [skip ci]" || exit 0
           git push
