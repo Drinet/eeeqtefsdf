@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install
-        run: pip install ccxt pandas pandas-ta requests numpy
+        run: pip install ccxt pandas pandas-ta requests numpy mplfinance
       - name: Run
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
