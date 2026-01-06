@@ -2,5 +2,4 @@ ccxt
 pandas
 pandas-ta
 requests
-numpy
 mplfinance
