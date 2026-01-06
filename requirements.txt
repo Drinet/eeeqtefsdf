@@ -1,5 +1,5 @@
 ccxt
 pandas
-pandas-ta
 requests
 mplfinance
+pandas-ta
