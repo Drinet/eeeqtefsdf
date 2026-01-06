@@ -14,13 +14,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12' # UPGRADED to fix your error
+          python-version: '3.12'
       - name: Install dependencies
         run: |
           pip install --upgrade pip
+          # We install the core libraries first
           pip install ccxt pandas requests mplfinance
-          # This installs the version compatible with newer Python environments
-          pip install git+https://github.com/twopirllc/pandas-ta.git@development
+          # We install pandas-ta using the standard PyPI name but without version locks
+          pip install pandas-ta
       - name: Run Bot
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
