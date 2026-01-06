@@ -6,7 +6,7 @@ import os
 import json
 import time
 import mplfinance as mpf
-import io
+import io # Used to save image data in memory
 
 # --- CONFIG ---
 DISCORD_WEBHOOK = os.getenv('DISCORD_WEBHOOK_URL')
@@ -21,15 +21,26 @@ EXCHANGES = {
     "bybit": ccxt.bybit({'enableRateLimit': True})
 }
 
+# Define a dark style for the chart, similar to a dark trading view theme
+DARK_STYLE = mpf.make_mpf_style(
+    base_mpf_style='binance', 
+    facecolor='#1E1E1E', # Dark background
+    gridcolor='#333333',
+    figcolor='#1E1E1E',
+    y_on_right=False,
+    marketcolors=mpf.make_marketcolors(up='green', down='red', inherit=True)
+)
+
 def load_db():
     if os.path.exists(DB_FILE):
         try:
             with open(DB_FILE, 'r') as f:
                 db = json.load(f)
-                if "bias_1w" not in db: db["bias_1w"] = "BULLISH"
-                if "bias_3d" not in db: db["bias_3d"] = "BULLISH"
-                if "balance" not in db: db["balance"] = 1000.0
-                if "first_run_charts" not in db: db["first_run_charts"] = 0
+                # Ensure all necessary keys exist, including the new chart counter
+                keys = ["wins", "losses", "balance", "bias_1w", "bias_3d", "active_trades", "first_run_charts"]
+                defaults = [0, 0, 1000.0, "BULLISH", "BULLISH", {}, 0]
+                for k, d in zip(keys, defaults):
+                    if k not in db: db.setdefault(k, d)
                 return db
         except: pass
     return {"wins": 0, "losses": 0, "balance": 1000.0, "bias_1w": "BULLISH", "bias_3d": "BULLISH", "active_trades": {}, "first_run_charts": 0}
@@ -38,28 +49,31 @@ def save_db(db):
     with open(DB_FILE, 'w') as f:
         json.dump(db, f, indent=4)
 
-def send_discord_image(content, df, symbol, timeframe):
-    """Generates a chart image and posts it to Discord."""
+def send_discord_image(content, df, coin, timeframe):
+    """Generates a dark-themed chart image and posts it to Discord."""
     # Prepare DataFrame for mplfinance
     df_plot = df.copy()
     df_plot['date_idx'] = pd.to_datetime(df_plot['date'], unit='ms')
     df_plot.set_index('date_idx', inplace=True)
     
-    # Create SMA for plot
-    df_plot['sma_plot'] = ta.sma(df_plot['close'], length=200)
+    # Use SMA 200 calculated earlier
+    df_plot['sma_plot'] = df_plot['sma200']
     
-    # Save chart to a byte buffer
+    # Save chart to a byte buffer (avoids disk I/O on GitHub Actions)
     buf = io.BytesIO()
-    ap = mpf.make_addplot(df_plot['sma_plot'].tail(100), color='orange', width=1.5)
-    mpf.plot(df_plot.tail(100), type='candle', style='charles', addplot=ap, 
-             savefig=dict(fname=buf, format='png'), title=f"{symbol} ({timeframe}) 200 SMA", volume=False)
+    ap = mpf.make_addplot(df_plot['sma_plot'].tail(100), color='cyan', width=1.5) # Using Cyan for high contrast SMA
+    
+    mpf.plot(df_plot.tail(100), type='candle', style=DARK_STYLE, 
+             addplot=ap, figsize=(10, 6), # Specify figure size for better quality
+             savefig=dict(fname=buf, format='png'), 
+             title=f"{coin}/{timeframe} - SMA 200 Touch", volume=False)
     buf.seek(0)
 
     # Post to Discord
     payload = {"content": content}
     files = {
         "payload_json": (None, json.dumps(payload)),
-        "file": (f"{symbol}.png", buf, "image/png")
+        "file": (f"{coin}_{timeframe}_chart.png", buf, "image/png")
     }
     requests.post(DISCORD_WEBHOOK, files=files)
 
@@ -74,7 +88,10 @@ def get_ohlcv(symbol, timeframe):
     return None, None, None, None
 
 def detect_signal(df, bias, coin, tf_label):
-    df['sma200'] = ta.sma(df['close'], length=200)
+    # Ensure SMA is calculated before use
+    if 'sma200' not in df.columns:
+        df['sma200'] = ta.sma(df['close'], length=200)
+
     curr_p = df['close'].iloc[-1]
     prev_p = df['close'].iloc[-2]
     sma = df['sma200'].iloc[-1]
@@ -137,7 +154,6 @@ def main():
         symbols = [c['symbol'].upper() for c in coins if c['symbol'].upper() not in BLACKLIST]
     except: return
 
-    scanned_tokens = 0
     for coin in symbols[:200]:
         for tf, bias, pct in [('1w', db['bias_1w'], 0.06), ('3d', db['bias_3d'], 0.02)]:
             trade_id = f"{coin}_{tf}"
@@ -149,7 +165,7 @@ def main():
             df = pd.DataFrame(bars, columns=['date','open','high','low','close','vol'])
             sig = detect_signal(df, bias, coin, tf)
 
-            # FORCE POST FIRST 2 SCANNED TOKENS AS IMAGES (Regardless of Signal)
+            # --- FORCE POST FIRST 2 SCANNED TOKENS AS IMAGES (DEBUG) ---
             if db['first_run_charts'] < 2:
                 status_msg = f"🔎 **INITIAL SCAN PREVIEW**\n🪙 **${coin}** ({tf})\nPrice: {last_p:.4f}\nStatus: Monitoring for 200 SMA touches..."
                 send_discord_image(status_msg, df, coin, tf)
@@ -160,6 +176,7 @@ def main():
                 pos_size = calc_basis * pct
                 is_long = (sig == "Long trade")
                 
+                # Dynamic TPs
                 if is_long:
                     tp1, tp2, tp3, sl = last_p*1.015, last_p*1.03, last_p*1.05, last_p*0.98
                 else:
