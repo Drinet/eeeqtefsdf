@@ -17,6 +17,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "CUSD_3d": {
+            "symbol": "CUSD/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.9988,
+            "sl": 0.978824,
+            "tp1": 1.013782,
+            "tp2": 1.028764,
+            "tp3": 1.04874,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     }
 }
