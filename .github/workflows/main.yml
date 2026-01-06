@@ -1,7 +1,7 @@
-name: Confluence Multi-TF Bot
+name: Confluence Scanner
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -11,20 +11,20 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.11'
       - name: Install
-        run: pip install ccxt pandas pandas-ta requests numpy mplfinance
+        run: pip install ccxt pandas pandas-ta requests mplfinance
       - name: Run
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python bot.py
-      - name: Sync
+      - name: Save History
         run: |
-          git config --global user.name "TradeBot"
+          git config --global user.name "ScannerBot"
           git config --global user.email "bot@trade.com"
           git add trade_history.json
-          git commit -m "Update trades [skip ci]" || exit 0
+          git commit -m "Update history [skip ci]" || exit 0
           git push
