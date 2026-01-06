@@ -31,5 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
-    }
+    },
+    "first_run_charts": 2
 }
