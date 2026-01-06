@@ -5,6 +5,8 @@ import requests
 import os
 import json
 import time
+import mplfinance as mpf
+import io
 
 # --- CONFIG ---
 DISCORD_WEBHOOK = os.getenv('DISCORD_WEBHOOK_URL')
@@ -24,21 +26,45 @@ def load_db():
         try:
             with open(DB_FILE, 'r') as f:
                 db = json.load(f)
-                # Defaults if missing
                 if "bias_1w" not in db: db["bias_1w"] = "BULLISH"
                 if "bias_3d" not in db: db["bias_3d"] = "BULLISH"
                 if "balance" not in db: db["balance"] = 1000.0
+                if "first_run_charts" not in db: db["first_run_charts"] = 0
                 return db
         except: pass
-    return {"wins": 0, "losses": 0, "balance": 1000.0, "bias_1w": "BULLISH", "bias_3d": "BULLISH", "active_trades": {}}
+    return {"wins": 0, "losses": 0, "balance": 1000.0, "bias_1w": "BULLISH", "bias_3d": "BULLISH", "active_trades": {}, "first_run_charts": 0}
 
 def save_db(db):
     with open(DB_FILE, 'w') as f:
         json.dump(db, f, indent=4)
 
+def send_discord_image(content, df, symbol, timeframe):
+    """Generates a chart image and posts it to Discord."""
+    # Prepare DataFrame for mplfinance
+    df_plot = df.copy()
+    df_plot['date_idx'] = pd.to_datetime(df_plot['date'], unit='ms')
+    df_plot.set_index('date_idx', inplace=True)
+    
+    # Create SMA for plot
+    df_plot['sma_plot'] = ta.sma(df_plot['close'], length=200)
+    
+    # Save chart to a byte buffer
+    buf = io.BytesIO()
+    ap = mpf.make_addplot(df_plot['sma_plot'].tail(100), color='orange', width=1.5)
+    mpf.plot(df_plot.tail(100), type='candle', style='charles', addplot=ap, 
+             savefig=dict(fname=buf, format='png'), title=f"{symbol} ({timeframe}) 200 SMA", volume=False)
+    buf.seek(0)
+
+    # Post to Discord
+    payload = {"content": content}
+    files = {
+        "payload_json": (None, json.dumps(payload)),
+        "file": (f"{symbol}.png", buf, "image/png")
+    }
+    requests.post(DISCORD_WEBHOOK, files=files)
+
 def get_ohlcv(symbol, timeframe):
     for name, ex in EXCHANGES.items():
-        # CCXT supports '1w' and '3d' on most major exchanges
         for p in [f"{symbol}/USDT", f"{symbol}/USD"]:
             try:
                 bars = ex.fetch_ohlcv(p, timeframe=timeframe, limit=250)
@@ -69,13 +95,11 @@ def update_trades(db):
         try:
             t = active[trade_id]
             coin = t['symbol'].split('/')[0]
-            # Use the timeframe the trade was opened on to check price
             _, curr_p, _, _ = get_ohlcv(coin, t['timeframe'])
             if not curr_p: continue
 
             is_long = (t['side'] == "Long trade")
 
-            # SL Check
             if (is_long and curr_p <= t['sl']) or (not is_long and curr_p >= t['sl']):
                 if not t['tp1_hit']:
                     db['losses'] += 1
@@ -85,16 +109,14 @@ def update_trades(db):
                     requests.post(DISCORD_WEBHOOK, json={"content": f"✋ **{t['symbol']} ({t['timeframe']}) Hit Entry.** Risk-free exit."})
                 del active[trade_id]; changed = True; continue
 
-            # TP1 Check (Profit calculated on 20% of position)
             if not t['tp1_hit'] and ((is_long and curr_p >= t['tp1']) or (not is_long and curr_p <= t['tp1'])):
                 db['wins'] += 1
                 t['tp1_hit'] = True
                 t['sl'] = t['entry']
-                db['balance'] += (t['position_usd'] * 0.20 * 0.17) # 17% move approx
+                db['balance'] += (t['position_usd'] * 0.20 * 0.17)
                 requests.post(DISCORD_WEBHOOK, json={"content": f"✅ **{t['symbol']} ({t['timeframe']}) TP1!** SL to Entry."})
                 changed = True
 
-            # TP3 Exit (Trade Finish)
             if (is_long and curr_p >= t['tp3']) or (not is_long and curr_p <= t['tp3']):
                 requests.post(DISCORD_WEBHOOK, json={"content": f"🚀 **{t['symbol']} ({t['timeframe']}) FULL TP REACHED!**"})
                 del active[trade_id]; changed = True
@@ -109,15 +131,14 @@ def main():
     print(f"--- SCAN START | Balance: ${current_bal:.2f} | Basis: ${calc_basis} ---")
     update_trades(db)
 
-    # Fetch coins
     try:
         url = "https://api.coingecko.com/api/v3/coins/markets"
         coins = requests.get(url, params={'vs_currency': 'usd', 'order': 'market_cap_desc', 'per_page': 250}).json()
         symbols = [c['symbol'].upper() for c in coins if c['symbol'].upper() not in BLACKLIST]
     except: return
 
+    scanned_tokens = 0
     for coin in symbols[:200]:
-        # Check Weekly (6%) and 3-Day (2%)
         for tf, bias, pct in [('1w', db['bias_1w'], 0.06), ('3d', db['bias_3d'], 0.02)]:
             trade_id = f"{coin}_{tf}"
             if trade_id in db['active_trades']: continue
@@ -128,11 +149,17 @@ def main():
             df = pd.DataFrame(bars, columns=['date','open','high','low','close','vol'])
             sig = detect_signal(df, bias, coin, tf)
 
+            # FORCE POST FIRST 2 SCANNED TOKENS AS IMAGES (Regardless of Signal)
+            if db['first_run_charts'] < 2:
+                status_msg = f"🔎 **INITIAL SCAN PREVIEW**\n🪙 **${coin}** ({tf})\nPrice: {last_p:.4f}\nStatus: Monitoring for 200 SMA touches..."
+                send_discord_image(status_msg, df, coin, tf)
+                db['first_run_charts'] += 1
+                save_db(db)
+
             if sig:
                 pos_size = calc_basis * pct
                 is_long = (sig == "Long trade")
                 
-                # Dynamic TPs
                 if is_long:
                     tp1, tp2, tp3, sl = last_p*1.015, last_p*1.03, last_p*1.05, last_p*0.98
                 else:
@@ -150,7 +177,9 @@ def main():
                 msg = (f"🔥 **{sig.upper()} ({tf})**\n🪙 **${coin}**\nEntry: {last_p:.4f}\n"
                        f"🎯 TP1: {tp1:.4f} | TP3: {tp3:.4f}\n🛡️ SL: {sl:.4f}\n"
                        f"💰 Size: ${pos_size:.2f}\n📊 Winrate: {wr:.1f}% ({db['wins']}W | {db['losses']}L)")
-                requests.post(DISCORD_WEBHOOK, json={"content": msg})
+                
+                # Post trade with Chart
+                send_discord_image(msg, df, coin, tf)
         
         time.sleep(0.05)
 
