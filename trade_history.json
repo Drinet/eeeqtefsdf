@@ -30,6 +30,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "VIRTUAL_3d": {
+            "symbol": "VIRTUAL/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 1.0245,
+            "sl": 1.0040099999999998,
+            "tp1": 1.0398675,
+            "tp2": 1.055235,
+            "tp3": 1.075725,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
