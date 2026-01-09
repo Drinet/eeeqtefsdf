@@ -56,6 +56,19 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "XDC_1w": {
+            "symbol": "XDC/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 0.04849,
+            "sl": 0.0475202,
+            "tp1": 0.04921734999999999,
+            "tp2": 0.0499447,
+            "tp3": 0.0509145,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
