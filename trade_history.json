@@ -1,7 +1,7 @@
 {
     "wins": 5,
-    "losses": 0,
-    "balance": 1000.0,
+    "losses": 1,
+    "balance": 998.8,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "XDC_1w": {
-            "symbol": "XDC/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 0.04849,
-            "sl": 0.0475202,
-            "tp1": 0.04921734999999999,
-            "tp2": 0.0499447,
-            "tp3": 0.0509145,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "DOGE_1w": {
             "symbol": "DOGE/USDT",
             "timeframe": "1w",
@@ -66,6 +53,19 @@
             "tp1": 0.13874034999999998,
             "tp2": 0.14079070000000002,
             "tp3": 0.1435245,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "XDC_1w": {
+            "symbol": "XDC/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 0.04741,
+            "sl": 0.0464618,
+            "tp1": 0.048121149999999994,
+            "tp2": 0.0488323,
+            "tp3": 0.049780500000000005,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
