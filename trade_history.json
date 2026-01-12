@@ -1,7 +1,7 @@
 {
     "wins": 8,
-    "losses": 1,
-    "balance": 998.8,
+    "losses": 2,
+    "balance": 997.5999999999999,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -43,19 +43,6 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
-        },
-        "XDC_1w": {
-            "symbol": "XDC/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 0.04741,
-            "sl": 0.0464618,
-            "tp1": 0.048121149999999994,
-            "tp2": 0.0488323,
-            "tp3": 0.049780500000000005,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
         },
         "VIRTUAL_3d": {
             "symbol": "VIRTUAL/USDT",
