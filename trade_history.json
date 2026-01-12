@@ -1,7 +1,7 @@
 {
     "wins": 8,
-    "losses": 2,
-    "balance": 997.5999999999999,
+    "losses": 3,
+    "balance": 997.1999999999999,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "VIRTUAL_3d": {
-            "symbol": "VIRTUAL/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 1.0278,
-            "sl": 1.007244,
-            "tp1": 1.0432169999999998,
-            "tp2": 1.058634,
-            "tp3": 1.07919,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "DOGE_1w": {
             "symbol": "DOGE/USDT",
             "timeframe": "1w",
@@ -80,6 +67,19 @@
             "tp2": 0.970466,
             "tp3": 0.9893100000000001,
             "tp1_hit": true,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "VIRTUAL_3d": {
+            "symbol": "VIRTUAL/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 1.0043,
+            "sl": 0.9842139999999999,
+            "tp1": 1.0193644999999998,
+            "tp2": 1.034429,
+            "tp3": 1.054515,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
