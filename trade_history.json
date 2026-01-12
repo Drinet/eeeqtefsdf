@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "DOGE_1w": {
-            "symbol": "DOGE/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 0.13669,
-            "sl": 0.13669,
-            "tp1": 0.13874034999999998,
-            "tp2": 0.14079070000000002,
-            "tp3": 0.1435245,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "XDC_1w": {
             "symbol": "XDC/USDT",
             "timeframe": "1w",
@@ -82,6 +69,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "DOGE_1w": {
+            "symbol": "DOGE/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 0.13661,
+            "sl": 0.13387780000000002,
+            "tp1": 0.13865915,
+            "tp2": 0.1407083,
+            "tp3": 0.14344050000000003,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
