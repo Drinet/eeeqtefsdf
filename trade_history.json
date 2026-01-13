@@ -56,19 +56,6 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
-        },
-        "DOGE_1w": {
-            "symbol": "DOGE/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 0.13607,
-            "sl": 0.13607,
-            "tp1": 0.13811104999999999,
-            "tp2": 0.1401521,
-            "tp3": 0.14287350000000001,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
