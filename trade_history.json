@@ -30,6 +30,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "MNT_3d": {
+            "symbol": "MNT/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.9404,
+            "sl": 0.921592,
+            "tp1": 0.954506,
+            "tp2": 0.968612,
+            "tp3": 0.9874200000000001,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
