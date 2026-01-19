@@ -1,7 +1,7 @@
 {
     "wins": 12,
-    "losses": 5,
-    "balance": 995.5999999999999,
+    "losses": 7,
+    "balance": 993.1999999999998,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "MNT_3d": {
-            "symbol": "MNT/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.9404,
-            "sl": 0.9404,
-            "tp1": 0.954506,
-            "tp2": 0.968612,
-            "tp3": 0.9874200000000001,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "HTX_3d": {
             "symbol": "HTX/USDT",
             "timeframe": "3d",
@@ -57,31 +44,18 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "DOGE_1w": {
-            "symbol": "DOGE/USDT",
-            "timeframe": "1w",
+        "MNT_3d": {
+            "symbol": "MNT/USDT",
+            "timeframe": "3d",
             "side": "Long trade",
-            "entry": 0.13187,
-            "sl": 0.12923259999999998,
-            "tp1": 0.13384804999999997,
-            "tp2": 0.13582609999999998,
-            "tp3": 0.1384635,
+            "entry": 0.9119,
+            "sl": 0.8936620000000001,
+            "tp1": 0.9255785,
+            "tp2": 0.9392570000000001,
+            "tp3": 0.9574950000000001,
             "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
-        "HBAR_1w": {
-            "symbol": "HBAR/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 0.11248,
-            "sl": 0.11023039999999999,
-            "tp1": 0.11416719999999998,
-            "tp2": 0.1158544,
-            "tp3": 0.118104,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
