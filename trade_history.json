@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "HTX_3d": {
-            "symbol": "HTX/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 1.7386e-06,
-            "sl": 1.7386e-06,
-            "tp1": 1.7646789999999999e-06,
-            "tp2": 1.790758e-06,
-            "tp3": 1.8255300000000001e-06,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "MNT_3d": {
             "symbol": "MNT/USDT",
             "timeframe": "3d",
@@ -54,6 +41,19 @@
             "tp2": 0.9392570000000001,
             "tp3": 0.9574950000000001,
             "tp1_hit": true,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "HTX_3d": {
+            "symbol": "HTX/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 1.7372e-06,
+            "sl": 1.702456e-06,
+            "tp1": 1.7632579999999998e-06,
+            "tp2": 1.7893160000000002e-06,
+            "tp3": 1.8240600000000002e-06,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
