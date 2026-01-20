@@ -1,7 +1,7 @@
 {
     "wins": 15,
-    "losses": 12,
-    "balance": 990.3999999999999,
+    "losses": 14,
+    "balance": 989.5999999999999,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -57,32 +57,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "BTC_3d": {
-            "symbol": "BTC/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 90454.8,
-            "sl": 88645.704,
-            "tp1": 91811.62199999999,
-            "tp2": 93168.444,
-            "tp3": 94977.54000000001,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "ETH_3d": {
-            "symbol": "ETH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 3044.19,
-            "sl": 2983.3062,
-            "tp1": 3089.8528499999998,
-            "tp2": 3135.5157,
-            "tp3": 3196.3995,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "LINK_1w": {
             "symbol": "LINK/USDT",
             "timeframe": "1w",
@@ -118,6 +92,45 @@
             "tp1": 0.052455199999999993,
             "tp2": 0.0532304,
             "tp3": 0.054264,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "BTC_3d": {
+            "symbol": "BTC/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 88495.0,
+            "sl": 86725.09999999999,
+            "tp1": 89822.42499999999,
+            "tp2": 91149.85,
+            "tp3": 92919.75,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "ETH_3d": {
+            "symbol": "ETH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 2941.55,
+            "sl": 2882.719,
+            "tp1": 2985.67325,
+            "tp2": 3029.7965000000004,
+            "tp3": 3088.6275000000005,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "WEETH_3d": {
+            "symbol": "WEETH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 3222.89,
+            "sl": 3158.4321999999997,
+            "tp1": 3271.2333499999995,
+            "tp2": 3319.5767,
+            "tp3": 3384.0345,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
