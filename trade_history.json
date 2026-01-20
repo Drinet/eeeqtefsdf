@@ -108,6 +108,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "XRP_3d": {
+            "symbol": "XRP/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 1.895,
+            "sl": 1.8571,
+            "tp1": 1.923425,
+            "tp2": 1.95185,
+            "tp3": 1.9897500000000001,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
