@@ -1,7 +1,7 @@
 {
     "wins": 15,
-    "losses": 11,
-    "balance": 990.7999999999998,
+    "losses": 12,
+    "balance": 990.3999999999999,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -96,19 +96,6 @@
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
-        "CHZ_3d": {
-            "symbol": "CHZ/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.05321,
-            "sl": 0.0521458,
-            "tp1": 0.05400815,
-            "tp2": 0.0548063,
-            "tp3": 0.055870500000000003,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "XRP_3d": {
             "symbol": "XRP/USDT",
             "timeframe": "3d",
@@ -118,6 +105,19 @@
             "tp1": 1.923425,
             "tp2": 1.95185,
             "tp3": 1.9897500000000001,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "CHZ_3d": {
+            "symbol": "CHZ/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.05168,
+            "sl": 0.050646399999999994,
+            "tp1": 0.052455199999999993,
+            "tp2": 0.0532304,
+            "tp3": 0.054264,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
