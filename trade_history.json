@@ -1,7 +1,7 @@
 {
     "wins": 13,
-    "losses": 8,
-    "balance": 992.7999999999998,
+    "losses": 9,
+    "balance": 992.3999999999999,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "CHZ_3d": {
-            "symbol": "CHZ/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.05483,
-            "sl": 0.053733399999999994,
-            "tp1": 0.05565244999999999,
-            "tp2": 0.0564749,
-            "tp3": 0.0575715,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "MNT_3d": {
             "symbol": "MNT/USDT",
             "timeframe": "3d",
@@ -66,6 +53,32 @@
             "tp1": 0.9032484999999999,
             "tp2": 0.916597,
             "tp3": 0.9343950000000001,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "LINK_1w": {
+            "symbol": "LINK/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 12.488,
+            "sl": 12.23824,
+            "tp1": 12.675319999999997,
+            "tp2": 12.86264,
+            "tp3": 13.112400000000001,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "CHZ_3d": {
+            "symbol": "CHZ/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.05347,
+            "sl": 0.0524006,
+            "tp1": 0.05427204999999999,
+            "tp2": 0.0550741,
+            "tp3": 0.0561435,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
