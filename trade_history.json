@@ -82,6 +82,32 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "BTC_3d": {
+            "symbol": "BTC/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 90454.8,
+            "sl": 88645.704,
+            "tp1": 91811.62199999999,
+            "tp2": 93168.444,
+            "tp3": 94977.54000000001,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "ETH_3d": {
+            "symbol": "ETH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 3044.19,
+            "sl": 2983.3062,
+            "tp1": 3089.8528499999998,
+            "tp2": 3135.5157,
+            "tp3": 3196.3995,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
