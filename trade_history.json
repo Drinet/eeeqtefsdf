@@ -1,7 +1,7 @@
 {
     "wins": 13,
-    "losses": 9,
-    "balance": 992.3999999999999,
+    "losses": 10,
+    "balance": 991.9999999999999,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -27,19 +27,6 @@
             "tp1": 1.013782,
             "tp2": 1.028764,
             "tp3": 1.04874,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "HTX_3d": {
-            "symbol": "HTX/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 1.7372e-06,
-            "sl": 1.702456e-06,
-            "tp1": 1.7632579999999998e-06,
-            "tp2": 1.7893160000000002e-06,
-            "tp3": 1.8240600000000002e-06,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
@@ -79,6 +66,19 @@
             "tp1": 0.05427204999999999,
             "tp2": 0.0550741,
             "tp3": 0.0561435,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "HTX_3d": {
+            "symbol": "HTX/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 1.6953e-06,
+            "sl": 1.6613940000000001e-06,
+            "tp1": 1.7207295e-06,
+            "tp2": 1.7461590000000003e-06,
+            "tp3": 1.7800650000000002e-06,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
