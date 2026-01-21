@@ -1,5 +1,5 @@
 {
-    "wins": 32,
+    "wins": 33,
     "losses": 16,
     "balance": 988.8,
     "bias_1w": "BULLISH",
@@ -57,19 +57,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "LINK_1w": {
-            "symbol": "LINK/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 11.948,
-            "sl": 11.948,
-            "tp1": 12.12722,
-            "tp2": 12.30644,
-            "tp3": 12.5454,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "MNT_3d": {
             "symbol": "MNT/USDT",
             "timeframe": "3d",
@@ -88,11 +75,11 @@
             "timeframe": "3d",
             "side": "Long trade",
             "entry": 0.05068,
-            "sl": 0.0496664,
+            "sl": 0.05068,
             "tp1": 0.0514402,
             "tp2": 0.0522004,
             "tp3": 0.053214000000000004,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
