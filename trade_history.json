@@ -95,6 +95,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "LINK_1w": {
+            "symbol": "LINK/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 12.449,
+            "sl": 12.20002,
+            "tp1": 12.635734999999999,
+            "tp2": 12.822470000000001,
+            "tp3": 13.07145,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
