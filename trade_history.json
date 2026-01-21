@@ -1,7 +1,7 @@
 {
     "wins": 20,
-    "losses": 14,
-    "balance": 989.5999999999999,
+    "losses": 15,
+    "balance": 989.1999999999999,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -41,19 +41,6 @@
             "tp2": 1.7461590000000003e-06,
             "tp3": 1.7800650000000002e-06,
             "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "MNT_3d": {
-            "symbol": "MNT/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.8886,
-            "sl": 0.8708279999999999,
-            "tp1": 0.9019289999999999,
-            "tp2": 0.915258,
-            "tp3": 0.93303,
-            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
@@ -131,6 +118,19 @@
             "tp1": 0.051714249999999996,
             "tp2": 0.052478500000000004,
             "tp3": 0.0534975,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "MNT_3d": {
+            "symbol": "MNT/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.8711,
+            "sl": 0.8536779999999999,
+            "tp1": 0.8841664999999999,
+            "tp2": 0.8972330000000001,
+            "tp3": 0.914655,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
