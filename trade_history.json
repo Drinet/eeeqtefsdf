@@ -82,6 +82,19 @@
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
+        },
+        "WEETH_3d": {
+            "symbol": "WEETH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 3221.87,
+            "sl": 3157.4325999999996,
+            "tp1": 3270.1980499999995,
+            "tp2": 3318.5261,
+            "tp3": 3382.9635,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
