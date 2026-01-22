@@ -70,19 +70,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "CHZ_3d": {
-            "symbol": "CHZ/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.05068,
-            "sl": 0.05068,
-            "tp1": 0.0514402,
-            "tp2": 0.0522004,
-            "tp3": 0.053214000000000004,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "ETH_3d": {
             "symbol": "ETH/USDT",
             "timeframe": "3d",
