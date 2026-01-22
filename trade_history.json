@@ -1,7 +1,7 @@
 {
     "wins": 33,
-    "losses": 16,
-    "balance": 988.8,
+    "losses": 17,
+    "balance": 988.4,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -54,19 +54,6 @@
             "tp2": 0.8907440000000001,
             "tp3": 0.9080400000000001,
             "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "ETH_3d": {
-            "symbol": "ETH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 3025.64,
-            "sl": 2965.1272,
-            "tp1": 3071.0245999999997,
-            "tp2": 3116.4092,
-            "tp3": 3176.922,
-            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
