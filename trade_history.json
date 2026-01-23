@@ -1,7 +1,7 @@
 {
     "wins": 33,
-    "losses": 18,
-    "balance": 987.1999999999999,
+    "losses": 19,
+    "balance": 986.8,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -57,19 +57,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "WEETH_3d": {
-            "symbol": "WEETH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 3221.87,
-            "sl": 3157.4325999999996,
-            "tp1": 3270.1980499999995,
-            "tp2": 3318.5261,
-            "tp3": 3382.9635,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "LINK_1w": {
             "symbol": "LINK/USDT",
             "timeframe": "1w",
@@ -82,6 +69,32 @@
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
+        },
+        "XRP_3d": {
+            "symbol": "XRP/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 1.892,
+            "sl": 1.8541599999999998,
+            "tp1": 1.9203799999999998,
+            "tp2": 1.94876,
+            "tp3": 1.9866,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "WEETH_3d": {
+            "symbol": "WEETH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 3148.26,
+            "sl": 3085.2948,
+            "tp1": 3195.4838999999997,
+            "tp2": 3242.7078,
+            "tp3": 3305.6730000000002,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
