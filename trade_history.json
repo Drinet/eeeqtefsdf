@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "MNT_3d": {
-            "symbol": "MNT/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.8648,
-            "sl": 0.8648,
-            "tp1": 0.8777719999999999,
-            "tp2": 0.8907440000000001,
-            "tp3": 0.9080400000000001,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "XRP_3d": {
             "symbol": "XRP/USDT",
             "timeframe": "3d",
