@@ -1,7 +1,7 @@
 {
     "wins": 36,
-    "losses": 19,
-    "balance": 986.8,
+    "losses": 20,
+    "balance": 985.5999999999999,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -57,19 +57,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "LINK_1w": {
-            "symbol": "LINK/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 12.147,
-            "sl": 11.90406,
-            "tp1": 12.329204999999998,
-            "tp2": 12.51141,
-            "tp3": 12.75435,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "XRP_3d": {
             "symbol": "XRP/USDT",
             "timeframe": "3d",
@@ -82,6 +69,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "LINK_1w": {
+            "symbol": "LINK/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 11.823,
+            "sl": 11.58654,
+            "tp1": 12.000345,
+            "tp2": 12.17769,
+            "tp3": 12.414150000000001,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
