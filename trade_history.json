@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "WEETH_3d": {
-            "symbol": "WEETH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 3148.26,
-            "sl": 3148.26,
-            "tp1": 3195.4838999999997,
-            "tp2": 3242.7078,
-            "tp3": 3305.6730000000002,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "XRP_3d": {
             "symbol": "XRP/USDT",
             "timeframe": "3d",
@@ -82,6 +69,19 @@
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
+        },
+        "WEETH_3d": {
+            "symbol": "WEETH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 3146.14,
+            "sl": 3083.2171999999996,
+            "tp1": 3193.3320999999996,
+            "tp2": 3240.5242,
+            "tp3": 3303.447,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
