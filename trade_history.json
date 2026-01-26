@@ -31,32 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "XRP_3d": {
-            "symbol": "XRP/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 1.841,
-            "sl": 1.841,
-            "tp1": 1.8686149999999997,
-            "tp2": 1.89623,
-            "tp3": 1.9330500000000002,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "LINK_1w": {
-            "symbol": "LINK/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 11.48,
-            "sl": 11.48,
-            "tp1": 11.652199999999999,
-            "tp2": 11.8244,
-            "tp3": 12.054,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "WEETH_3d": {
             "symbol": "WEETH/USDT",
             "timeframe": "3d",
