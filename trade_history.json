@@ -1,7 +1,7 @@
 {
     "wins": 43,
-    "losses": 27,
-    "balance": 982.0,
+    "losses": 28,
+    "balance": 981.6,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "XRP_3d": {
-            "symbol": "XRP/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 1.904,
-            "sl": 1.8659199999999998,
-            "tp1": 1.9325599999999998,
-            "tp2": 1.96112,
-            "tp3": 1.9992,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "WEETH_3d": {
             "symbol": "WEETH/USDT",
             "timeframe": "3d",
@@ -67,6 +54,19 @@
             "tp2": 3230.183,
             "tp3": 3292.905,
             "tp1_hit": true,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "XRP_3d": {
+            "symbol": "XRP/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 1.826,
+            "sl": 1.78948,
+            "tp1": 1.8533899999999999,
+            "tp2": 1.8807800000000001,
+            "tp3": 1.9173000000000002,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
