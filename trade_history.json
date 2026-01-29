@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "WEETH_3d": {
-            "symbol": "WEETH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 3198.88,
-            "sl": 3198.88,
-            "tp1": 3246.8632,
-            "tp2": 3294.8464000000004,
-            "tp3": 3358.824,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "HTX_3d": {
             "symbol": "HTX/USDT",
             "timeframe": "3d",
@@ -79,6 +66,19 @@
             "tp1": 0.0528815,
             "tp2": 0.053663,
             "tp3": 0.054705000000000004,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "WEETH_3d": {
+            "symbol": "WEETH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 3202.63,
+            "sl": 3138.5774,
+            "tp1": 3250.66945,
+            "tp2": 3298.7089,
+            "tp3": 3362.7615,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
