@@ -69,6 +69,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "CHZ_3d": {
+            "symbol": "CHZ/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.04837,
+            "sl": 0.0474026,
+            "tp1": 0.04909555,
+            "tp2": 0.04982110000000001,
+            "tp3": 0.05078850000000001,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
