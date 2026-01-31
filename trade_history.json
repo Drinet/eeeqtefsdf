@@ -83,19 +83,6 @@
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
-        "LEO_3d": {
-            "symbol": "LEO/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 8.355,
-            "sl": 8.355,
-            "tp1": 8.480324999999999,
-            "tp2": 8.60565,
-            "tp3": 8.77275,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "AAVE_1w": {
             "symbol": "AAVE/USDT",
             "timeframe": "1w",
