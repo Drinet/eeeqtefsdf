@@ -1,7 +1,7 @@
 {
     "wins": 50,
-    "losses": 40,
-    "balance": 970.3999999999997,
+    "losses": 42,
+    "balance": 967.9999999999997,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "ETH_1w": {
-            "symbol": "ETH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 2426.82,
-            "sl": 2378.2836,
-            "tp1": 2463.2223,
-            "tp2": 2499.6246,
-            "tp3": 2548.161,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "XLM_1w": {
             "symbol": "XLM/USDT",
             "timeframe": "1w",
@@ -66,19 +53,6 @@
             "tp1": 0.17662014999999998,
             "tp2": 0.1792303,
             "tp3": 0.1827105,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
-        "SOL_1w": {
-            "symbol": "SOL/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 103.52,
-            "sl": 101.44959999999999,
-            "tp1": 105.07279999999999,
-            "tp2": 106.6256,
-            "tp3": 108.696,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
@@ -105,6 +79,32 @@
             "tp1": 8.3433,
             "tp2": 8.466600000000001,
             "tp3": 8.631,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "ETH_1w": {
+            "symbol": "ETH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 2369.72,
+            "sl": 2322.3255999999997,
+            "tp1": 2405.2657999999997,
+            "tp2": 2440.8116,
+            "tp3": 2488.2059999999997,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "SOL_1w": {
+            "symbol": "SOL/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 101.01,
+            "sl": 98.9898,
+            "tp1": 102.52515,
+            "tp2": 104.0403,
+            "tp3": 106.0605,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
