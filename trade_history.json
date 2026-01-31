@@ -1,7 +1,7 @@
 {
     "wins": 49,
-    "losses": 33,
-    "balance": 978.8000000000001,
+    "losses": 34,
+    "balance": 977.6,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -57,15 +57,28 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
+        "XLM_1w": {
+            "symbol": "XLM/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 0.17837,
+            "sl": 0.1748026,
+            "tp1": 0.18104554999999997,
+            "tp2": 0.1837211,
+            "tp3": 0.1872885,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
         "GT_1w": {
             "symbol": "GT/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 8.99,
-            "sl": 8.8102,
-            "tp1": 9.124849999999999,
-            "tp2": 9.2597,
-            "tp3": 9.4395,
+            "entry": 8.69,
+            "sl": 8.5162,
+            "tp1": 8.82035,
+            "tp2": 8.9507,
+            "tp3": 9.1245,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
