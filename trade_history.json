@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "CHZ_3d": {
-            "symbol": "CHZ/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.04837,
-            "sl": 0.04837,
-            "tp1": 0.04909555,
-            "tp2": 0.04982110000000001,
-            "tp3": 0.05078850000000001,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "WEETH_3d": {
             "symbol": "WEETH/USDT",
             "timeframe": "3d",
@@ -70,19 +57,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "AAVE_1w": {
-            "symbol": "AAVE/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 137.28,
-            "sl": 137.28,
-            "tp1": 139.33919999999998,
-            "tp2": 141.3984,
-            "tp3": 144.144,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "XRP_3d": {
             "symbol": "XRP/USDT",
             "timeframe": "3d",
@@ -95,6 +69,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "AAVE_1w": {
+            "symbol": "AAVE/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 136.83,
+            "sl": 134.0934,
+            "tp1": 138.88245,
+            "tp2": 140.93490000000003,
+            "tp3": 143.6715,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
