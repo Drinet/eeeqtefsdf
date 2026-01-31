@@ -95,6 +95,19 @@
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
+        },
+        "SOL_1w": {
+            "symbol": "SOL/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 103.52,
+            "sl": 101.44959999999999,
+            "tp1": 105.07279999999999,
+            "tp2": 106.6256,
+            "tp3": 108.696,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
