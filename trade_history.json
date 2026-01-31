@@ -1,7 +1,7 @@
 {
     "wins": 49,
-    "losses": 38,
-    "balance": 972.7999999999998,
+    "losses": 39,
+    "balance": 971.5999999999998,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -70,19 +70,6 @@
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
-        "AAVE_1w": {
-            "symbol": "AAVE/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 126.28,
-            "sl": 123.7544,
-            "tp1": 128.17419999999998,
-            "tp2": 130.0684,
-            "tp3": 132.594,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "GT_1w": {
             "symbol": "GT/USDT",
             "timeframe": "1w",
@@ -105,6 +92,32 @@
             "tp1": 105.07279999999999,
             "tp2": 106.6256,
             "tp3": 108.696,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "LEO_3d": {
+            "symbol": "LEO/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 8.355,
+            "sl": 8.1879,
+            "tp1": 8.480324999999999,
+            "tp2": 8.60565,
+            "tp3": 8.77275,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "AAVE_1w": {
+            "symbol": "AAVE/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 122.81,
+            "sl": 120.3538,
+            "tp1": 124.65214999999999,
+            "tp2": 126.49430000000001,
+            "tp3": 128.9505,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
