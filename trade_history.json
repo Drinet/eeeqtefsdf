@@ -56,6 +56,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "GT_1w": {
+            "symbol": "GT/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 8.99,
+            "sl": 8.8102,
+            "tp1": 9.124849999999999,
+            "tp2": 9.2597,
+            "tp3": 9.4395,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
