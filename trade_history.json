@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "ETH_1w": {
-            "symbol": "ETH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 2299.35,
-            "sl": 2299.35,
-            "tp1": 2333.8402499999997,
-            "tp2": 2368.3305,
-            "tp3": 2414.3175,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "LEO_3d": {
             "symbol": "LEO/USDT",
             "timeframe": "3d",
@@ -118,6 +105,19 @@
             "tp1": 8.15045,
             "tp2": 8.2709,
             "tp3": 8.4315,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "ETH_1w": {
+            "symbol": "ETH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 2289.25,
+            "sl": 2243.465,
+            "tp1": 2323.58875,
+            "tp2": 2357.9275000000002,
+            "tp3": 2403.7125,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
