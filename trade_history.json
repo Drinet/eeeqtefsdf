@@ -70,19 +70,6 @@
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
-        "ETH_1w": {
-            "symbol": "ETH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 2369.72,
-            "sl": 2369.72,
-            "tp1": 2405.2657999999997,
-            "tp2": 2440.8116,
-            "tp3": 2488.2059999999997,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "SOL_1w": {
             "symbol": "SOL/USDT",
             "timeframe": "1w",
@@ -105,6 +92,19 @@
             "tp1": 128.1539,
             "tp2": 130.0478,
             "tp3": 132.573,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "ETH_1w": {
+            "symbol": "ETH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 2368.88,
+            "sl": 2321.5024,
+            "tp1": 2404.4132,
+            "tp2": 2439.9464000000003,
+            "tp3": 2487.324,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
