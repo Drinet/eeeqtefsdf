@@ -1,7 +1,7 @@
 {
     "wins": 55,
-    "losses": 42,
-    "balance": 967.9999999999997,
+    "losses": 43,
+    "balance": 966.7999999999996,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -100,11 +100,11 @@
             "symbol": "AAVE/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 128.98,
-            "sl": 126.40039999999999,
-            "tp1": 130.91469999999998,
-            "tp2": 132.8494,
-            "tp3": 135.429,
+            "entry": 126.26,
+            "sl": 123.7348,
+            "tp1": 128.1539,
+            "tp2": 130.0478,
+            "tp3": 132.573,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
