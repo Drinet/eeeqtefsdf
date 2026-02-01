@@ -1,7 +1,7 @@
 {
     "wins": 60,
-    "losses": 45,
-    "balance": 964.3999999999995,
+    "losses": 46,
+    "balance": 963.1999999999995,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "GT_1w": {
-            "symbol": "GT/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 8.2,
-            "sl": 8.036,
-            "tp1": 8.322999999999999,
-            "tp2": 8.446,
-            "tp3": 8.61,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "ETH_1w": {
             "symbol": "ETH/USDT",
             "timeframe": "1w",
@@ -66,19 +53,6 @@
             "tp1": 2333.8402499999997,
             "tp2": 2368.3305,
             "tp3": 2414.3175,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
-        "SOL_1w": {
-            "symbol": "SOL/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 100.97,
-            "sl": 100.97,
-            "tp1": 102.48454999999998,
-            "tp2": 103.9991,
-            "tp3": 106.0185,
             "tp1_hit": true,
             "position_usd": 60.0,
             "risk_amount": 1.2
@@ -119,6 +93,32 @@
             "tp2": 127.18440000000001,
             "tp3": 129.654,
             "tp1_hit": true,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "SOL_1w": {
+            "symbol": "SOL/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 100.44,
+            "sl": 98.43119999999999,
+            "tp1": 101.94659999999999,
+            "tp2": 103.4532,
+            "tp3": 105.462,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "GT_1w": {
+            "symbol": "GT/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 8.03,
+            "sl": 7.869399999999999,
+            "tp1": 8.15045,
+            "tp2": 8.2709,
+            "tp3": 8.4315,
+            "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
         }
