@@ -1,7 +1,7 @@
 {
     "wins": 63,
-    "losses": 46,
-    "balance": 963.1999999999995,
+    "losses": 48,
+    "balance": 961.5999999999995,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -31,45 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "HTX_3d": {
-            "symbol": "HTX/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 1.7472e-06,
-            "sl": 1.712256e-06,
-            "tp1": 1.7734079999999998e-06,
-            "tp2": 1.7996160000000001e-06,
-            "tp3": 1.8345600000000001e-06,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "LEO_3d": {
-            "symbol": "LEO/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 8.052,
-            "sl": 8.052,
-            "tp1": 8.17278,
-            "tp2": 8.29356,
-            "tp3": 8.4546,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "XLM_1w": {
-            "symbol": "XLM/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 0.17311,
-            "sl": 0.17311,
-            "tp1": 0.17570665,
-            "tp2": 0.17830330000000003,
-            "tp3": 0.18176550000000002,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "AAVE_1w": {
             "symbol": "AAVE/USDT",
             "timeframe": "1w",
@@ -83,44 +44,18 @@
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
-        "GT_1w": {
-            "symbol": "GT/USDT",
-            "timeframe": "1w",
+        "HTX_3d": {
+            "symbol": "HTX/USDT",
+            "timeframe": "3d",
             "side": "Long trade",
-            "entry": 8.03,
-            "sl": 8.03,
-            "tp1": 8.15045,
-            "tp2": 8.2709,
-            "tp3": 8.4315,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
-        "ETH_1w": {
-            "symbol": "ETH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 2289.25,
-            "sl": 2243.465,
-            "tp1": 2323.58875,
-            "tp2": 2357.9275000000002,
-            "tp3": 2403.7125,
+            "entry": 1.7114e-06,
+            "sl": 1.677172e-06,
+            "tp1": 1.737071e-06,
+            "tp2": 1.7627420000000002e-06,
+            "tp3": 1.7969700000000001e-06,
             "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
-        "SOL_1w": {
-            "symbol": "SOL/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 99.71,
-            "sl": 99.71,
-            "tp1": 101.20564999999998,
-            "tp2": 102.70129999999999,
-            "tp3": 104.6955,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
