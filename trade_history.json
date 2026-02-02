@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "AAVE_1w": {
-            "symbol": "AAVE/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 123.48,
-            "sl": 123.48,
-            "tp1": 125.33219999999999,
-            "tp2": 127.18440000000001,
-            "tp3": 129.654,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "HTX_3d": {
             "symbol": "HTX/USDT",
             "timeframe": "3d",
