@@ -1,7 +1,7 @@
 {
     "wins": 69,
-    "losses": 56,
-    "balance": 956.7999999999995,
+    "losses": 58,
+    "balance": 955.9999999999995,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -31,32 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "OKB_3d": {
-            "symbol": "OKB/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 72.48,
-            "sl": 71.0304,
-            "tp1": 73.5672,
-            "tp2": 74.65440000000001,
-            "tp3": 76.10400000000001,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "BNB_3d": {
-            "symbol": "BNB/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 641.1,
-            "sl": 628.278,
-            "tp1": 650.7165,
-            "tp2": 660.3330000000001,
-            "tp3": 673.1550000000001,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "LEO_3d": {
             "symbol": "LEO/USDT",
             "timeframe": "3d",
@@ -82,6 +56,32 @@
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
+        },
+        "BNB_3d": {
+            "symbol": "BNB/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 617.2,
+            "sl": 604.856,
+            "tp1": 626.458,
+            "tp2": 635.716,
+            "tp3": 648.0600000000001,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "OKB_3d": {
+            "symbol": "OKB/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 70.75,
+            "sl": 69.335,
+            "tp1": 71.81124999999999,
+            "tp2": 72.8725,
+            "tp3": 74.28750000000001,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
