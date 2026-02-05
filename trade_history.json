@@ -1,5 +1,5 @@
 {
-    "wins": 69,
+    "wins": 72,
     "losses": 60,
     "balance": 955.1999999999996,
     "bias_1w": "BULLISH",
@@ -49,11 +49,11 @@
             "timeframe": "1w",
             "side": "Long trade",
             "entry": 34.08,
-            "sl": 33.398399999999995,
+            "sl": 34.08,
             "tp1": 34.59119999999999,
             "tp2": 35.102399999999996,
             "tp3": 35.784,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
@@ -62,11 +62,11 @@
             "timeframe": "3d",
             "side": "Long trade",
             "entry": 604.9,
-            "sl": 592.802,
+            "sl": 604.9,
             "tp1": 613.9735,
             "tp2": 623.047,
             "tp3": 635.145,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
@@ -75,11 +75,11 @@
             "timeframe": "3d",
             "side": "Long trade",
             "entry": 68.91,
-            "sl": 67.53179999999999,
+            "sl": 68.91,
             "tp1": 69.94364999999999,
             "tp2": 70.9773,
             "tp3": 72.3555,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
