@@ -1,7 +1,7 @@
 {
     "wins": 66,
-    "losses": 49,
-    "balance": 961.1999999999995,
+    "losses": 50,
+    "balance": 960.7999999999995,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "BNB_3d": {
-            "symbol": "BNB/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 694.3,
-            "sl": 680.414,
-            "tp1": 704.7144999999999,
-            "tp2": 715.129,
-            "tp3": 729.015,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "LEO_3d": {
             "symbol": "LEO/USDT",
             "timeframe": "3d",
@@ -67,6 +54,19 @@
             "tp2": 8.166870000000001,
             "tp3": 8.32545,
             "tp1_hit": true,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "BNB_3d": {
+            "symbol": "BNB/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 678.0,
+            "sl": 664.4399999999999,
+            "tp1": 688.17,
+            "tp2": 698.34,
+            "tp3": 711.9,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
