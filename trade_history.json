@@ -56,6 +56,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "LEO_3d": {
+            "symbol": "LEO/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 7.929,
+            "sl": 7.7704200000000005,
+            "tp1": 8.047934999999999,
+            "tp2": 8.166870000000001,
+            "tp3": 8.32545,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
