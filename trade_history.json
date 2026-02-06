@@ -35,27 +35,14 @@
             "symbol": "DASH/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 34.08,
-            "sl": 34.08,
-            "tp1": 34.59119999999999,
-            "tp2": 35.102399999999996,
-            "tp3": 35.784,
-            "tp1_hit": true,
+            "entry": 35.72,
+            "sl": 35.0056,
+            "tp1": 36.255799999999994,
+            "tp2": 36.7916,
+            "tp3": 37.506,
+            "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
-        },
-        "BNB_3d": {
-            "symbol": "BNB/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 604.9,
-            "sl": 604.9,
-            "tp1": 613.9735,
-            "tp2": 623.047,
-            "tp3": 635.145,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
