@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "DASH_1w": {
-            "symbol": "DASH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 35.6,
-            "sl": 35.6,
-            "tp1": 36.134,
-            "tp2": 36.668,
-            "tp3": 37.38,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "CRVUSD_3d": {
             "symbol": "CRVUSD/USDT",
             "timeframe": "3d",
@@ -56,6 +43,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "DASH_1w": {
+            "symbol": "DASH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 37.35,
+            "sl": 36.603,
+            "tp1": 37.91025,
+            "tp2": 38.4705,
+            "tp3": 39.2175,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
