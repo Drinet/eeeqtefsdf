@@ -48,12 +48,12 @@
             "symbol": "LEO/USDT",
             "timeframe": "3d",
             "side": "Long trade",
-            "entry": 8.351,
-            "sl": 8.351,
-            "tp1": 8.476265,
-            "tp2": 8.60153,
-            "tp3": 8.768550000000001,
-            "tp1_hit": true,
+            "entry": 8.268,
+            "sl": 8.102640000000001,
+            "tp1": 8.39202,
+            "tp2": 8.51604,
+            "tp3": 8.681400000000002,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
