@@ -1,7 +1,7 @@
 {
-    "wins": 90,
-    "losses": 69,
-    "balance": 945.1999999999992,
+    "wins": 91,
+    "losses": 70,
+    "balance": 943.9999999999992,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,31 +44,31 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "DASH_1w": {
-            "symbol": "DASH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 34.0,
-            "sl": 33.32,
-            "tp1": 34.51,
-            "tp2": 35.02,
-            "tp3": 35.7,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "CRVUSD_3d": {
             "symbol": "CRVUSD/USDT",
             "timeframe": "3d",
             "side": "Long trade",
             "entry": 0.9705,
-            "sl": 0.95109,
+            "sl": 0.9705,
             "tp1": 0.9850574999999999,
             "tp2": 0.999615,
             "tp3": 1.019025,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "DASH_1w": {
+            "symbol": "DASH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 33.18,
+            "sl": 32.5164,
+            "tp1": 33.677699999999994,
+            "tp2": 34.1754,
+            "tp3": 34.839,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
