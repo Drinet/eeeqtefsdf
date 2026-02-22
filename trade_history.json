@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "LEO_3d": {
-            "symbol": "LEO/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 8.27,
-            "sl": 8.27,
-            "tp1": 8.394049999999998,
-            "tp2": 8.5181,
-            "tp3": 8.6835,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "DASH_1w": {
             "symbol": "DASH/USDT",
             "timeframe": "1w",
@@ -69,6 +56,19 @@
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
+        },
+        "LEO_3d": {
+            "symbol": "LEO/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 8.164,
+            "sl": 8.00072,
+            "tp1": 8.286459999999998,
+            "tp2": 8.40892,
+            "tp3": 8.5722,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
