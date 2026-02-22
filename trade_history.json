@@ -1,7 +1,7 @@
 {
     "wins": 95,
-    "losses": 71,
-    "balance": 942.7999999999992,
+    "losses": 72,
+    "balance": 941.5999999999991,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "DASH_1w": {
-            "symbol": "DASH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 34.3,
-            "sl": 33.614,
-            "tp1": 34.814499999999995,
-            "tp2": 35.329,
-            "tp3": 36.015,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "LEO_3d": {
             "symbol": "LEO/USDT",
             "timeframe": "3d",
@@ -69,6 +56,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "DASH_1w": {
+            "symbol": "DASH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 33.48,
+            "sl": 32.810399999999994,
+            "tp1": 33.98219999999999,
+            "tp2": 34.4844,
+            "tp3": 35.153999999999996,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
