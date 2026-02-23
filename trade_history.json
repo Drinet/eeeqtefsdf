@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "LEO_3d": {
-            "symbol": "LEO/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 7.996,
-            "sl": 7.996,
-            "tp1": 8.11594,
-            "tp2": 8.23588,
-            "tp3": 8.395800000000001,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "OKB_3d": {
             "symbol": "OKB/USDT",
             "timeframe": "3d",
@@ -79,6 +66,19 @@
             "tp1": 32.683,
             "tp2": 33.166000000000004,
             "tp3": 33.81,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "LEO_3d": {
+            "symbol": "LEO/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 7.927,
+            "sl": 7.768459999999999,
+            "tp1": 8.045905,
+            "tp2": 8.16481,
+            "tp3": 8.32335,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
