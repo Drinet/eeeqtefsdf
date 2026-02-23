@@ -57,19 +57,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "DASH_3d": {
-            "symbol": "DASH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 31.96,
-            "sl": 31.96,
-            "tp1": 32.4394,
-            "tp2": 32.918800000000005,
-            "tp3": 33.558,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "LEO_3d": {
             "symbol": "LEO/USDT",
             "timeframe": "3d",
