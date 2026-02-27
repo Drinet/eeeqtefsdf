@@ -43,6 +43,19 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "OKB_3d": {
+            "symbol": "OKB/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 75.86,
+            "sl": 74.3428,
+            "tp1": 76.99789999999999,
+            "tp2": 78.1358,
+            "tp3": 79.653,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
