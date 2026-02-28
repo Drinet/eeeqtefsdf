@@ -56,6 +56,32 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "BCH_3d": {
+            "symbol": "BCH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 454.71,
+            "sl": 445.6158,
+            "tp1": 461.5306499999999,
+            "tp2": 468.3513,
+            "tp3": 477.4455,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "DASH_3d": {
+            "symbol": "DASH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 32.09,
+            "sl": 31.448200000000003,
+            "tp1": 32.57135,
+            "tp2": 33.0527,
+            "tp3": 33.694500000000005,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
