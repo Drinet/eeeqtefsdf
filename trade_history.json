@@ -1,7 +1,7 @@
 {
     "wins": 101,
-    "losses": 80,
-    "balance": 937.5999999999992,
+    "losses": 82,
+    "balance": 936.7999999999993,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,32 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "BCH_3d": {
-            "symbol": "BCH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 442.29,
-            "sl": 433.4442,
-            "tp1": 448.92435,
-            "tp2": 455.55870000000004,
-            "tp3": 464.40450000000004,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "DASH_3d": {
-            "symbol": "DASH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 32.2,
-            "sl": 31.556,
-            "tp1": 32.683,
-            "tp2": 33.166000000000004,
-            "tp3": 33.81,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "OKB_3d": {
             "symbol": "OKB/USDT",
             "timeframe": "3d",
@@ -79,6 +53,32 @@
             "tp1": 76.96744999999999,
             "tp2": 78.1049,
             "tp3": 79.6215,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "BCH_3d": {
+            "symbol": "BCH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 433.17,
+            "sl": 424.5066,
+            "tp1": 439.66754999999995,
+            "tp2": 446.16510000000005,
+            "tp3": 454.8285,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "DASH_3d": {
+            "symbol": "DASH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 31.26,
+            "sl": 30.634800000000002,
+            "tp1": 31.7289,
+            "tp2": 32.1978,
+            "tp3": 32.823,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
