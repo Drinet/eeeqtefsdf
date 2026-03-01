@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "CRVUSD_3d": {
-            "symbol": "CRVUSD/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.9705,
-            "sl": 0.9705,
-            "tp1": 0.9850574999999999,
-            "tp2": 0.999615,
-            "tp3": 1.019025,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "BCH_3d": {
             "symbol": "BCH/USDT",
             "timeframe": "3d",
@@ -54,6 +41,19 @@
             "tp2": 457.2067,
             "tp3": 466.0845,
             "tp1_hit": true,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "CRVUSD_3d": {
+            "symbol": "CRVUSD/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.969,
+            "sl": 0.9496199999999999,
+            "tp1": 0.9835349999999998,
+            "tp2": 0.99807,
+            "tp3": 1.01745,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
