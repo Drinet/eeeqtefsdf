@@ -43,6 +43,19 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "BCH_3d": {
+            "symbol": "BCH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 456.0,
+            "sl": 446.88,
+            "tp1": 462.84,
+            "tp2": 469.68,
+            "tp3": 478.8,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
