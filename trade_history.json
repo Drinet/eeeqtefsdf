@@ -1,7 +1,7 @@
 {
     "wins": 105,
-    "losses": 82,
-    "balance": 936.7999999999993,
+    "losses": 83,
+    "balance": 936.3999999999993,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -48,11 +48,11 @@
             "symbol": "BCH/USDT",
             "timeframe": "3d",
             "side": "Long trade",
-            "entry": 456.0,
-            "sl": 446.88,
-            "tp1": 462.84,
-            "tp2": 469.68,
-            "tp3": 478.8,
+            "entry": 445.9,
+            "sl": 436.98199999999997,
+            "tp1": 452.58849999999995,
+            "tp2": 459.277,
+            "tp3": 468.195,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
