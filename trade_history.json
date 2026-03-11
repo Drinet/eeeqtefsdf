@@ -35,12 +35,12 @@
             "symbol": "CRVUSD/USDT",
             "timeframe": "3d",
             "side": "Long trade",
-            "entry": 0.969,
-            "sl": 0.969,
-            "tp1": 0.9835349999999998,
-            "tp2": 0.99807,
-            "tp3": 1.01745,
-            "tp1_hit": true,
+            "entry": 0.9526,
+            "sl": 0.9335479999999999,
+            "tp1": 0.9668889999999999,
+            "tp2": 0.981178,
+            "tp3": 1.00023,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
