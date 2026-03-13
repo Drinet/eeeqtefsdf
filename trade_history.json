@@ -43,6 +43,19 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "USDD_3d": {
+            "symbol": "USDD/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.9991,
+            "sl": 0.9791179999999999,
+            "tp1": 1.0140865,
+            "tp2": 1.029073,
+            "tp3": 1.049055,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
