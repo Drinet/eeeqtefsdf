@@ -56,6 +56,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "DASH_3d": {
+            "symbol": "DASH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 32.68,
+            "sl": 32.0264,
+            "tp1": 33.170199999999994,
+            "tp2": 33.6604,
+            "tp3": 34.314,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
