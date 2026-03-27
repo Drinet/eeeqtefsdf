@@ -1,7 +1,7 @@
 {
     "wins": 112,
-    "losses": 86,
-    "balance": 935.1999999999994,
+    "losses": 87,
+    "balance": 934.7999999999994,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -57,19 +57,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "DASH_3d": {
-            "symbol": "DASH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 32.68,
-            "sl": 32.0264,
-            "tp1": 33.170199999999994,
-            "tp2": 33.6604,
-            "tp3": 34.314,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
         "BCH_3d": {
             "symbol": "BCH/USDT",
             "timeframe": "3d",
@@ -80,6 +67,19 @@
             "tp2": 472.81120000000004,
             "tp3": 481.992,
             "tp1_hit": true,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "DASH_3d": {
+            "symbol": "DASH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 31.9,
+            "sl": 31.261999999999997,
+            "tp1": 32.378499999999995,
+            "tp2": 32.857,
+            "tp3": 33.495,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
