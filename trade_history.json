@@ -1,7 +1,7 @@
 {
     "wins": 115,
-    "losses": 90,
-    "balance": 933.5999999999995,
+    "losses": 91,
+    "balance": 932.3999999999994,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -61,11 +61,11 @@
             "symbol": "DASH/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 35.67,
-            "sl": 34.9566,
-            "tp1": 36.20505,
-            "tp2": 36.740100000000005,
-            "tp3": 37.453500000000005,
+            "entry": 34.93,
+            "sl": 34.2314,
+            "tp1": 35.45395,
+            "tp2": 35.9779,
+            "tp3": 36.676500000000004,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
