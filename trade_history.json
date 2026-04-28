@@ -1,7 +1,7 @@
 {
     "wins": 118,
-    "losses": 92,
-    "balance": 931.1999999999994,
+    "losses": 93,
+    "balance": 930.7999999999994,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -74,11 +74,11 @@
             "symbol": "CHZ/USDT",
             "timeframe": "3d",
             "side": "Long trade",
-            "entry": 0.04917,
-            "sl": 0.048186599999999996,
-            "tp1": 0.049907549999999995,
-            "tp2": 0.0506451,
-            "tp3": 0.0516285,
+            "entry": 0.0468,
+            "sl": 0.045864,
+            "tp1": 0.047501999999999996,
+            "tp2": 0.048204000000000004,
+            "tp3": 0.04914,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
