@@ -1,7 +1,7 @@
 {
     "wins": 122,
-    "losses": 95,
-    "balance": 929.1999999999994,
+    "losses": 96,
+    "balance": 928.7999999999994,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -14,19 +14,6 @@
             "tp1": 1.013985,
             "tp2": 1.02897,
             "tp3": 1.04895,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "CUSD_3d": {
-            "symbol": "CUSD/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 0.9988,
-            "sl": 0.978824,
-            "tp1": 1.013782,
-            "tp2": 1.028764,
-            "tp3": 1.04874,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
@@ -79,19 +66,6 @@
             "tp1": 0.04622309999999999,
             "tp2": 0.046906199999999995,
             "tp3": 0.047817,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "LUNC_3d": {
-            "symbol": "LUNC/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 6.324e-05,
-            "sl": 6.324e-05,
-            "tp1": 6.418859999999999e-05,
-            "tp2": 6.51372e-05,
-            "tp3": 6.6402e-05,
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
