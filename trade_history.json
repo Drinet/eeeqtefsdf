@@ -69,6 +69,32 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "DCR_1w": {
+            "symbol": "DCR/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 18.243,
+            "sl": 17.87814,
+            "tp1": 18.516644999999997,
+            "tp2": 18.79029,
+            "tp3": 19.15515,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "CRVUSD_3d": {
+            "symbol": "CRVUSD/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.9841,
+            "sl": 0.964418,
+            "tp1": 0.9988614999999998,
+            "tp2": 1.013623,
+            "tp3": 1.033305,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
