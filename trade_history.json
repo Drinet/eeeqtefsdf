@@ -1,5 +1,5 @@
 {
-    "wins": 124,
+    "wins": 125,
     "losses": 99,
     "balance": 927.5999999999995,
     "bias_1w": "BULLISH",
@@ -49,11 +49,11 @@
             "timeframe": "1w",
             "side": "Long trade",
             "entry": 34.53,
-            "sl": 33.8394,
+            "sl": 34.53,
             "tp1": 35.04795,
             "tp2": 35.5659,
             "tp3": 36.2565,
-            "tp1_hit": false,
+            "tp1_hit": true,
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
