@@ -30,19 +30,6 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
-        },
-        "LUNC_1w": {
-            "symbol": "LUNC/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 9.875e-05,
-            "sl": 9.875e-05,
-            "tp1": 0.00010023124999999999,
-            "tp2": 0.0001017125,
-            "tp3": 0.0001036875,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
