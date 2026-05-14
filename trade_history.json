@@ -1,7 +1,7 @@
 {
     "wins": 133,
-    "losses": 105,
-    "balance": 920.3999999999992,
+    "losses": 106,
+    "balance": 919.1999999999991,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -48,11 +48,11 @@
             "symbol": "LUNC/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 8.303e-05,
-            "sl": 8.13694e-05,
-            "tp1": 8.427544999999999e-05,
-            "tp2": 8.55209e-05,
-            "tp3": 8.71815e-05,
+            "entry": 8.101e-05,
+            "sl": 7.93898e-05,
+            "tp1": 8.222514999999999e-05,
+            "tp2": 8.34403e-05,
+            "tp3": 8.50605e-05,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
