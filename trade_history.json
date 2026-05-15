@@ -1,7 +1,7 @@
 {
     "wins": 135,
-    "losses": 108,
-    "balance": 917.5999999999991,
+    "losses": 109,
+    "balance": 916.3999999999991,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "LUNC_1w": {
-            "symbol": "LUNC/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 7.442e-05,
-            "sl": 7.442e-05,
-            "tp1": 7.553629999999998e-05,
-            "tp2": 7.66526e-05,
-            "tp3": 7.8141e-05,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "SUN_3d": {
             "symbol": "SUN/USDT",
             "timeframe": "3d",
@@ -57,15 +44,28 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
+        "LUNC_1w": {
+            "symbol": "LUNC/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 7.823e-05,
+            "sl": 7.66654e-05,
+            "tp1": 7.940344999999999e-05,
+            "tp2": 8.05769e-05,
+            "tp3": 8.21415e-05,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
         "DCR_1w": {
             "symbol": "DCR/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 18.1,
-            "sl": 17.738,
-            "tp1": 18.3715,
-            "tp2": 18.643,
-            "tp3": 19.005000000000003,
+            "entry": 17.676,
+            "sl": 17.32248,
+            "tp1": 17.941139999999997,
+            "tp2": 18.20628,
+            "tp3": 18.5598,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
