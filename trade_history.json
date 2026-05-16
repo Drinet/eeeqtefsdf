@@ -56,6 +56,32 @@
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
+        },
+        "DCR_1w": {
+            "symbol": "DCR/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 17.043,
+            "sl": 16.70214,
+            "tp1": 17.298644999999997,
+            "tp2": 17.554289999999998,
+            "tp3": 17.89515,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "DCR_3d": {
+            "symbol": "DCR/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 17.043,
+            "sl": 16.70214,
+            "tp1": 17.298644999999997,
+            "tp2": 17.554289999999998,
+            "tp3": 17.89515,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
