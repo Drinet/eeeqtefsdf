@@ -44,19 +44,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "LUNC_1w": {
-            "symbol": "LUNC/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 7.538e-05,
-            "sl": 7.538e-05,
-            "tp1": 7.651069999999999e-05,
-            "tp2": 7.76414e-05,
-            "tp3": 7.9149e-05,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "DCR_1w": {
             "symbol": "DCR/USDT",
             "timeframe": "1w",
@@ -82,6 +69,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "LUNC_1w": {
+            "symbol": "LUNC/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 8.089e-05,
+            "sl": 7.927220000000001e-05,
+            "tp1": 8.210335e-05,
+            "tp2": 8.331670000000001e-05,
+            "tp3": 8.49345e-05,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
