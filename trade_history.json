@@ -74,12 +74,12 @@
             "symbol": "LUNC/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 8.352e-05,
-            "sl": 8.352e-05,
-            "tp1": 8.47728e-05,
-            "tp2": 8.60256e-05,
-            "tp3": 8.769600000000001e-05,
-            "tp1_hit": true,
+            "entry": 8.268e-05,
+            "sl": 8.10264e-05,
+            "tp1": 8.39202e-05,
+            "tp2": 8.51604e-05,
+            "tp3": 8.6814e-05,
+            "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
         }
