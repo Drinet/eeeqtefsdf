@@ -1,7 +1,7 @@
 {
     "wins": 141,
-    "losses": 114,
-    "balance": 910.3999999999988,
+    "losses": 115,
+    "balance": 909.1999999999988,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,18 +44,18 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "LUNC_1w": {
-            "symbol": "LUNC/USDT",
-            "timeframe": "1w",
+        "OKB_3d": {
+            "symbol": "OKB/USDT",
+            "timeframe": "3d",
             "side": "Long trade",
-            "entry": 7.807e-05,
-            "sl": 7.650860000000001e-05,
-            "tp1": 7.924105e-05,
-            "tp2": 8.041210000000001e-05,
-            "tp3": 8.19735e-05,
+            "entry": 82.07,
+            "sl": 80.42859999999999,
+            "tp1": 83.30104999999999,
+            "tp2": 84.5321,
+            "tp3": 86.17349999999999,
             "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
