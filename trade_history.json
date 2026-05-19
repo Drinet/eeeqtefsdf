@@ -1,7 +1,7 @@
 {
     "wins": 142,
-    "losses": 115,
-    "balance": 909.1999999999988,
+    "losses": 116,
+    "balance": 908.7999999999988,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -41,19 +41,6 @@
             "tp2": 0.020188,
             "tp3": 0.02058,
             "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "OKB_3d": {
-            "symbol": "OKB/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 82.07,
-            "sl": 80.42859999999999,
-            "tp1": 83.30104999999999,
-            "tp2": 84.5321,
-            "tp3": 86.17349999999999,
-            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
