@@ -43,6 +43,19 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "DCR_3d": {
+            "symbol": "DCR/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 16.566,
+            "sl": 16.234679999999997,
+            "tp1": 16.814489999999996,
+            "tp2": 17.06298,
+            "tp3": 17.3943,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
