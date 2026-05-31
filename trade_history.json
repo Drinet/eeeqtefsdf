@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "BCH_1w": {
-            "symbol": "BCH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 299.36,
-            "sl": 299.36,
-            "tp1": 303.8504,
-            "tp2": 308.3408,
-            "tp3": 314.32800000000003,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "HTX_3d": {
             "symbol": "HTX/USDT",
             "timeframe": "3d",
@@ -56,6 +43,19 @@
             "tp1_hit": true,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "BCH_1w": {
+            "symbol": "BCH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 298.32,
+            "sl": 292.3536,
+            "tp1": 302.79479999999995,
+            "tp2": 307.2696,
+            "tp3": 313.236,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
