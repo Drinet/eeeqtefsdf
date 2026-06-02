@@ -30,19 +30,6 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
-        },
-        "HTX_3d": {
-            "symbol": "HTX/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 1.8109e-06,
-            "sl": 1.8109e-06,
-            "tp1": 1.8380635e-06,
-            "tp2": 1.865227e-06,
-            "tp3": 1.901445e-06,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
