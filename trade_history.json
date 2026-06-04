@@ -57,19 +57,6 @@
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
-        "DASH_1w": {
-            "symbol": "DASH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 34.78,
-            "sl": 34.78,
-            "tp1": 35.3017,
-            "tp2": 35.8234,
-            "tp3": 36.519000000000005,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "OKB_3d": {
             "symbol": "OKB/USDT",
             "timeframe": "3d",
@@ -79,6 +66,32 @@
             "tp1": 75.77989999999998,
             "tp2": 76.8998,
             "tp3": 78.393,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "DASH_1w": {
+            "symbol": "DASH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 33.48,
+            "sl": 32.810399999999994,
+            "tp1": 33.98219999999999,
+            "tp2": 34.4844,
+            "tp3": 35.153999999999996,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "DASH_3d": {
+            "symbol": "DASH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 33.48,
+            "sl": 32.810399999999994,
+            "tp1": 33.98219999999999,
+            "tp2": 34.4844,
+            "tp3": 35.153999999999996,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
