@@ -1,7 +1,7 @@
 {
     "wins": 146,
-    "losses": 123,
-    "balance": 904.3999999999988,
+    "losses": 124,
+    "balance": 903.9999999999989,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -31,18 +31,57 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
+        "BTC_1w": {
+            "symbol": "BTC/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 61810.9,
+            "sl": 60574.682,
+            "tp1": 62738.0635,
+            "tp2": 63665.227000000006,
+            "tp3": 64901.44500000001,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "XRP_1w": {
+            "symbol": "XRP/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 1.154,
+            "sl": 1.13092,
+            "tp1": 1.1713099999999999,
+            "tp2": 1.18862,
+            "tp3": 1.2117,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
         "OKB_3d": {
             "symbol": "OKB/USDT",
             "timeframe": "3d",
             "side": "Long trade",
-            "entry": 79.79,
-            "sl": 78.19420000000001,
-            "tp1": 80.98685,
-            "tp2": 82.1837,
-            "tp3": 83.77950000000001,
+            "entry": 73.41,
+            "sl": 71.9418,
+            "tp1": 74.51114999999999,
+            "tp2": 75.6123,
+            "tp3": 77.0805,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "DASH_1w": {
+            "symbol": "DASH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 35.36,
+            "sl": 34.6528,
+            "tp1": 35.89039999999999,
+            "tp2": 36.4208,
+            "tp3": 37.128,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
