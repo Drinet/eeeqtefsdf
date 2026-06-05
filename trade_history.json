@@ -31,19 +31,6 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "BTC_1w": {
-            "symbol": "BTC/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 61810.9,
-            "sl": 61810.9,
-            "tp1": 62738.0635,
-            "tp2": 63665.227000000006,
-            "tp3": 64901.44500000001,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "XRP_1w": {
             "symbol": "XRP/USDT",
             "timeframe": "1w",
@@ -108,6 +95,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "BTC_1w": {
+            "symbol": "BTC/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 61725.2,
+            "sl": 60490.695999999996,
+            "tp1": 62651.077999999994,
+            "tp2": 63576.956,
+            "tp3": 64811.46,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
