@@ -1,7 +1,7 @@
 {
     "wins": 157,
-    "losses": 128,
-    "balance": 901.5999999999989,
+    "losses": 130,
+    "balance": 899.9999999999989,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -30,32 +30,6 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
-        },
-        "LUNC_3d": {
-            "symbol": "LUNC/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 6.296e-05,
-            "sl": 6.17008e-05,
-            "tp1": 6.390439999999999e-05,
-            "tp2": 6.48488e-05,
-            "tp3": 6.6108e-05,
-            "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "BTC_1w": {
-            "symbol": "BTC/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 61725.2,
-            "sl": 60490.695999999996,
-            "tp1": 62651.077999999994,
-            "tp2": 63576.956,
-            "tp3": 64811.46,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
         },
         "XRP_1w": {
             "symbol": "XRP/USDT",
@@ -105,6 +79,32 @@
             "tp1": 31.2214,
             "tp2": 31.682800000000004,
             "tp3": 32.298,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "BTC_1w": {
+            "symbol": "BTC/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 60452.1,
+            "sl": 59243.058,
+            "tp1": 61358.881499999996,
+            "tp2": 62265.663,
+            "tp3": 63474.705,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "LUNC_3d": {
+            "symbol": "LUNC/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 6.089e-05,
+            "sl": 5.96722e-05,
+            "tp1": 6.180335e-05,
+            "tp2": 6.271670000000001e-05,
+            "tp3": 6.393450000000001e-05,
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
