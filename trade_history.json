@@ -1,7 +1,7 @@
 {
     "wins": 161,
-    "losses": 130,
-    "balance": 899.9999999999989,
+    "losses": 132,
+    "balance": 898.3999999999988,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -31,83 +31,44 @@
             "position_usd": 20.0,
             "risk_amount": 0.4
         },
-        "XRP_1w": {
-            "symbol": "XRP/USDT",
+        "BTC_1w": {
+            "symbol": "BTC/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 1.1071,
-            "sl": 1.0849579999999999,
-            "tp1": 1.1237065,
-            "tp2": 1.140313,
-            "tp3": 1.162455,
+            "entry": 60238.4,
+            "sl": 59033.632,
+            "tp1": 61141.975999999995,
+            "tp2": 62045.552,
+            "tp3": 63250.32000000001,
             "tp1_hit": false,
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
-        "OKB_3d": {
-            "symbol": "OKB/USDT",
-            "timeframe": "3d",
+        "XRP_1w": {
+            "symbol": "XRP/USDT",
+            "timeframe": "1w",
             "side": "Long trade",
-            "entry": 69.92,
-            "sl": 69.92,
-            "tp1": 70.9688,
-            "tp2": 72.0176,
-            "tp3": 73.41600000000001,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
+            "entry": 1.0728,
+            "sl": 1.051344,
+            "tp1": 1.088892,
+            "tp2": 1.104984,
+            "tp3": 1.12644,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         },
         "DASH_1w": {
             "symbol": "DASH/USDT",
             "timeframe": "1w",
             "side": "Long trade",
-            "entry": 30.76,
-            "sl": 30.76,
-            "tp1": 31.2214,
-            "tp2": 31.682800000000004,
-            "tp3": 32.298,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
-        "DASH_3d": {
-            "symbol": "DASH/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 30.76,
-            "sl": 30.76,
-            "tp1": 31.2214,
-            "tp2": 31.682800000000004,
-            "tp3": 32.298,
-            "tp1_hit": true,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
-        },
-        "BTC_1w": {
-            "symbol": "BTC/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 60452.1,
-            "sl": 60452.1,
-            "tp1": 61358.881499999996,
-            "tp2": 62265.663,
-            "tp3": 63474.705,
-            "tp1_hit": true,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
-        "LUNC_3d": {
-            "symbol": "LUNC/USDT",
-            "timeframe": "3d",
-            "side": "Long trade",
-            "entry": 6.089e-05,
-            "sl": 5.96722e-05,
-            "tp1": 6.180335e-05,
-            "tp2": 6.271670000000001e-05,
-            "tp3": 6.393450000000001e-05,
+            "entry": 30.2,
+            "sl": 29.596,
+            "tp1": 30.652999999999995,
+            "tp2": 31.106,
+            "tp3": 31.71,
             "tp1_hit": false,
-            "position_usd": 20.0,
-            "risk_amount": 0.4
+            "position_usd": 60.0,
+            "risk_amount": 1.2
         }
     },
     "first_run_charts": 2
