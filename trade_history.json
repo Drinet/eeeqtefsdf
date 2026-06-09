@@ -30,6 +30,45 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "BTC_1w": {
+            "symbol": "BTC/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 61015.6,
+            "sl": 59795.288,
+            "tp1": 61930.833999999995,
+            "tp2": 62846.068,
+            "tp3": 64066.380000000005,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "DASH_1w": {
+            "symbol": "DASH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 35.52,
+            "sl": 34.8096,
+            "tp1": 36.0528,
+            "tp2": 36.58560000000001,
+            "tp3": 37.29600000000001,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "ZBCN_3d": {
+            "symbol": "ZBCN/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.002425,
+            "sl": 0.0023765,
+            "tp1": 0.002461375,
+            "tp2": 0.00249775,
+            "tp3": 0.0025462500000000003,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
