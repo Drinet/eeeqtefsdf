@@ -30,6 +30,19 @@
             "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
+        },
+        "ZBCN_3d": {
+            "symbol": "ZBCN/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 0.002471,
+            "sl": 0.00242158,
+            "tp1": 0.002508065,
+            "tp2": 0.00254513,
+            "tp3": 0.00259455,
+            "tp1_hit": false,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
         }
     },
     "first_run_charts": 2
