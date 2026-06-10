@@ -1,7 +1,7 @@
 {
     "wins": 170,
-    "losses": 134,
-    "balance": 895.9999999999987,
+    "losses": 135,
+    "balance": 894.7999999999987,
     "bias_1w": "BULLISH",
     "bias_3d": "BULLISH",
     "active_trades": {
@@ -44,19 +44,6 @@
             "position_usd": 60.0,
             "risk_amount": 1.2
         },
-        "DASH_1w": {
-            "symbol": "DASH/USDT",
-            "timeframe": "1w",
-            "side": "Long trade",
-            "entry": 35.52,
-            "sl": 34.8096,
-            "tp1": 36.0528,
-            "tp2": 36.58560000000001,
-            "tp3": 37.29600000000001,
-            "tp1_hit": false,
-            "position_usd": 60.0,
-            "risk_amount": 1.2
-        },
         "ZBCN_3d": {
             "symbol": "ZBCN/USDT",
             "timeframe": "3d",
@@ -67,6 +54,32 @@
             "tp2": 0.00249775,
             "tp3": 0.0025462500000000003,
             "tp1_hit": true,
+            "position_usd": 20.0,
+            "risk_amount": 0.4
+        },
+        "DASH_1w": {
+            "symbol": "DASH/USDT",
+            "timeframe": "1w",
+            "side": "Long trade",
+            "entry": 34.41,
+            "sl": 33.721799999999995,
+            "tp1": 34.92614999999999,
+            "tp2": 35.442299999999996,
+            "tp3": 36.1305,
+            "tp1_hit": false,
+            "position_usd": 60.0,
+            "risk_amount": 1.2
+        },
+        "DASH_3d": {
+            "symbol": "DASH/USDT",
+            "timeframe": "3d",
+            "side": "Long trade",
+            "entry": 34.41,
+            "sl": 33.721799999999995,
+            "tp1": 34.92614999999999,
+            "tp2": 35.442299999999996,
+            "tp3": 36.1305,
+            "tp1_hit": false,
             "position_usd": 20.0,
             "risk_amount": 0.4
         }
